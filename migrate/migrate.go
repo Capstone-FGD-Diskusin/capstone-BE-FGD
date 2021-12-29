@@ -58,7 +58,8 @@ func AutoMigrate() {
 	}
 
 	config.DB.AutoMigrate(&_user_data.User{}, &_thread_data.Thread{}, &_comment_data.Comment{}, &_like_data.Like{},
-		&_favorite_data.Favorite{}, &_detail_thread_data.Detail_thread{}, &_follower_data.Follower{}, &_admin_data.Admin{})
+		&_favorite_data.Favorite{}, &_detail_thread_data.Detail_thread{}, &_follower_data.Follower{}, &_admin_data.Admin{},
+		&_tag_data.Tag{}, &_category_data.Category{})
 
 	pass1, _ := HashPassword("pass1")
 	user1 := _user_data.User{
@@ -114,32 +115,32 @@ func AutoMigrate() {
 		ThreadID: 2,
 	}
 
-	like1 := _comment_data.Comment{
+	like1 := _like_data.Like{
 		UserID:   1,
 		ThreadID: 2,
 	}
 
-	like2 := _comment_data.Comment{
+	like2 := _like_data.Like{
 		UserID:   1,
 		ThreadID: 1,
 	}
 
-	like3 := _comment_data.Comment{
+	like3 := _like_data.Like{
 		UserID:   2,
 		ThreadID: 1,
 	}
 
-	like4 := _comment_data.Comment{
+	like4 := _like_data.Like{
 		UserID:   2,
 		ThreadID: 2,
 	}
 
-	favorite1 := _comment_data.Comment{
+	favorite1 := _favorite_data.Favorite{
 		UserID:   2,
 		ThreadID: 2,
 	}
 
-	favorite2 := _comment_data.Comment{
+	favorite2 := _favorite_data.Favorite{
 		UserID:   1,
 		ThreadID: 2,
 	}
