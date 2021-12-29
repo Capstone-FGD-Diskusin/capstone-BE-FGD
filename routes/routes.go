@@ -12,6 +12,7 @@ func Setup() *echo.Echo {
 
 	middleware.LogMidd(e)
 	e.POST("/user", _presenter.UserPresentation.Register)
+	e.POST("/user/login", _presenter.UserPresentation.LoginUser)
 
 	return e
 }

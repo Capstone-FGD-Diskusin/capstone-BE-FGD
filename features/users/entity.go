@@ -19,4 +19,5 @@ type Bussiness interface {
 type Data interface {
 	CreateUser(data Core) (err error)
 	CheckEmailPass(email string, pass string) (isAuth bool, user Core, err error)
+	SelectDatabyEmail(email string) (resp Core, err error)
 }
