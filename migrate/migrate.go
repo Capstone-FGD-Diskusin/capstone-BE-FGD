@@ -2,8 +2,14 @@ package migrate
 
 import (
 	"github.com/dragranzer/capstone-BE-FGD/config"
+	_admin_data "github.com/dragranzer/capstone-BE-FGD/features/admins/data"
+	_category_data "github.com/dragranzer/capstone-BE-FGD/features/categories/data"
 	_comment_data "github.com/dragranzer/capstone-BE-FGD/features/comments/data"
+	_detail_thread_data "github.com/dragranzer/capstone-BE-FGD/features/detail_threads/data"
+	_favorite_data "github.com/dragranzer/capstone-BE-FGD/features/favorites/data"
+	_follower_data "github.com/dragranzer/capstone-BE-FGD/features/followers/data"
 	_like_data "github.com/dragranzer/capstone-BE-FGD/features/likes/data"
+	_tag_data "github.com/dragranzer/capstone-BE-FGD/features/tags/data"
 	_thread_data "github.com/dragranzer/capstone-BE-FGD/features/threads/data"
 	_user_data "github.com/dragranzer/capstone-BE-FGD/features/users/data"
 	"golang.org/x/crypto/bcrypt"
@@ -31,7 +37,28 @@ func AutoMigrate() {
 		panic(err)
 	}
 
-	config.DB.AutoMigrate(&_user_data.User{}, &_thread_data.Thread{}, &_comment_data.Comment{}, &_like_data.Like{})
+	if err := config.DB.Exec("DROP TABLE IF EXISTS favorites").Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Exec("DROP TABLE IF EXISTS tags").Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Exec("DROP TABLE IF EXISTS categories").Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Exec("DROP TABLE IF EXISTS followers").Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Exec("DROP TABLE IF EXISTS admins").Error; err != nil {
+		panic(err)
+	}
+
+	config.DB.AutoMigrate(&_user_data.User{}, &_thread_data.Thread{}, &_comment_data.Comment{}, &_like_data.Like{},
+		&_favorite_data.Favorite{}, &_detail_thread_data.Detail_thread{}, &_follower_data.Follower{}, &_admin_data.Admin{})
 
 	pass1, _ := HashPassword("pass1")
 	user1 := _user_data.User{
@@ -107,6 +134,84 @@ func AutoMigrate() {
 		ThreadID: 2,
 	}
 
+	favorite1 := _comment_data.Comment{
+		UserID:   2,
+		ThreadID: 2,
+	}
+
+	favorite2 := _comment_data.Comment{
+		UserID:   1,
+		ThreadID: 2,
+	}
+
+	tag1 := _tag_data.Tag{
+		Name: "programming",
+	}
+
+	tag2 := _tag_data.Tag{
+		Name: "computer-science",
+	}
+
+	tag3 := _tag_data.Tag{
+		Name: "MLBB",
+	}
+
+	detail_thread1 := _detail_thread_data.Detail_thread{
+		TagID:    1,
+		ThreadID: 1,
+	}
+
+	detail_thread2 := _detail_thread_data.Detail_thread{
+		TagID:    2,
+		ThreadID: 1,
+	}
+
+	detail_thread3 := _detail_thread_data.Detail_thread{
+		TagID:    3,
+		ThreadID: 2,
+	}
+
+	category1 := _category_data.Category{
+		Name:              "Politik",
+		ModeratorName:     "moderator1",
+		ModeratorEmail:    "mod@email.com",
+		ModeratorPassword: "modpass1",
+	}
+
+	category2 := _category_data.Category{
+		Name:              "Hiburan",
+		ModeratorName:     "moderator2",
+		ModeratorEmail:    "mod2@email.com",
+		ModeratorPassword: "modpass2",
+	}
+
+	follower1 := _follower_data.Follower{
+		FollowingID: 1,
+		FollowedID:  2,
+	}
+
+	follower2 := _follower_data.Follower{
+		FollowingID: 1,
+		FollowedID:  3,
+	}
+
+	follower3 := _follower_data.Follower{
+		FollowingID: 2,
+		FollowedID:  1,
+	}
+
+	follower4 := _follower_data.Follower{
+		FollowingID: 3,
+		FollowedID:  1,
+	}
+
+	pass4, _ := HashPassword("admin1")
+	admin1 := _admin_data.Admin{
+		Email:    "admin@admin.com",
+		Name:     "superadmin",
+		Password: pass4,
+	}
+
 	if err := config.DB.Create(&user1).Error; err != nil {
 		panic(err)
 	}
@@ -152,6 +257,66 @@ func AutoMigrate() {
 	}
 
 	if err := config.DB.Create(&like4).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&favorite1).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&favorite2).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&tag1).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&tag2).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&tag3).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&detail_thread1).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&detail_thread2).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&detail_thread3).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&category1).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&category2).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&follower1).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&follower2).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&follower3).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&follower4).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&admin1).Error; err != nil {
 		panic(err)
 	}
 }
