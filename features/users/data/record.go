@@ -21,3 +21,16 @@ func fromCore(core users.Core) User {
 		ProfilePicture: core.ProfilePicture,
 	}
 }
+
+func (a *User) toCore() users.Core {
+	return users.Core{
+		ID:             int(a.ID),
+		Username:       a.Username,
+		Email:          a.Email,
+		Password:       a.Password,
+		Follower:       a.Follower,
+		ProfilePicture: a.ProfilePicture,
+		SumLike:        a.SumLike,
+		SumComment:     a.SumComment,
+	}
+}
