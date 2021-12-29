@@ -3,6 +3,7 @@ package migrate
 import (
 	"github.com/dragranzer/capstone-BE-FGD/config"
 	_comment_data "github.com/dragranzer/capstone-BE-FGD/features/comments/data"
+	_like_data "github.com/dragranzer/capstone-BE-FGD/features/likes/data"
 	_thread_data "github.com/dragranzer/capstone-BE-FGD/features/threads/data"
 	_user_data "github.com/dragranzer/capstone-BE-FGD/features/users/data"
 	"golang.org/x/crypto/bcrypt"
@@ -26,7 +27,11 @@ func AutoMigrate() {
 		panic(err)
 	}
 
-	config.DB.AutoMigrate(&_user_data.User{}, &_thread_data.Thread{}, &_comment_data.Comment{})
+	if err := config.DB.Exec("DROP TABLE IF EXISTS likes").Error; err != nil {
+		panic(err)
+	}
+
+	config.DB.AutoMigrate(&_user_data.User{}, &_thread_data.Thread{}, &_comment_data.Comment{}, &_like_data.Like{})
 
 	pass1, _ := HashPassword("pass1")
 	user1 := _user_data.User{
@@ -53,12 +58,14 @@ func AutoMigrate() {
 		Title:       "Mengapa GO lebih baik?",
 		Description: "Go merupakan bahasa yang dikembangkan oleh google, oleh karena itu...",
 		UserID:      1,
+		Like:        2,
 	}
 
 	thread2 := _thread_data.Thread{
 		Title:       "Bahas tuntas Meta blacklist",
 		Description: "Walaupun heronya cuman itu itu aja tetapi...",
 		UserID:      1,
+		Like:        2,
 	}
 
 	comment1 := _comment_data.Comment{
@@ -77,6 +84,26 @@ func AutoMigrate() {
 	comment3 := _comment_data.Comment{
 		Comment:  "Viva RRQ",
 		UserID:   1,
+		ThreadID: 2,
+	}
+
+	like1 := _comment_data.Comment{
+		UserID:   1,
+		ThreadID: 2,
+	}
+
+	like2 := _comment_data.Comment{
+		UserID:   1,
+		ThreadID: 1,
+	}
+
+	like3 := _comment_data.Comment{
+		UserID:   2,
+		ThreadID: 1,
+	}
+
+	like4 := _comment_data.Comment{
+		UserID:   2,
 		ThreadID: 2,
 	}
 
@@ -109,6 +136,22 @@ func AutoMigrate() {
 	}
 
 	if err := config.DB.Create(&comment3).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&like1).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&like2).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&like3).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&like4).Error; err != nil {
 		panic(err)
 	}
 }
