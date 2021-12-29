@@ -16,3 +16,8 @@ func (uu *usersUsecase) Register(data users.Core) (err error) {
 	err = uu.userData.CreateUser(data)
 	return err
 }
+
+func (uu *usersUsecase) Login(email string, pass string) (userData users.Core, token string, isAuth bool, err error) {
+
+	return userData, token, isAuth, err
+}

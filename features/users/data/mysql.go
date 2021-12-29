@@ -23,3 +23,15 @@ func (ur *mysqlUserRepository) CreateUser(data users.Core) (err error) {
 	}
 	return err
 }
+
+func (ur *mysqlUserRepository) CheckEmailPass(email string, pass string) (isAuth bool, user users.Core, err error) {
+	record := User{}
+	err = ur.Conn.Where("email = ? AND password = ?", email, pass).First(&record).Error
+	if err != nil {
+		return false, user, err
+	}
+	if record.ID == 0 {
+		return false, user, nil
+	}
+	return true, record.toCore(), nil
+}

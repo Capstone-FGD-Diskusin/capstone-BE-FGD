@@ -13,8 +13,10 @@ type Core struct {
 
 type Bussiness interface {
 	Register(data Core) (err error)
+	Login(email string, pass string) (userData Core, token string, isAuth bool, err error)
 }
 
 type Data interface {
 	CreateUser(data Core) (err error)
+	CheckEmailPass(email string, pass string) (isAuth bool, user Core, err error)
 }
