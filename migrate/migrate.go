@@ -2,6 +2,7 @@ package migrate
 
 import (
 	"github.com/dragranzer/capstone-BE-FGD/config"
+	_thread_data "github.com/dragranzer/capstone-BE-FGD/features/threads/data"
 	_user_data "github.com/dragranzer/capstone-BE-FGD/features/users/data"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -16,7 +17,11 @@ func AutoMigrate() {
 		panic(err)
 	}
 
-	config.DB.AutoMigrate(&_user_data.User{})
+	if err := config.DB.Exec("DROP TABLE IF EXISTS threads").Error; err != nil {
+		panic(err)
+	}
+
+	config.DB.AutoMigrate(&_user_data.User{}, &_thread_data.Thread{})
 
 	pass1, _ := HashPassword("pass1")
 	user1 := _user_data.User{
@@ -39,6 +44,18 @@ func AutoMigrate() {
 		Password: pass3,
 	}
 
+	thread1 := _thread_data.Thread{
+		Title:       "Mengapa GO lebih baik?",
+		Description: "Go merupakan bahasa yang dikembangkan oleh google, oleh karena itu...",
+		UserID:      1,
+	}
+
+	thread2 := _thread_data.Thread{
+		Title:       "Bahas tuntas Meta blacklist",
+		Description: "Walaupun heronya cuman itu itu aja tetapi...",
+		UserID:      1,
+	}
+
 	if err := config.DB.Create(&user1).Error; err != nil {
 		panic(err)
 	}
@@ -48,6 +65,14 @@ func AutoMigrate() {
 	}
 
 	if err := config.DB.Create(&user3).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&thread1).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&thread2).Error; err != nil {
 		panic(err)
 	}
 }
