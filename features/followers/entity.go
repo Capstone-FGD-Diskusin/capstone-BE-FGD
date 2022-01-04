@@ -6,7 +6,11 @@ type Core struct {
 }
 
 type Bussiness interface {
+	Follow(data Core) (err error)
+	Unfollow(data Core) (err error)
 }
 
 type Data interface {
+	InsertFollow(data Core) (err error)
+	DeleteFollow(data Core) (err error)
 }
