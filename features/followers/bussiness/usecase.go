@@ -16,3 +16,8 @@ func (fu *followersUsecase) Follow(data followers.Core) (err error) {
 	err = fu.followerData.InsertFollow(data)
 	return err
 }
+
+func (fu *followersUsecase) Unfollow(data followers.Core) (err error) {
+	err = fu.followerData.DeleteFollow(data)
+	return err
+}
