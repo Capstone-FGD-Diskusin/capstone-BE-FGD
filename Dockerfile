@@ -1,10 +1,10 @@
-FROM golang:1.16-alpine3.14
+FROM golang:1.17-alpine3.14
 
 WORKDIR /app
 
 COPY . .
 
-RUN go mod downloads
+RUN go mod download
 
 RUN go build -o mainfile
 
