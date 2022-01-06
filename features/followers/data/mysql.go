@@ -32,3 +32,13 @@ func (fr *mysqlFollowerRepository) DeleteFollow(data followers.Core) (err error)
 	}
 	return err
 }
+
+func (fr *mysqlFollowerRepository) SelectFollowing(data followers.Core) (resp []followers.Core, err error) {
+	recordData := fromCore(data)
+	// fmt.Println(recordData)
+	listFollowing := []Follower{}
+	err = fr.Conn.Where("following_id = ?", recordData.FollowingID).Find(&listFollowing).Error
+	// fmt.Println(listFollowing)
+	resp = toCoreList(listFollowing)
+	return resp, err
+}
