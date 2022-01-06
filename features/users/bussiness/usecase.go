@@ -1,13 +1,17 @@
 package bussiness
 
 import (
+	"fmt"
+
+	"github.com/dragranzer/capstone-BE-FGD/features/followers"
 	"github.com/dragranzer/capstone-BE-FGD/features/users"
 	"github.com/dragranzer/capstone-BE-FGD/middleware"
 	"golang.org/x/crypto/bcrypt"
 )
 
 type usersUsecase struct {
-	userData users.Data
+	userData         users.Data
+	followerBussines followers.Bussiness
 }
 
 func NewUserBussiness(userData users.Data) users.Bussiness {
@@ -37,4 +41,13 @@ func (uu *usersUsecase) Login(data users.Core) (userData users.Core, token strin
 	}
 
 	return userData, token, isAuth, err
+}
+
+func (uu *usersUsecase) GetThreadHome(data users.Core) (userData users.Core, err error) {
+	idCore := followers.Core{
+		FollowingID: data.ID,
+	}
+	listFollowedID, err := uu.followerBussines.GetFollowing(idCore)
+	fmt.Println(listFollowedID)
+	return
 }
