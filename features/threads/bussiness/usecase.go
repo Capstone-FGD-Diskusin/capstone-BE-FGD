@@ -37,3 +37,8 @@ func (tu *threadsUsecase) GetThreadHome(data threads.Core) (resp []threads.Core,
 	resp, err = tu.threadData.SelectThreadHome(data)
 	return
 }
+
+func (tu *threadsUsecase) AddThread(data threads.Core) (err error) {
+	err = tu.threadData.InsertThread(data)
+	return
+}

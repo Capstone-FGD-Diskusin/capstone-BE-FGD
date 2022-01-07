@@ -23,3 +23,9 @@ func (tr *mysqlThreadRepository) SelectThreadHome(data threads.Core) (resp []thr
 	resp = ToCoreSlice(record)
 	return
 }
+
+func (tr *mysqlThreadRepository) InsertThread(data threads.Core) (err error) {
+	recordData := FromCore(data)
+	err = tr.Conn.Create(&recordData).Error
+	return
+}
