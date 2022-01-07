@@ -2,6 +2,7 @@ package presentation
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/dragranzer/capstone-BE-FGD/features/users"
 	"github.com/dragranzer/capstone-BE-FGD/features/users/presentation/request"
@@ -61,6 +62,25 @@ func (uH *UsersHandler) GetProfileData(c echo.Context) error {
 	userID := temp["user_id"].(float64)
 	core := users.Core{
 		ID: int(userID),
+	}
+	resp, err := uH.userBussiness.GetProfileData(core)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "success",
+		"data":    response.FromCore(resp),
+	})
+}
+
+func (uH *UsersHandler) GetUserData(c echo.Context) error {
+	var idstring string
+	echo.PathParamsBinder(c).String("id", &idstring)
+	id, _ := strconv.Atoi(idstring)
+	core := users.Core{
+		ID: id,
 	}
 	resp, err := uH.userBussiness.GetProfileData(core)
 	if err != nil {
