@@ -10,6 +10,7 @@ type Core struct {
 	ImgUrl         string
 	ListFollowedID []int
 	OwnerID        int
+	Page           int
 }
 
 type Bussiness interface {

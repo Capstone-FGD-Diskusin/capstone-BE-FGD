@@ -9,11 +9,13 @@ import (
 
 type threadsUsecase struct {
 	followerBussiness followers.Bussiness
+	threadData        threads.Data
 }
 
-func NewThreadBussiness(fB followers.Bussiness) threads.Bussiness {
+func NewThreadBussiness(fB followers.Bussiness, tD threads.Data) threads.Bussiness {
 	return &threadsUsecase{
 		followerBussiness: fB,
+		threadData:        tD,
 	}
 }
 
@@ -21,7 +23,17 @@ func (tu *threadsUsecase) GetThreadHome(data threads.Core) (resp []threads.Core,
 	userID := followers.Core{
 		FollowingID: data.OwnerID,
 	}
-	listID, err := tu.followerBussiness.GetFollowing(userID)
-	fmt.Println(listID)
+	temp, err := tu.followerBussiness.GetFollowing(userID)
+	if err != nil {
+		return
+	}
+	// fmt.Println(temp)
+	listFollowedID := []int{}
+	for _, value := range temp {
+		listFollowedID = append(listFollowedID, value.FollowedID)
+	}
+	fmt.Println(listFollowedID)
+	data.ListFollowedID = listFollowedID
+	resp, err = tu.threadData.SelectThreadHome(data)
 	return
 }

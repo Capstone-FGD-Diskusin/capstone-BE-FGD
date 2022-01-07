@@ -11,6 +11,7 @@ import (
 	_follower_presentation "github.com/dragranzer/capstone-BE-FGD/features/followers/presentation"
 
 	_thread_bussiness "github.com/dragranzer/capstone-BE-FGD/features/threads/bussiness"
+	_thread_data "github.com/dragranzer/capstone-BE-FGD/features/threads/data"
 	_thread_presentation "github.com/dragranzer/capstone-BE-FGD/features/threads/presentation"
 )
 
@@ -24,10 +25,11 @@ func Init() Presenter {
 
 	userData := _user_data.NewUserRepository(config.DB)
 	followerData := _follower_data.NewFollowerRepository(config.DB)
+	threadData := _thread_data.NewThreadRepository(config.DB)
 
 	userBussiness := _user_bussiness.NewUserBussiness(userData)
 	followerBussiness := _follower_bussiness.NewFollowerBussiness(followerData)
-	threadBussiness := _thread_bussiness.NewThreadBussiness(followerBussiness)
+	threadBussiness := _thread_bussiness.NewThreadBussiness(followerBussiness, threadData)
 
 	return Presenter{
 		UserPresentation:     _user_presentation.NewUserHandler(userBussiness),

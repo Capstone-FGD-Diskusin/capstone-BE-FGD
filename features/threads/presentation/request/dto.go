@@ -2,12 +2,14 @@ package request
 
 import "github.com/dragranzer/capstone-BE-FGD/features/threads"
 
-type UserID struct {
+type Request struct {
 	UserID int `json:"user_id" form:"user_id"`
+	Page   int `json:"page" form:"page"`
 }
 
-func ToCore(req UserID) threads.Core {
+func ToCore(req Request) threads.Core {
 	return threads.Core{
 		OwnerID: req.UserID,
+		Page:    req.Page,
 	}
 }

@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/dragranzer/capstone-BE-FGD/features/threads"
+	"github.com/dragranzer/capstone-BE-FGD/features/threads/presentation/request"
 	"github.com/dragranzer/capstone-BE-FGD/middleware"
 	"github.com/labstack/echo/v4"
 )
@@ -20,13 +21,14 @@ func NewThreadHandler(ub threads.Bussiness) *ThreadsHandler {
 }
 
 func (uh *ThreadsHandler) GetThreadHome(c echo.Context) error {
-	// userID := request.UserID{}
-	// c.Bind(&userID)
+	req := request.Request{}
+	c.Bind(&req)
 	temp := middleware.ExtractClaim(c)
 	ownerID := temp["user_id"].(float64)
 	fmt.Println(ownerID)
 	data := threads.Core{
 		OwnerID: int(ownerID),
+		Page:    req.Page,
 	}
 	threads, err := uh.threadBussiness.GetThreadHome(data)
 
