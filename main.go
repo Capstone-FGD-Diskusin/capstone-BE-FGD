@@ -5,7 +5,7 @@ import (
 	"log"
 
 	"github.com/dragranzer/capstone-BE-FGD/config"
-	"github.com/dragranzer/capstone-BE-FGD/migrate"
+	// "github.com/dragranzer/capstone-BE-FGD/migrate"
 	"github.com/dragranzer/capstone-BE-FGD/routes"
 )
 
@@ -13,7 +13,7 @@ func main() {
 	fmt.Println("Hello world")
 	config.LoadEnv()
 	config.ConnectDB()
-	migrate.AutoMigrate()
+	// migrate.AutoMigrate()
 	// fmt.Println(config.ENV.PORT)
 
 	e := routes.Setup()

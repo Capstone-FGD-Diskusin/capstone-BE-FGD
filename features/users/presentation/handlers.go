@@ -2,10 +2,12 @@ package presentation
 
 import (
 	"net/http"
+	"strconv"
 
 	"github.com/dragranzer/capstone-BE-FGD/features/users"
 	"github.com/dragranzer/capstone-BE-FGD/features/users/presentation/request"
 	"github.com/dragranzer/capstone-BE-FGD/features/users/presentation/response"
+	"github.com/dragranzer/capstone-BE-FGD/middleware"
 	"github.com/labstack/echo/v4"
 )
 
@@ -38,7 +40,7 @@ func (uh *UsersHandler) Register(c echo.Context) error {
 func (uH *UsersHandler) LoginUser(c echo.Context) error {
 	user := request.User{}
 	c.Bind(&user)
-	resp, token, isAuth, err := uH.userBussiness.Login(request.ToCore(user))
+	_, token, isAuth, err := uH.userBussiness.Login(request.ToCore(user))
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"message": err.Error(),
@@ -51,7 +53,43 @@ func (uH *UsersHandler) LoginUser(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "Selamat email dan pass mu benar",
-		"data":    response.FromCore(resp),
 		"token":   token,
+	})
+}
+
+func (uH *UsersHandler) GetProfileData(c echo.Context) error {
+	temp := middleware.ExtractClaim(c)
+	userID := temp["user_id"].(float64)
+	core := users.Core{
+		ID: int(userID),
+	}
+	resp, err := uH.userBussiness.GetProfileData(core)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "success",
+		"data":    response.FromCore(resp),
+	})
+}
+
+func (uH *UsersHandler) GetUserData(c echo.Context) error {
+	var idstring string
+	echo.PathParamsBinder(c).String("id", &idstring)
+	id, _ := strconv.Atoi(idstring)
+	core := users.Core{
+		ID: id,
+	}
+	resp, err := uH.userBussiness.GetProfileData(core)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "success",
+		"data":    response.FromCore(resp),
 	})
 }

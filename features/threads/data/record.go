@@ -12,6 +12,15 @@ type Thread struct {
 	ImgUrl        string
 }
 
+func FromCore(data threads.Core) Thread {
+	return Thread{
+		Title:       data.Title,
+		Description: data.Description,
+		UserID:      data.UserID,
+		ImgUrl:      data.ImgUrl,
+	}
+}
+
 func ToCore(thread Thread) threads.Core {
 	return threads.Core{
 		ID:            thread.ID,

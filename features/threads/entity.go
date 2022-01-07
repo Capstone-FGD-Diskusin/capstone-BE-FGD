@@ -15,8 +15,10 @@ type Core struct {
 
 type Bussiness interface {
 	GetThreadHome(data Core) (resp []Core, err error)
+	AddThread(data Core) (err error)
 }
 
 type Data interface {
 	SelectThreadHome(data Core) (resp []Core, err error)
+	InsertThread(data Core) (err error)
 }

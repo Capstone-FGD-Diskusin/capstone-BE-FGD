@@ -39,11 +39,19 @@ func (ur *mysqlUserRepository) CheckEmailPass(email string, pass string) (isAuth
 	return true, record.toCore(), nil
 }
 
-func (ar *mysqlUserRepository) SelectDatabyEmail(data users.Core) (resp users.Core, err error) {
+func (ur *mysqlUserRepository) SelectDatabyEmail(data users.Core) (resp users.Core, err error) {
 	record := User{}
-	if err = ar.Conn.Where("email = ?", data.Email).Find(&record).Error; err != nil {
+	if err = ur.Conn.Where("email = ?", data.Email).Find(&record).Error; err != nil {
 		return users.Core{}, err
 	}
 
+	return record.toCore(), nil
+}
+
+func (ur *mysqlUserRepository) SelectDatabyID(data users.Core) (resp users.Core, err error) {
+	record := User{}
+	if err = ur.Conn.Where("id = ?", data.ID).Find(&record).Error; err != nil {
+		return users.Core{}, err
+	}
 	return record.toCore(), nil
 }

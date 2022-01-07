@@ -38,3 +38,8 @@ func (uu *usersUsecase) Login(data users.Core) (userData users.Core, token strin
 
 	return userData, token, isAuth, err
 }
+
+func (uu *usersUsecase) GetProfileData(data users.Core) (resp users.Core, err error) {
+	resp, err = uu.userData.SelectDatabyID(data)
+	return
+}
