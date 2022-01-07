@@ -6,6 +6,7 @@ import (
 
 	"github.com/dragranzer/capstone-BE-FGD/features/threads"
 	"github.com/dragranzer/capstone-BE-FGD/features/threads/presentation/request"
+	"github.com/dragranzer/capstone-BE-FGD/features/threads/presentation/response"
 	"github.com/dragranzer/capstone-BE-FGD/middleware"
 	"github.com/labstack/echo/v4"
 )
@@ -39,7 +40,7 @@ func (uh *ThreadsHandler) GetThreadHome(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"data":    threads,
-		"message": "data success di masukkan",
+		"threads": response.FromCoreSlice(threads),
+		"message": "success",
 	})
 }
