@@ -26,6 +26,7 @@ func Setup() *echo.Echo {
 	eJWT.GET("/user/following", _presenter.FollowerPresentation.GetFollowing)
 
 	eJWT.GET("/thread/homepage", _presenter.ThreadPresentation.GetThreadHome)
+	eJWT.POST("/thread", _presenter.ThreadPresentation.AddThread)
 
 	return e
 }

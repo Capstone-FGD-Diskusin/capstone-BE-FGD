@@ -44,3 +44,22 @@ func (uh *ThreadsHandler) GetThreadHome(c echo.Context) error {
 		"message": "success",
 	})
 }
+
+func (th *ThreadsHandler) AddThread(c echo.Context) error {
+	thread := request.Thread{}
+	c.Bind(&thread)
+	temp := middleware.ExtractClaim(c)
+	userID := temp["user_id"].(float64)
+	thread.UserID = int(userID)
+	err := th.threadBussiness.AddThread(request.ToCoreThread(thread))
+
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "data success di masukkan",
+	})
+}
