@@ -21,14 +21,14 @@ func (uu *usersUsecase) Register(data users.Core) (err error) {
 	return err
 }
 
-func (uu *usersUsecase) Login(email string, pass string) (userData users.Core, token string, isAuth bool, err error) {
+func (uu *usersUsecase) Login(data users.Core) (userData users.Core, token string, isAuth bool, err error) {
 
-	userData, err = uu.userData.SelectDatabyEmail(email)
+	userData, err = uu.userData.SelectDatabyEmail(data)
 	if err != nil {
 		return userData, token, false, err
 	}
 
-	err = bcrypt.CompareHashAndPassword([]byte(userData.Password), []byte(pass))
+	err = bcrypt.CompareHashAndPassword([]byte(userData.Password), []byte(data.Password))
 	isAuth = (err == nil)
 
 	token, err = middleware.CreateToken(userData.ID, userData.Username)

@@ -39,9 +39,9 @@ func (ur *mysqlUserRepository) CheckEmailPass(email string, pass string) (isAuth
 	return true, record.toCore(), nil
 }
 
-func (ar *mysqlUserRepository) SelectDatabyEmail(email string) (resp users.Core, err error) {
+func (ar *mysqlUserRepository) SelectDatabyEmail(data users.Core) (resp users.Core, err error) {
 	record := User{}
-	if err = ar.Conn.Where("email = ?", email).Find(&record).Error; err != nil {
+	if err = ar.Conn.Where("email = ?", data.Email).Find(&record).Error; err != nil {
 		return users.Core{}, err
 	}
 

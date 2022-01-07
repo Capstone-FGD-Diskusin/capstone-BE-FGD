@@ -38,7 +38,7 @@ func (uh *UsersHandler) Register(c echo.Context) error {
 func (uH *UsersHandler) LoginUser(c echo.Context) error {
 	user := request.User{}
 	c.Bind(&user)
-	resp, token, isAuth, err := uH.userBussiness.Login(user.Email, user.Password)
+	resp, token, isAuth, err := uH.userBussiness.Login(request.ToCore(user))
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"message": err.Error(),
