@@ -14,6 +14,7 @@ func Setup() *echo.Echo {
 	e := echo.New()
 
 	middleware.LogMidd(e)
+	middleware.CorsAuth(e)
 	e.POST("/user", _presenter.UserPresentation.Register)
 	e.POST("/user/login", _presenter.UserPresentation.LoginUser)
 
