@@ -85,14 +85,14 @@ func AutoMigrate() {
 	thread1 := _thread_data.Thread{
 		Title:       "Mengapa GO lebih baik?",
 		Description: "Go merupakan bahasa yang dikembangkan oleh google, oleh karena itu...",
-		UserID:      1,
+		UserID:      2,
 		Like:        2,
 	}
 
 	thread2 := _thread_data.Thread{
 		Title:       "Bahas tuntas Meta blacklist",
 		Description: "Walaupun heronya cuman itu itu aja tetapi...",
-		UserID:      1,
+		UserID:      3,
 		Like:        2,
 	}
 

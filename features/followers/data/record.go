@@ -13,3 +13,18 @@ func fromCore(core followers.Core) Follower {
 		FollowedID:  core.FollowedID,
 	}
 }
+
+func (a *Follower) toCore() followers.Core {
+	return followers.Core{
+		FollowingID: a.FollowingID,
+		FollowedID:  a.FollowedID,
+	}
+}
+
+func toCoreList(resp []Follower) []followers.Core {
+	a := []followers.Core{}
+	for key := range resp {
+		a = append(a, resp[key].toCore())
+	}
+	return a
+}

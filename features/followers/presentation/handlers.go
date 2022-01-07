@@ -5,6 +5,7 @@ import (
 
 	"github.com/dragranzer/capstone-BE-FGD/features/followers"
 	"github.com/dragranzer/capstone-BE-FGD/features/followers/presentation/request"
+	"github.com/dragranzer/capstone-BE-FGD/features/followers/presentation/response"
 	"github.com/dragranzer/capstone-BE-FGD/middleware"
 	"github.com/labstack/echo/v4"
 )
@@ -56,5 +57,23 @@ func (fh *FollowersHandler) Unfollow(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "unfollow berhasil dilakukan",
+	})
+}
+
+func (fh *FollowersHandler) GetFollowing(c echo.Context) error {
+	template := request.Follow{}
+	temp := middleware.ExtractClaim(c)
+	followingId := temp["user_id"].(float64)
+	resp, err := fh.followerBussiness.GetFollowing(request.ToCore(template, int(followingId)))
+
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"IDFollowed": response.FromCoreSlice(resp),
+		"message":    "request berhasil",
 	})
 }

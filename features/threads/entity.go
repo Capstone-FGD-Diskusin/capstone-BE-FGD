@@ -1,17 +1,22 @@
 package threads
 
 type Core struct {
-	ID            int
-	Title         string
-	Description   string
-	UserID        int
-	Like          int
-	JumlahComment int
-	ImgUrl        string
+	ID             int
+	Title          string
+	Description    string
+	UserID         int
+	Like           int
+	JumlahComment  int
+	ImgUrl         string
+	ListFollowedID []int
+	OwnerID        int
+	Page           int
 }
 
 type Bussiness interface {
+	GetThreadHome(data Core) (resp []Core, err error)
 }
 
 type Data interface {
+	SelectThreadHome(data Core) (resp []Core, err error)
 }
