@@ -32,6 +32,7 @@ func Setup() *echo.Echo {
 	eJWT.POST("/thread", _presenter.ThreadPresentation.AddThread)
 
 	eJWT.POST("/like", _presenter.LikePresentation.LikingThread)
+	eJWT.POST("/unlike", _presenter.LikePresentation.UnlikingThread)
 
 	return e
 }

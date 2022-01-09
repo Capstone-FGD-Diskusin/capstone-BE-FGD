@@ -66,3 +66,14 @@ func (ur *mysqlUserRepository) UpdateLikebyOne(data users.Core) (err error) {
 	err = ur.Conn.Model(&User{}).Where("id = ?", data.ID).Update("sum_like", record.SumLike).Error
 	return
 }
+
+func (ur *mysqlUserRepository) UpdateMinLikebyOne(data users.Core) (err error) {
+	record := User{}
+	err = ur.Conn.Where("id = ?", data.ID).First(&record).Error
+	if err != nil {
+		return err
+	}
+	record.SumLike--
+	err = ur.Conn.Model(&User{}).Where("id = ?", data.ID).Update("sum_like", record.SumLike).Error
+	return
+}

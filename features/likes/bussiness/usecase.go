@@ -42,3 +42,26 @@ func (lu *likesUsecase) LikingThread(data likes.Core) (err error) {
 	err = lu.userBussiness.IncrementLike(user)
 	return err
 }
+
+func (lu *likesUsecase) UnlikingThread(data likes.Core) (err error) {
+	err = lu.likeData.DeleteLike(data)
+	if err != nil {
+		return err
+	}
+	thread := threads.Core{
+		ID: data.ThreadID,
+	}
+	err = lu.threadBussiness.DecrementLike(thread)
+	if err != nil {
+		return err
+	}
+	thread, err = lu.threadBussiness.GetThreadbyID(thread)
+	if err != nil {
+		return err
+	}
+	user := users.Core{
+		ID: thread.UserID,
+	}
+	err = lu.userBussiness.DecrementLike(user)
+	return err
+}
