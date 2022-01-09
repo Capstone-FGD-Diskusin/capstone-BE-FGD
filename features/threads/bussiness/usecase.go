@@ -42,3 +42,13 @@ func (tu *threadsUsecase) AddThread(data threads.Core) (err error) {
 	err = tu.threadData.InsertThread(data)
 	return
 }
+
+func (tu *threadsUsecase) GetThreadbyID(data threads.Core) (resp threads.Core, err error) {
+	resp, err = tu.threadData.SelectThreadbyID(data)
+	return
+}
+
+func (tu *threadsUsecase) IncrementLike(data threads.Core) (err error) {
+	err = tu.threadData.UpdateLikebyOne(data)
+	return
+}

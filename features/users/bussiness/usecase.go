@@ -43,3 +43,8 @@ func (uu *usersUsecase) GetProfileData(data users.Core) (resp users.Core, err er
 	resp, err = uu.userData.SelectDatabyID(data)
 	return
 }
+
+func (uu *usersUsecase) IncrementLike(data users.Core) (err error) {
+	err = uu.userData.UpdateLikebyOne(data)
+	return
+}

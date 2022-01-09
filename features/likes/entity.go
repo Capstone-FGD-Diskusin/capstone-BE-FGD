@@ -6,7 +6,9 @@ type Core struct {
 }
 
 type Bussiness interface {
+	LikingThread(data Core) (err error)
 }
 
 type Data interface {
+	InsertLike(data Core) (err error)
 }

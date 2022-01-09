@@ -31,5 +31,7 @@ func Setup() *echo.Echo {
 	eJWT.GET("/thread/homepage", _presenter.ThreadPresentation.GetThreadHome)
 	eJWT.POST("/thread", _presenter.ThreadPresentation.AddThread)
 
+	eJWT.POST("/like", _presenter.LikePresentation.LikingThread)
+
 	return e
 }
