@@ -73,6 +73,14 @@ func (lu *likesUsecase) GetThreadHome(data likes.Core) (resp []likes.Core, err e
 	}
 	threads, err := lu.threadBussiness.GetThreadHome(temp)
 	for _, value := range threads {
+		check := likes.Core{
+			UserID:   data.UserID,
+			ThreadID: value.ID,
+		}
+		isLiked, err := lu.likeData.CheckLiked(check)
+		if err != nil {
+			return resp, err
+		}
 		thread := likes.Thread{
 			ID:            value.ID,
 			Title:         value.Title,
@@ -81,6 +89,7 @@ func (lu *likesUsecase) GetThreadHome(data likes.Core) (resp []likes.Core, err e
 			Like:          value.Like,
 			JumlahComment: value.JumlahComment,
 			ImgUrl:        value.ImgUrl,
+			IsLiked:       isLiked,
 		}
 		resp = append(resp, likes.Core{
 			Thread: thread,

@@ -27,4 +27,5 @@ type Bussiness interface {
 type Data interface {
 	InsertLike(data Core) (err error)
 	DeleteLike(data Core) (err error)
+	CheckLiked(data Core) (isLiked bool, err error)
 }
