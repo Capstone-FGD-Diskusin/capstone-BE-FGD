@@ -35,6 +35,26 @@ func (lh *LikesHandler) LikingThread(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
-		"message": "follow berhasil dilakukan",
+		"message": "like berhasil dilakukan",
+	})
+}
+
+func (lh *LikesHandler) UnlikingThread(c echo.Context) error {
+
+	thread_id := request.Thread{}
+	c.Bind(&thread_id)
+	temp := middleware.ExtractClaim(c)
+	followingId := temp["user_id"].(float64)
+
+	err := lh.likeBussiness.UnlikingThread(request.ToCore(thread_id, int(followingId)))
+
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "unlike berhasil dilakukan",
 	})
 }

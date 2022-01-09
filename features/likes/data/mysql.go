@@ -23,3 +23,12 @@ func (fr *mysqlLikeRepository) InsertLike(data likes.Core) (err error) {
 	}
 	return err
 }
+
+func (fr *mysqlLikeRepository) DeleteLike(data likes.Core) (err error) {
+	recordData := fromCore(data)
+	err = fr.Conn.Where("user_id = ? AND thread_id = ?", recordData.UserID, recordData.ThreadID).Delete(&Like{}).Error
+	if err != nil {
+		return err
+	}
+	return err
+}

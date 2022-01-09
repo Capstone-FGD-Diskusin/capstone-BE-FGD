@@ -48,3 +48,8 @@ func (uu *usersUsecase) IncrementLike(data users.Core) (err error) {
 	err = uu.userData.UpdateLikebyOne(data)
 	return
 }
+
+func (uu *usersUsecase) DecrementLike(data users.Core) (err error) {
+	err = uu.userData.UpdateMinLikebyOne(data)
+	return
+}

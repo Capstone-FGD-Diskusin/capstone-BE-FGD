@@ -47,3 +47,14 @@ func (ur *mysqlThreadRepository) UpdateLikebyOne(data threads.Core) (err error) 
 	err = ur.Conn.Model(&Thread{}).Where("id = ?", data.ID).Update("like", record.Like).Error
 	return
 }
+
+func (ur *mysqlThreadRepository) UpdateMinLikebyOne(data threads.Core) (err error) {
+	record := Thread{}
+	err = ur.Conn.Where("id = ?", data.ID).First(&record).Error
+	if err != nil {
+		return err
+	}
+	record.Like--
+	err = ur.Conn.Model(&Thread{}).Where("id = ?", data.ID).Update("like", record.Like).Error
+	return
+}
