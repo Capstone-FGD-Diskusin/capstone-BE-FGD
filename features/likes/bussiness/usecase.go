@@ -22,5 +22,19 @@ func NewLikeBussiness(lD likes.Data, uB users.Bussiness, tB threads.Bussiness) l
 
 func (lu *likesUsecase) LikingThread(data likes.Core) (err error) {
 	err = lu.likeData.InsertLike(data)
+	if err != nil {
+		return err
+	}
+	thread := threads.Core{
+		ID: data.ThreadID,
+	}
+	thread, err = lu.ThreadBussiness.GetThreadbyID(thread)
+	if err != nil {
+		return err
+	}
+	user := users.Core{
+		ID: thread.UserID,
+	}
+	err = lu.userBussiness.IncrementLike(user)
 	return err
 }

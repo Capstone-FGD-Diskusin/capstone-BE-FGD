@@ -29,3 +29,10 @@ func (tr *mysqlThreadRepository) InsertThread(data threads.Core) (err error) {
 	err = tr.Conn.Create(&recordData).Error
 	return
 }
+
+func (tr *mysqlThreadRepository) SelectThreadbyID(data threads.Core) (resp threads.Core, err error) {
+	record := Thread{}
+	err = tr.Conn.Where("id = ?", data.ID).First(&record).Error
+	resp = ToCore(record)
+	return
+}
