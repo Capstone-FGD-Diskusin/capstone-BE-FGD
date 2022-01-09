@@ -16,9 +16,13 @@ type Core struct {
 type Bussiness interface {
 	GetThreadHome(data Core) (resp []Core, err error)
 	AddThread(data Core) (err error)
+	GetThreadbyID(data Core) (resp Core, err error)
+	IncrementLike(data Core) (err error)
 }
 
 type Data interface {
 	SelectThreadHome(data Core) (resp []Core, err error)
 	InsertThread(data Core) (err error)
+	SelectThreadbyID(data Core) (resp Core, err error)
+	UpdateLikebyOne(data Core) (err error)
 }
