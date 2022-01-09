@@ -53,3 +53,13 @@ func (uu *usersUsecase) DecrementLike(data users.Core) (err error) {
 	err = uu.userData.UpdateMinLikebyOne(data)
 	return
 }
+
+func (uu *usersUsecase) IncrementFol(data users.Core) (err error) {
+	err = uu.userData.UpdateFolbyOne(data)
+	return
+}
+
+func (uu *usersUsecase) DecrementFol(data users.Core) (err error) {
+	err = uu.userData.UpdateMinFolbyOne(data)
+	return
+}
