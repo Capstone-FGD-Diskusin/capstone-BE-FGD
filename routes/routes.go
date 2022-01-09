@@ -28,11 +28,12 @@ func Setup() *echo.Echo {
 	eJWT.POST("/user/unfollow", _presenter.FollowerPresentation.Unfollow)
 	eJWT.GET("/user/following", _presenter.FollowerPresentation.GetFollowing)
 
-	eJWT.GET("/thread/homepage", _presenter.ThreadPresentation.GetThreadHome)
+	// eJWT.GET("/thread/homepage", _presenter.ThreadPresentation.GetThreadHome)
 	eJWT.POST("/thread", _presenter.ThreadPresentation.AddThread)
 
 	eJWT.POST("/like", _presenter.LikePresentation.LikingThread)
 	eJWT.POST("/unlike", _presenter.LikePresentation.UnlikingThread)
+	eJWT.GET("/thread/homepage", _presenter.LikePresentation.GetThreadHome)
 
 	return e
 }

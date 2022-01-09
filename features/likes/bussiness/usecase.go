@@ -65,3 +65,26 @@ func (lu *likesUsecase) UnlikingThread(data likes.Core) (err error) {
 	err = lu.userBussiness.DecrementLike(user)
 	return err
 }
+
+func (lu *likesUsecase) GetThreadHome(data likes.Core) (resp []likes.Core, err error) {
+	temp := threads.Core{
+		OwnerID: data.UserID,
+		Page:    data.Page,
+	}
+	threads, err := lu.threadBussiness.GetThreadHome(temp)
+	for _, value := range threads {
+		thread := likes.Thread{
+			ID:            value.ID,
+			Title:         value.Title,
+			Description:   value.Description,
+			UserID:        value.UserID,
+			Like:          value.Like,
+			JumlahComment: value.JumlahComment,
+			ImgUrl:        value.ImgUrl,
+		}
+		resp = append(resp, likes.Core{
+			Thread: thread,
+		})
+	}
+	return
+}
