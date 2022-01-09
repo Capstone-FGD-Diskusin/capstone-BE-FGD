@@ -9,14 +9,14 @@ import (
 type likesUsecase struct {
 	likeData        likes.Data
 	userBussiness   users.Bussiness
-	ThreadBussiness threads.Bussiness
+	threadBussiness threads.Bussiness
 }
 
 func NewLikeBussiness(lD likes.Data, uB users.Bussiness, tB threads.Bussiness) likes.Bussiness {
 	return &likesUsecase{
 		likeData:        lD,
 		userBussiness:   uB,
-		ThreadBussiness: tB,
+		threadBussiness: tB,
 	}
 }
 
@@ -28,7 +28,11 @@ func (lu *likesUsecase) LikingThread(data likes.Core) (err error) {
 	thread := threads.Core{
 		ID: data.ThreadID,
 	}
-	thread, err = lu.ThreadBussiness.GetThreadbyID(thread)
+	err = lu.threadBussiness.IncrementLike(thread)
+	if err != nil {
+		return err
+	}
+	thread, err = lu.threadBussiness.GetThreadbyID(thread)
 	if err != nil {
 		return err
 	}
