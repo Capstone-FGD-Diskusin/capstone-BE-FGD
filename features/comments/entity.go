@@ -10,7 +10,9 @@ type Core struct {
 }
 
 type Bussiness interface {
+	AddComment(data Core) (err error)
 }
 
 type Data interface {
+	InsertComment(data Core) (err error)
 }
