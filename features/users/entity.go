@@ -16,6 +16,11 @@ type Bussiness interface {
 	Login(data Core) (userData Core, token string, isAuth bool, err error)
 	GetProfileData(data Core) (resp Core, err error)
 	IncrementLike(data Core) (err error)
+	DecrementLike(data Core) (err error)
+	IncrementFol(data Core) (err error)
+	DecrementFol(data Core) (err error)
+	IncrementFollowing(data Core) (err error)
+	DecrementFollowing(data Core) (err error)
 }
 
 type Data interface {
@@ -24,4 +29,9 @@ type Data interface {
 	SelectDatabyEmail(data Core) (resp Core, err error)
 	SelectDatabyID(data Core) (resp Core, err error)
 	UpdateLikebyOne(data Core) (err error)
+	UpdateMinLikebyOne(data Core) (err error)
+	UpdateFolbyOne(data Core) (err error)
+	UpdateMinFolbyOne(data Core) (err error)
+	UpdateFollowingbyOne(data Core) (err error)
+	UpdateMinFollowingbyOne(data Core) (err error)
 }

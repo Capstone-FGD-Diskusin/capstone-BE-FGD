@@ -34,7 +34,7 @@ func Init() Presenter {
 	likeData := _like_data.NewLikeRepository(config.DB)
 
 	userBussiness := _user_bussiness.NewUserBussiness(userData)
-	followerBussiness := _follower_bussiness.NewFollowerBussiness(followerData)
+	followerBussiness := _follower_bussiness.NewFollowerBussiness(followerData, userBussiness)
 	threadBussiness := _thread_bussiness.NewThreadBussiness(followerBussiness, threadData)
 	likeBussiness := _like_bussiness.NewLikeBussiness(likeData, userBussiness, threadBussiness)
 

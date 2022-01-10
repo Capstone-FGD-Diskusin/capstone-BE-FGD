@@ -48,3 +48,28 @@ func (uu *usersUsecase) IncrementLike(data users.Core) (err error) {
 	err = uu.userData.UpdateLikebyOne(data)
 	return
 }
+
+func (uu *usersUsecase) DecrementLike(data users.Core) (err error) {
+	err = uu.userData.UpdateMinLikebyOne(data)
+	return
+}
+
+func (uu *usersUsecase) IncrementFol(data users.Core) (err error) {
+	err = uu.userData.UpdateFolbyOne(data)
+	return
+}
+
+func (uu *usersUsecase) DecrementFol(data users.Core) (err error) {
+	err = uu.userData.UpdateMinFolbyOne(data)
+	return
+}
+
+func (uu *usersUsecase) IncrementFollowing(data users.Core) (err error) {
+	err = uu.userData.UpdateFollowingbyOne(data)
+	return
+}
+
+func (uu *usersUsecase) DecrementFollowing(data users.Core) (err error) {
+	err = uu.userData.UpdateMinFollowingbyOne(data)
+	return
+}

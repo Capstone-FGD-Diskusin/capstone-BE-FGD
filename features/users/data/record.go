@@ -8,6 +8,7 @@ type User struct {
 	Password       string
 	Username       string
 	Follower       int
+	Following      int
 	SumLike        int
 	SumComment     int
 	ProfilePicture string
