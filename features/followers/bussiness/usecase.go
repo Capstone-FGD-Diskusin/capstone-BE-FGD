@@ -28,6 +28,11 @@ func (fu *followersUsecase) Follow(data followers.Core) (err error) {
 		ID: data.FollowedID,
 	}
 	err = fu.userBussiness.IncrementFol(user)
+	if err != nil {
+		return err
+	}
+	user.ID = data.FollowingID
+	err = fu.userBussiness.IncrementFollowing(user)
 	return err
 }
 
@@ -40,6 +45,11 @@ func (fu *followersUsecase) Unfollow(data followers.Core) (err error) {
 		ID: data.FollowedID,
 	}
 	err = fu.userBussiness.DecrementFol(user)
+	if err != nil {
+		return err
+	}
+	user.ID = data.FollowingID
+	err = fu.userBussiness.DecrementFollowing(user)
 	return err
 }
 

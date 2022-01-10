@@ -63,3 +63,13 @@ func (uu *usersUsecase) DecrementFol(data users.Core) (err error) {
 	err = uu.userData.UpdateMinFolbyOne(data)
 	return
 }
+
+func (uu *usersUsecase) IncrementFollowing(data users.Core) (err error) {
+	err = uu.userData.UpdateFollowingbyOne(data)
+	return
+}
+
+func (uu *usersUsecase) DecrementFollowing(data users.Core) (err error) {
+	err = uu.userData.UpdateMinFollowingbyOne(data)
+	return
+}

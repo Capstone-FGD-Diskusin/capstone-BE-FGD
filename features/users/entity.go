@@ -19,6 +19,8 @@ type Bussiness interface {
 	DecrementLike(data Core) (err error)
 	IncrementFol(data Core) (err error)
 	DecrementFol(data Core) (err error)
+	IncrementFollowing(data Core) (err error)
+	DecrementFollowing(data Core) (err error)
 }
 
 type Data interface {
@@ -30,4 +32,6 @@ type Data interface {
 	UpdateMinLikebyOne(data Core) (err error)
 	UpdateFolbyOne(data Core) (err error)
 	UpdateMinFolbyOne(data Core) (err error)
+	UpdateFollowingbyOne(data Core) (err error)
+	UpdateMinFollowingbyOne(data Core) (err error)
 }
