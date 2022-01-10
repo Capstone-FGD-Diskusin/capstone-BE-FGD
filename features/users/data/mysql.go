@@ -77,3 +77,47 @@ func (ur *mysqlUserRepository) UpdateMinLikebyOne(data users.Core) (err error) {
 	err = ur.Conn.Model(&User{}).Where("id = ?", data.ID).Update("sum_like", record.SumLike).Error
 	return
 }
+
+func (ur *mysqlUserRepository) UpdateFolbyOne(data users.Core) (err error) {
+	record := User{}
+	err = ur.Conn.Where("id = ?", data.ID).First(&record).Error
+	if err != nil {
+		return err
+	}
+	record.Follower++
+	err = ur.Conn.Model(&User{}).Where("id = ?", data.ID).Update("follower", record.Follower).Error
+	return
+}
+
+func (ur *mysqlUserRepository) UpdateMinFolbyOne(data users.Core) (err error) {
+	record := User{}
+	err = ur.Conn.Where("id = ?", data.ID).First(&record).Error
+	if err != nil {
+		return err
+	}
+	record.Follower--
+	err = ur.Conn.Model(&User{}).Where("id = ?", data.ID).Update("follower", record.Follower).Error
+	return
+}
+
+func (ur *mysqlUserRepository) UpdateFollowingbyOne(data users.Core) (err error) {
+	record := User{}
+	err = ur.Conn.Where("id = ?", data.ID).First(&record).Error
+	if err != nil {
+		return err
+	}
+	record.Following++
+	err = ur.Conn.Model(&User{}).Where("id = ?", data.ID).Update("following", record.Following).Error
+	return
+}
+
+func (ur *mysqlUserRepository) UpdateMinFollowingbyOne(data users.Core) (err error) {
+	record := User{}
+	err = ur.Conn.Where("id = ?", data.ID).First(&record).Error
+	if err != nil {
+		return err
+	}
+	record.Following--
+	err = ur.Conn.Model(&User{}).Where("id = ?", data.ID).Update("following", record.Following).Error
+	return
+}
