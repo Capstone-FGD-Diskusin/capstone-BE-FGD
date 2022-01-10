@@ -21,10 +21,6 @@ func NewLikeBussiness(lD likes.Data, uB users.Bussiness, tB threads.Bussiness) l
 }
 
 func (lu *likesUsecase) LikingThread(data likes.Core) (err error) {
-	err = lu.likeData.InsertLike(data)
-	if err != nil {
-		return err
-	}
 	thread := threads.Core{
 		ID: data.ThreadID,
 	}
@@ -40,6 +36,10 @@ func (lu *likesUsecase) LikingThread(data likes.Core) (err error) {
 		ID: thread.UserID,
 	}
 	err = lu.userBussiness.IncrementLike(user)
+	if err != nil {
+		return err
+	}
+	err = lu.likeData.InsertLike(data)
 	return err
 }
 
