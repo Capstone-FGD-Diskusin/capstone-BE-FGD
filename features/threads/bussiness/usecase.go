@@ -57,3 +57,8 @@ func (tu *threadsUsecase) DecrementLike(data threads.Core) (err error) {
 	err = tu.threadData.UpdateMinLikebyOne(data)
 	return
 }
+
+func (tu *threadsUsecase) IncrementComment(data threads.Core) (err error) {
+	err = tu.threadData.UpdateCommentbyOne(data)
+	return
+}
