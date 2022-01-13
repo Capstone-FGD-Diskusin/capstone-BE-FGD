@@ -20,3 +20,13 @@ func FromCore(data comments.Core) Comment {
 		CommentID: data.CommentID,
 	}
 }
+
+func ToCore(data Comment) comments.Core {
+	return comments.Core{
+		Comment:   data.Comment,
+		ThreadID:  data.ThreadID,
+		UserID:    data.UserID,
+		ImageUrl:  data.ImageUrl,
+		CommentID: data.CommentID,
+	}
+}

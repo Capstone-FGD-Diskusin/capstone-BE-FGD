@@ -19,6 +19,8 @@ func Setup() *echo.Echo {
 	e.POST("/user/login", _presenter.UserPresentation.LoginUser)
 	e.GET("/user/:id", _presenter.UserPresentation.GetUserData)
 
+	e.GET("/thread/comment/:id", _presenter.CommentPresentation.GetCommentsThread)
+
 	eJWT := e.Group("")
 	eJWT.Use(mid.JWT([]byte(config.ENV.JWT_SECRET)))
 

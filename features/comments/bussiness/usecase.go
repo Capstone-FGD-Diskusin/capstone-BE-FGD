@@ -28,3 +28,8 @@ func (cU *commentsUsecase) AddComment(data comments.Core) (err error) {
 	err = cU.commentData.InsertComment(data)
 	return
 }
+
+func (cU *commentsUsecase) GetCommentsThread(data comments.Core) (resp []comments.Core, err error) {
+	resp, err = cU.commentData.SelectCommentsThread(data)
+	return
+}

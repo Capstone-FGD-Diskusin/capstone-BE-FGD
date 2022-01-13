@@ -11,8 +11,10 @@ type Core struct {
 
 type Bussiness interface {
 	AddComment(data Core) (err error)
+	GetCommentsThread(data Core) (resp []Core, err error)
 }
 
 type Data interface {
 	InsertComment(data Core) (err error)
+	SelectCommentsThread(data Core) (resp []Core, err error)
 }
