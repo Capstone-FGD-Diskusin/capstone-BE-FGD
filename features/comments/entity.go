@@ -7,6 +7,7 @@ type Core struct {
 	UserID    int
 	ImageUrl  string
 	CommentID int
+	Page      int
 }
 
 type Bussiness interface {

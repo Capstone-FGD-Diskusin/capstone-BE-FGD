@@ -1,6 +1,10 @@
 package data
 
-import "github.com/dragranzer/capstone-BE-FGD/features/comments"
+import (
+	"time"
+
+	"github.com/dragranzer/capstone-BE-FGD/features/comments"
+)
 
 type Comment struct {
 	ID        int
@@ -9,6 +13,7 @@ type Comment struct {
 	ThreadID  int
 	ImageUrl  string
 	CommentID int
+	CreatedAt time.Time
 }
 
 func FromCore(data comments.Core) Comment {

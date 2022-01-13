@@ -44,8 +44,11 @@ func (ch *CommentsHandler) GetCommentsThread(c echo.Context) error {
 	var idstring string
 	echo.PathParamsBinder(c).String("id", &idstring)
 	id, _ := strconv.Atoi(idstring)
+	comment := request.Comment{}
+	c.Bind(&comment)
 	core := comments.Core{
 		ThreadID: id,
+		Page:     comment.Page,
 	}
 	resp, err := ch.commentBussiness.GetCommentsThread(core)
 	if err != nil {
@@ -56,6 +59,6 @@ func (ch *CommentsHandler) GetCommentsThread(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"data":    response.FromCoreSlice(resp),
-		"message": "data success didapatkan",
+		"message": "data success di dapatkan",
 	})
 }
