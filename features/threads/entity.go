@@ -19,6 +19,7 @@ type Bussiness interface {
 	GetThreadbyID(data Core) (resp Core, err error)
 	IncrementLike(data Core) (err error)
 	DecrementLike(data Core) (err error)
+	IncrementComment(data Core) (err error)
 }
 
 type Data interface {
@@ -27,4 +28,5 @@ type Data interface {
 	SelectThreadbyID(data Core) (resp Core, err error)
 	UpdateLikebyOne(data Core) (err error)
 	UpdateMinLikebyOne(data Core) (err error)
+	UpdateCommentbyOne(data Core) (err error)
 }

@@ -19,6 +19,8 @@ func Setup() *echo.Echo {
 	e.POST("/user/login", _presenter.UserPresentation.LoginUser)
 	e.GET("/user/:id", _presenter.UserPresentation.GetUserData)
 
+	e.GET("/thread/comment/:id", _presenter.CommentPresentation.GetCommentsThread)
+
 	eJWT := e.Group("")
 	eJWT.Use(mid.JWT([]byte(config.ENV.JWT_SECRET)))
 
@@ -30,10 +32,13 @@ func Setup() *echo.Echo {
 
 	// eJWT.GET("/thread/homepage", _presenter.ThreadPresentation.GetThreadHome)
 	eJWT.POST("/thread", _presenter.ThreadPresentation.AddThread)
+	eJWT.GET("/thread/:id", _presenter.ThreadPresentation.GetThread)
 
 	eJWT.POST("/like", _presenter.LikePresentation.LikingThread)
 	eJWT.POST("/unlike", _presenter.LikePresentation.UnlikingThread)
 	eJWT.GET("/thread/homepage", _presenter.LikePresentation.GetThreadHome)
+
+	eJWT.POST("/thread/comment", _presenter.CommentPresentation.AddComment)
 
 	return e
 }

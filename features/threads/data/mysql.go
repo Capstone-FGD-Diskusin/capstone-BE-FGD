@@ -58,3 +58,14 @@ func (ur *mysqlThreadRepository) UpdateMinLikebyOne(data threads.Core) (err erro
 	err = ur.Conn.Model(&Thread{}).Where("id = ?", data.ID).Update("like", record.Like).Error
 	return
 }
+
+func (ur *mysqlThreadRepository) UpdateCommentbyOne(data threads.Core) (err error) {
+	record := Thread{}
+	err = ur.Conn.Where("id = ?", data.ID).First(&record).Error
+	if err != nil {
+		return err
+	}
+	record.JumlahComment++
+	err = ur.Conn.Model(&Thread{}).Where("id = ?", data.ID).Update("jumlah_comment", record.JumlahComment).Error
+	return
+}
