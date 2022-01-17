@@ -62,3 +62,20 @@ func (ch *CommentsHandler) GetCommentsThread(c echo.Context) error {
 		"message": "data success di dapatkan",
 	})
 }
+
+func (ch *CommentsHandler) DeleteCommentbyId(c echo.Context) error {
+	comment := request.Comment{}
+	c.Bind(&comment)
+	temp := middleware.ExtractClaim(c)
+	userID := temp["user_id"].(float64)
+	comment.UserID = int(userID)
+	err := ch.commentBussiness.DeteleCommentThread(request.ToCore(comment))
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "data success di hapus",
+	})
+}

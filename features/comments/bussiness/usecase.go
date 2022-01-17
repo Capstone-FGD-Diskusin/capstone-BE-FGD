@@ -33,3 +33,8 @@ func (cU *commentsUsecase) GetCommentsThread(data comments.Core) (resp []comment
 	resp, err = cU.commentData.SelectCommentsThread(data)
 	return
 }
+
+func (cU *commentsUsecase) DeteleCommentThread(data comments.Core) (err error) {
+	err = cU.commentData.DeleteCommentbyId(data)
+	return
+}

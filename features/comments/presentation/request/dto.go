@@ -3,6 +3,7 @@ package request
 import "github.com/dragranzer/capstone-BE-FGD/features/comments"
 
 type Comment struct {
+	ID        int    `json:"id" form:"id"`
 	Comment   string `json:"comment" form:"comment"`
 	UserID    int
 	ThreadID  int    `json:"thread_id" form:"thread_id"`
@@ -13,6 +14,7 @@ type Comment struct {
 
 func ToCore(req Comment) comments.Core {
 	return comments.Core{
+		ID:        req.ID,
 		Comment:   req.Comment,
 		UserID:    req.UserID,
 		ThreadID:  req.ThreadID,
