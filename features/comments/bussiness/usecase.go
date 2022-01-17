@@ -1,6 +1,8 @@
 package bussiness
 
 import (
+	"errors"
+
 	"github.com/dragranzer/capstone-BE-FGD/features/comments"
 	"github.com/dragranzer/capstone-BE-FGD/features/threads"
 )
@@ -31,10 +33,28 @@ func (cU *commentsUsecase) AddComment(data comments.Core) (err error) {
 
 func (cU *commentsUsecase) GetCommentsThread(data comments.Core) (resp []comments.Core, err error) {
 	resp, err = cU.commentData.SelectCommentsThread(data)
-	return
+	if err != nil {
+		return resp, err
+	}
+	return resp, err
+}
+func (cU *commentsUsecase) GetCommentbyId(data comments.Core) (resp comments.Core, err error) {
+	resp, err = cU.commentData.SelectCommentbyId(data)
+	if err != nil {
+		return resp, err
+	}
+	return resp, err
 }
 
 func (cU *commentsUsecase) DeteleCommentThread(data comments.Core) (err error) {
+	cekData, err := cU.GetCommentbyId(data)
+	if err != nil {
+		return err
+	}
+	if cekData.UserID != data.UserID {
+		err = errors.New("tidak dapat menghapus komen orang lain")
+		return err
+	}
 	err = cU.commentData.DeleteCommentbyId(data)
-	return
+	return err
 }

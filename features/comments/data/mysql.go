@@ -38,3 +38,13 @@ func (cr *mysqlCommentRepository) DeleteCommentbyId(data comments.Core) (err err
 	err = cr.Conn.Where("id = ?", data.ID).Delete(&record).Error
 	return
 }
+
+func (cr *mysqlCommentRepository) SelectCommentbyId(data comments.Core) (resp comments.Core, err error) {
+	record := Comment{}
+	err = cr.Conn.Where("id = ?", data.ID).Find(&record).Error
+	if err != nil {
+		return resp, err
+	}
+	resp = ToCore(record)
+	return resp, err
+}
