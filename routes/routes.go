@@ -39,6 +39,7 @@ func Setup() *echo.Echo {
 	eJWT.GET("/thread/homepage", _presenter.LikePresentation.GetThreadHome)
 
 	eJWT.POST("/thread/comment", _presenter.CommentPresentation.AddComment)
+	eJWT.DELETE("/thread/comment", _presenter.CommentPresentation.DeleteCommentbyId)
 
 	return e
 }
