@@ -1,6 +1,10 @@
 package data
 
-import "github.com/dragranzer/capstone-BE-FGD/features/users"
+import (
+	"time"
+
+	"github.com/dragranzer/capstone-BE-FGD/features/users"
+)
 
 type User struct {
 	ID             int
@@ -12,6 +16,7 @@ type User struct {
 	SumLike        int
 	SumComment     int
 	ProfilePicture string
+	CreatedAt      time.Time
 }
 
 func fromCore(core users.Core) User {
