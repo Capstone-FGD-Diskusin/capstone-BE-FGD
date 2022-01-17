@@ -6,6 +6,7 @@ type Core struct {
 }
 
 type Bussiness interface {
+	DeleteThreadbyId(data Core) (err error)
 }
 
 type Data interface {

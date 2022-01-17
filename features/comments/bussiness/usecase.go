@@ -69,3 +69,11 @@ func (cU *commentsUsecase) DeteleCommentThread(data comments.Core) (err error) {
 	err = cU.commentData.DeleteCommentbyId(data)
 	return err
 }
+
+func (cU *commentsUsecase) DeleteCommentbyThreadId(data comments.Core) (err error) {
+	err = cU.commentData.DeleteCommentbyThreadId(data)
+	if err != nil {
+		return err
+	}
+	return err
+}
