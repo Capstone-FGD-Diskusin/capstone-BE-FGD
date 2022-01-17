@@ -47,13 +47,24 @@ func (cU *commentsUsecase) GetCommentbyId(data comments.Core) (resp comments.Cor
 }
 
 func (cU *commentsUsecase) DeteleCommentThread(data comments.Core) (err error) {
-	cekData, err := cU.GetCommentbyId(data)
+	cekDataComment, err := cU.GetCommentbyId(data)
 	if err != nil {
 		return err
 	}
-	if cekData.UserID != data.UserID {
-		err = errors.New("tidak dapat menghapus komen orang lain")
+
+	threadCore := threads.Core{
+		ID: cekDataComment.ThreadID,
+	}
+	cekDataThread, err := cU.threadBussiness.GetThreadbyID(threadCore)
+	if err != nil {
 		return err
+	}
+
+	if cekDataComment.UserID != data.UserID {
+		if cekDataThread.UserID != data.UserID {
+			err = errors.New("tidak dapat menghapus komen orang lain")
+			return err
+		}
 	}
 	err = cU.commentData.DeleteCommentbyId(data)
 	return err

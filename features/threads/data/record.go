@@ -1,6 +1,10 @@
 package data
 
-import "github.com/dragranzer/capstone-BE-FGD/features/threads"
+import (
+	"time"
+
+	"github.com/dragranzer/capstone-BE-FGD/features/threads"
+)
 
 type Thread struct {
 	ID            int
@@ -10,6 +14,7 @@ type Thread struct {
 	Like          int
 	JumlahComment int
 	ImgUrl        string
+	CreatedAt     time.Time
 }
 
 func FromCore(data threads.Core) Thread {
