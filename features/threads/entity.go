@@ -20,6 +20,7 @@ type Bussiness interface {
 	IncrementLike(data Core) (err error)
 	DecrementLike(data Core) (err error)
 	IncrementComment(data Core) (err error)
+	DeleteThreadbyId(data Core) (err error)
 }
 
 type Data interface {
@@ -29,4 +30,5 @@ type Data interface {
 	UpdateLikebyOne(data Core) (err error)
 	UpdateMinLikebyOne(data Core) (err error)
 	UpdateCommentbyOne(data Core) (err error)
+	DeleteThreadbyId(data Core) (err error)
 }

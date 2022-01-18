@@ -14,6 +14,7 @@ type Thread struct {
 	Like          int
 	JumlahComment int
 	ImgUrl        string
+	CategoryID    int
 	CreatedAt     time.Time
 }
 

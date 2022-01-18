@@ -21,6 +21,10 @@ import (
 	_comment_bussiness "github.com/dragranzer/capstone-BE-FGD/features/comments/bussiness"
 	_comment_data "github.com/dragranzer/capstone-BE-FGD/features/comments/data"
 	_comment_presentation "github.com/dragranzer/capstone-BE-FGD/features/comments/presentation"
+
+	_favorite_bussiness "github.com/dragranzer/capstone-BE-FGD/features/favorites/bussiness"
+	_favorite_data "github.com/dragranzer/capstone-BE-FGD/features/favorites/data"
+	_favorite_presentation "github.com/dragranzer/capstone-BE-FGD/features/favorites/presentation"
 )
 
 type Presenter struct {
@@ -29,6 +33,7 @@ type Presenter struct {
 	ThreadPresentation   *_thread_presentation.ThreadsHandler
 	LikePresentation     *_like_presentation.LikesHandler
 	CommentPresentation  *_comment_presentation.CommentsHandler
+	FavoritePresentation *_favorite_presentation.FavoritesHandler
 }
 
 func Init() Presenter {
@@ -38,12 +43,14 @@ func Init() Presenter {
 	threadData := _thread_data.NewThreadRepository(config.DB)
 	likeData := _like_data.NewLikeRepository(config.DB)
 	commentData := _comment_data.NewCommentRepository(config.DB)
+	favoriteData := _favorite_data.NewFavoriteRepository(config.DB)
 
 	userBussiness := _user_bussiness.NewUserBussiness(userData)
 	followerBussiness := _follower_bussiness.NewFollowerBussiness(followerData, userBussiness)
 	threadBussiness := _thread_bussiness.NewThreadBussiness(followerBussiness, threadData)
 	likeBussiness := _like_bussiness.NewLikeBussiness(likeData, userBussiness, threadBussiness)
 	commentBussiness := _comment_bussiness.NewCommentBussiness(commentData, threadBussiness)
+	favoriteBussiness := _favorite_bussiness.NewFavoriteBussiness(threadBussiness, userBussiness, commentBussiness, favoriteData, likeBussiness)
 
 	return Presenter{
 		UserPresentation:     _user_presentation.NewUserHandler(userBussiness),
@@ -51,5 +58,6 @@ func Init() Presenter {
 		ThreadPresentation:   _thread_presentation.NewThreadHandler(threadBussiness),
 		LikePresentation:     _like_presentation.NewLikeHandler(likeBussiness),
 		CommentPresentation:  _comment_presentation.NewCommentHandler(commentBussiness),
+		FavoritePresentation: _favorite_presentation.NewFavoriteHandler(favoriteBussiness),
 	}
 }
