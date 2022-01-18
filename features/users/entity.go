@@ -21,6 +21,7 @@ type Bussiness interface {
 	DecrementFol(data Core) (err error)
 	IncrementFollowing(data Core) (err error)
 	DecrementFollowing(data Core) (err error)
+	EditDataUser(data Core) (err error)
 }
 
 type Data interface {
@@ -34,4 +35,5 @@ type Data interface {
 	UpdateMinFolbyOne(data Core) (err error)
 	UpdateFollowingbyOne(data Core) (err error)
 	UpdateMinFollowingbyOne(data Core) (err error)
+	UpdateDataUser(data Core) (err error)
 }

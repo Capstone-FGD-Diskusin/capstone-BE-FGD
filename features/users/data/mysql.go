@@ -121,3 +121,11 @@ func (ur *mysqlUserRepository) UpdateMinFollowingbyOne(data users.Core) (err err
 	err = ur.Conn.Model(&User{}).Where("id = ?", data.ID).Update("following", record.Following).Error
 	return
 }
+
+func (ur *mysqlUserRepository) UpdateDataUser(data users.Core) (err error) {
+	record := fromCore(data)
+	bytes, _ := bcrypt.GenerateFromPassword([]byte(record.Password), 14)
+	record.Password = string(bytes)
+	err = ur.Conn.Model(&User{}).Where("id = ?", data.ID).Updates(map[string]interface{}{"email": record.Email, "username": record.Username, "profile_picture": record.ProfilePicture}).Error
+	return
+}

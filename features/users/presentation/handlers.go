@@ -93,3 +93,20 @@ func (uH *UsersHandler) GetUserData(c echo.Context) error {
 		"data":    response.FromCore(resp),
 	})
 }
+
+func (uH *UsersHandler) EditUserData(c echo.Context) error {
+	user := request.User{}
+	c.Bind(&user)
+	temp := middleware.ExtractClaim(c)
+	userID := temp["user_id"].(float64)
+	user.ID = int(userID)
+	err := uH.userBussiness.EditDataUser(request.ToCore(user))
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "success",
+	})
+}

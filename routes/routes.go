@@ -25,6 +25,7 @@ func Setup() *echo.Echo {
 	eJWT.Use(mid.JWT([]byte(config.ENV.JWT_SECRET)))
 
 	eJWT.GET("/user", _presenter.UserPresentation.GetProfileData)
+	eJWT.PUT("/user", _presenter.UserPresentation.EditUserData)
 
 	eJWT.POST("/user/follow", _presenter.FollowerPresentation.Follow)
 	eJWT.DELETE("/user/unfollow", _presenter.FollowerPresentation.Unfollow)
