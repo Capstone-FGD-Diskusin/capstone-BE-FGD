@@ -10,4 +10,5 @@ type Bussiness interface {
 }
 
 type Data interface {
+	DeleteFavoritebyThreadId(data Core) (err error)
 }

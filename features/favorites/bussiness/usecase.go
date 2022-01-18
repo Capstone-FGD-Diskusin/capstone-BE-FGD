@@ -41,6 +41,13 @@ func (fu *favoritesUsecase) DeleteThreadbyId(data favorites.Core) (err error) {
 	if err != nil {
 		return err
 	}
+	favorite_core := favorites.Core{
+		ThreadID: data.ThreadID,
+	}
+	err = fu.favoriteData.DeleteFavoritebyThreadId(favorite_core)
+	if err != nil {
+		return err
+	}
 	thread_core := threads.Core{
 		ID: data.ThreadID,
 	}
