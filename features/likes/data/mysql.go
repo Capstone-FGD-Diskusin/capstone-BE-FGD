@@ -49,3 +49,9 @@ func (fr *mysqlLikeRepository) CheckLiked(data likes.Core) (isLiked bool, err er
 	}
 	return
 }
+
+func (fr *mysqlLikeRepository) DeleteLikebyThreadId(data likes.Core) (err error) {
+	record := Like{}
+	err = fr.Conn.Where("thread_id = ?", data.ThreadID).Delete(&record).Error
+	return
+}

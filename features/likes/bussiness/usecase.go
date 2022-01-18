@@ -97,3 +97,8 @@ func (lu *likesUsecase) GetThreadHome(data likes.Core) (resp []likes.Core, err e
 	}
 	return
 }
+
+func (lu *likesUsecase) DeleteLikebyThreadId(data likes.Core) (err error) {
+	err = lu.likeData.DeleteLikebyThreadId(data)
+	return
+}

@@ -69,3 +69,9 @@ func (ur *mysqlThreadRepository) UpdateCommentbyOne(data threads.Core) (err erro
 	err = ur.Conn.Model(&Thread{}).Where("id = ?", data.ID).Update("jumlah_comment", record.JumlahComment).Error
 	return
 }
+
+func (tr *mysqlThreadRepository) DeleteThreadbyId(data threads.Core) (err error) {
+	record := Thread{}
+	err = tr.Conn.Where("id = ?", data.ID).Delete(&record).Error
+	return
+}
