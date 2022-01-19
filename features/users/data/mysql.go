@@ -129,3 +129,9 @@ func (ur *mysqlUserRepository) UpdateDataUser(data users.Core) (err error) {
 	err = ur.Conn.Model(&User{}).Where("id = ?", data.ID).Updates(map[string]interface{}{"email": record.Email, "username": record.Username, "profile_picture": record.ProfilePicture}).Error
 	return
 }
+
+func (ur *mysqlUserRepository) DeleteDataUserbyId(data users.Core) (err error) {
+	record := User{}
+	err = ur.Conn.Where("id = ?", data.ID).Delete(&record).Error
+	return
+}
