@@ -23,3 +23,8 @@ func (cu *categoriesUsecase) EditCategory(data categories.Core) (err error) {
 	err = cu.categoryData.UpdateCategory(data)
 	return
 }
+
+func (cu *categoriesUsecase) DeleteCategorybyId(data categories.Core) (err error) {
+	err = cu.categoryData.DeleteCategorybyId(data)
+	return
+}
