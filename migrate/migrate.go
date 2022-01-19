@@ -173,17 +173,11 @@ func AutoMigrate() {
 	}
 
 	category1 := _category_data.Category{
-		Name:              "Politik",
-		ModeratorName:     "moderator1",
-		ModeratorEmail:    "mod@email.com",
-		ModeratorPassword: "modpass1",
+		Name: "Politik",
 	}
 
 	category2 := _category_data.Category{
-		Name:              "Hiburan",
-		ModeratorName:     "moderator2",
-		ModeratorEmail:    "mod2@email.com",
-		ModeratorPassword: "modpass2",
+		Name: "Hiburan",
 	}
 
 	follower1 := _follower_data.Follower{

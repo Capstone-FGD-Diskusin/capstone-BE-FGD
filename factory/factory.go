@@ -25,6 +25,10 @@ import (
 	_favorite_bussiness "github.com/dragranzer/capstone-BE-FGD/features/favorites/bussiness"
 	_favorite_data "github.com/dragranzer/capstone-BE-FGD/features/favorites/data"
 	_favorite_presentation "github.com/dragranzer/capstone-BE-FGD/features/favorites/presentation"
+
+	_category_bussiness "github.com/dragranzer/capstone-BE-FGD/features/categories/bussiness"
+	_category_data "github.com/dragranzer/capstone-BE-FGD/features/categories/data"
+	_category_presentation "github.com/dragranzer/capstone-BE-FGD/features/categories/presentation"
 )
 
 type Presenter struct {
@@ -34,6 +38,7 @@ type Presenter struct {
 	LikePresentation     *_like_presentation.LikesHandler
 	CommentPresentation  *_comment_presentation.CommentsHandler
 	FavoritePresentation *_favorite_presentation.FavoritesHandler
+	CategoryPresentation *_category_presentation.CategorysHandler
 }
 
 func Init() Presenter {
@@ -44,6 +49,7 @@ func Init() Presenter {
 	likeData := _like_data.NewLikeRepository(config.DB)
 	commentData := _comment_data.NewCommentRepository(config.DB)
 	favoriteData := _favorite_data.NewFavoriteRepository(config.DB)
+	categoryData := _category_data.NewCategoryRepository(config.DB)
 
 	userBussiness := _user_bussiness.NewUserBussiness(userData)
 	followerBussiness := _follower_bussiness.NewFollowerBussiness(followerData, userBussiness)
@@ -51,6 +57,7 @@ func Init() Presenter {
 	likeBussiness := _like_bussiness.NewLikeBussiness(likeData, userBussiness, threadBussiness)
 	commentBussiness := _comment_bussiness.NewCommentBussiness(commentData, threadBussiness)
 	favoriteBussiness := _favorite_bussiness.NewFavoriteBussiness(threadBussiness, userBussiness, commentBussiness, favoriteData, likeBussiness)
+	categoryBussiness := _category_bussiness.NewCategoryBussiness(categoryData)
 
 	return Presenter{
 		UserPresentation:     _user_presentation.NewUserHandler(userBussiness),
@@ -59,5 +66,6 @@ func Init() Presenter {
 		LikePresentation:     _like_presentation.NewLikeHandler(likeBussiness),
 		CommentPresentation:  _comment_presentation.NewCommentHandler(commentBussiness),
 		FavoritePresentation: _favorite_presentation.NewFavoriteHandler(favoriteBussiness),
+		CategoryPresentation: _category_presentation.NewCategoryHandler(categoryBussiness),
 	}
 }
