@@ -25,3 +25,11 @@ func (ur *mysqlCategoryRepository) InsertCategory(data categories.Core) (err err
 	}
 	return err
 }
+
+func (ur *mysqlCategoryRepository) UpdateCategory(data categories.Core) (err error) {
+	err = ur.Conn.Model(&Category{}).Where("id = ?", data.ID).Updates(map[string]interface{}{"name": data.Name}).Error
+	if err != nil {
+		return err
+	}
+	return err
+}

@@ -23,6 +23,7 @@ func Setup() *echo.Echo {
 	e.GET("/thread/:id/comment", _presenter.CommentPresentation.GetCommentsThread)
 
 	e.POST("/category", _presenter.CategoryPresentation.AddCategory)
+	e.PUT("/category", _presenter.CategoryPresentation.EditCategory)
 
 	eJWT := e.Group("")
 	eJWT.Use(mid.JWT([]byte(config.ENV.JWT_SECRET)))

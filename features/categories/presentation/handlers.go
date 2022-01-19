@@ -33,3 +33,19 @@ func (ch *CategorysHandler) AddCategory(c echo.Context) error {
 		"message": "data success di masukkan",
 	})
 }
+
+func (ch *CategorysHandler) EditCategory(c echo.Context) error {
+	category := request.Category{}
+	c.Bind(&category)
+	err := ch.categoryBussiness.EditCategory(request.ToCore(category))
+
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "data success di edit",
+	})
+}
