@@ -73,3 +73,13 @@ func (uu *usersUsecase) DecrementFollowing(data users.Core) (err error) {
 	err = uu.userData.UpdateMinFollowingbyOne(data)
 	return
 }
+
+func (uu *usersUsecase) EditDataUser(data users.Core) (err error) {
+	err = uu.userData.UpdateDataUser(data)
+	return
+}
+
+func (uu *usersUsecase) DeleteDataUserbyId(data users.Core) (err error) {
+	err = uu.userData.DeleteDataUserbyId(data)
+	return
+}

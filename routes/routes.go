@@ -18,16 +18,19 @@ func Setup() *echo.Echo {
 	e.POST("/user", _presenter.UserPresentation.Register)
 	e.POST("/user/login", _presenter.UserPresentation.LoginUser)
 	e.GET("/user/:id", _presenter.UserPresentation.GetUserData)
+	e.DELETE("/user/:id", _presenter.UserPresentation.DeleteUserDataAdmin)
 
-	e.GET("/thread/comment/:id", _presenter.CommentPresentation.GetCommentsThread)
+	e.GET("/thread/:id/comment", _presenter.CommentPresentation.GetCommentsThread)
 
 	eJWT := e.Group("")
 	eJWT.Use(mid.JWT([]byte(config.ENV.JWT_SECRET)))
 
 	eJWT.GET("/user", _presenter.UserPresentation.GetProfileData)
+	eJWT.PUT("/user", _presenter.UserPresentation.EditUserData)
+	eJWT.DELETE("/user", _presenter.UserPresentation.DeleteUserDataUser)
 
 	eJWT.POST("/user/follow", _presenter.FollowerPresentation.Follow)
-	eJWT.DELETE("/user/unfollow", _presenter.FollowerPresentation.Unfollow)
+	eJWT.DELETE("/user/follow", _presenter.FollowerPresentation.Unfollow)
 	eJWT.GET("/user/following", _presenter.FollowerPresentation.GetFollowing)
 
 	// eJWT.GET("/thread/homepage", _presenter.ThreadPresentation.GetThreadHome)
@@ -36,7 +39,7 @@ func Setup() *echo.Echo {
 	eJWT.DELETE("/thread/:id", _presenter.FavoritePresentation.DeleteThreadbyId)
 
 	eJWT.POST("/like", _presenter.LikePresentation.LikingThread)
-	eJWT.POST("/unlike", _presenter.LikePresentation.UnlikingThread)
+	eJWT.DELETE("/like", _presenter.LikePresentation.UnlikingThread)
 	eJWT.GET("/thread/homepage", _presenter.LikePresentation.GetThreadHome)
 
 	eJWT.POST("/thread/comment", _presenter.CommentPresentation.AddComment)
