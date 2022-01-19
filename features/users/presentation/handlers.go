@@ -93,3 +93,54 @@ func (uH *UsersHandler) GetUserData(c echo.Context) error {
 		"data":    response.FromCore(resp),
 	})
 }
+
+func (uH *UsersHandler) EditUserData(c echo.Context) error {
+	user := request.User{}
+	c.Bind(&user)
+	temp := middleware.ExtractClaim(c)
+	userID := temp["user_id"].(float64)
+	user.ID = int(userID)
+	err := uH.userBussiness.EditDataUser(request.ToCore(user))
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "success",
+	})
+}
+
+func (uH *UsersHandler) DeleteUserDataAdmin(c echo.Context) error {
+	var idstring string
+	echo.PathParamsBinder(c).String("id", &idstring)
+	id, _ := strconv.Atoi(idstring)
+	user := users.Core{
+		ID: id,
+	}
+	err := uH.userBussiness.DeleteDataUserbyId(user)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "success delete data",
+	})
+}
+
+func (uH *UsersHandler) DeleteUserDataUser(c echo.Context) error {
+	user := request.User{}
+	temp := middleware.ExtractClaim(c)
+	userID := temp["user_id"].(float64)
+	user.ID = int(userID)
+	err := uH.userBussiness.DeleteDataUserbyId(request.ToCore(user))
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "success",
+	})
+}
