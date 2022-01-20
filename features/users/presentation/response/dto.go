@@ -6,6 +6,9 @@ type User struct {
 	ID             int
 	Username       string
 	Email          string
+	Alamat         string
+	Gender         string
+	Phone          string
 	Follower       int
 	SumLike        int
 	SumComment     int
@@ -21,5 +24,8 @@ func FromCore(res users.Core) User {
 		SumLike:        res.SumLike,
 		SumComment:     res.SumComment,
 		ProfilePicture: res.ProfilePicture,
+		Alamat:         res.Alamat,
+		Gender:         res.Gender,
+		Phone:          res.Phone,
 	}
 }
