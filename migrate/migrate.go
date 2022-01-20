@@ -103,7 +103,7 @@ func AutoMigrate() {
 	}
 
 	comment2 := _comment_data.Comment{
-		Comment:   "Jawaban yang tidak menjawab",
+		Comment:   "Balasan dari 'Go emang didesain...'",
 		UserID:    3,
 		ThreadID:  1,
 		CommentID: 1,
@@ -113,6 +113,13 @@ func AutoMigrate() {
 		Comment:  "Viva RRQ",
 		UserID:   1,
 		ThreadID: 2,
+	}
+
+	comment4 := _comment_data.Comment{
+		Comment:   "Balasan dari 'Go emang didesain... V2'",
+		UserID:    3,
+		ThreadID:  1,
+		CommentID: 1,
 	}
 
 	like1 := _like_data.Like{
@@ -236,6 +243,10 @@ func AutoMigrate() {
 	}
 
 	if err := config.DB.Create(&comment3).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&comment4).Error; err != nil {
 		panic(err)
 	}
 

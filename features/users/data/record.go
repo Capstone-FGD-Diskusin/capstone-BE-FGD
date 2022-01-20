@@ -11,6 +11,9 @@ type User struct {
 	Email          string
 	Password       string
 	Username       string
+	Alamat         string
+	Gender         string
+	Phone          string
 	Follower       int
 	Following      int
 	SumLike        int
@@ -25,6 +28,9 @@ func fromCore(core users.Core) User {
 		Password:       core.Password,
 		Username:       core.Username,
 		ProfilePicture: core.ProfilePicture,
+		Alamat:         core.Alamat,
+		Gender:         core.Gender,
+		Phone:          core.Phone,
 	}
 }
 

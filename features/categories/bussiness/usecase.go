@@ -28,3 +28,8 @@ func (cu *categoriesUsecase) DeleteCategorybyId(data categories.Core) (err error
 	err = cu.categoryData.DeleteCategorybyId(data)
 	return
 }
+
+func (cu *categoriesUsecase) GetAllCategory(data categories.Core) (resp []categories.Core, err error) {
+	resp, err = cu.categoryData.SelectAllCategory(data)
+	return
+}
