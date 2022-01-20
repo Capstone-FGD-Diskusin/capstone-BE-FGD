@@ -79,3 +79,23 @@ func (ch *CommentsHandler) DeleteCommentbyId(c echo.Context) error {
 		"message": "data success di hapus",
 	})
 }
+
+func (ch *CommentsHandler) GetBalasanCommentbyId(c echo.Context) error {
+	var idstring string
+	echo.PathParamsBinder(c).String("id", &idstring)
+	id, _ := strconv.Atoi(idstring)
+	core := comments.Core{
+		CommentID: id,
+	}
+
+	resp, err := ch.commentBussiness.GetBalasanCommentbyId(core)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"data":    response.FromCoreSlice(resp),
+		"message": "data success di dapatkan",
+	})
+}

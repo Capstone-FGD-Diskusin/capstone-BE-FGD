@@ -77,3 +77,11 @@ func (cU *commentsUsecase) DeleteCommentbyThreadId(data comments.Core) (err erro
 	}
 	return err
 }
+
+func (cU *commentsUsecase) GetBalasanCommentbyId(data comments.Core) (resp []comments.Core, err error) {
+	resp, err = cU.commentData.SelectBalasanCommentbyId(data)
+	if err != nil {
+		return resp, err
+	}
+	return resp, err
+}

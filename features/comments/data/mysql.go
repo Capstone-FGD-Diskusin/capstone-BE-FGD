@@ -23,7 +23,7 @@ func (cr *mysqlCommentRepository) InsertComment(data comments.Core) (err error) 
 
 func (cr *mysqlCommentRepository) SelectCommentsThread(data comments.Core) (resp []comments.Core, err error) {
 	record := []Comment{}
-	err = cr.Conn.Limit(20).Offset(data.Page*20).Where("thread_id = ?", data.ThreadID).Find(&record).Error
+	err = cr.Conn.Limit(20).Offset(data.Page*20).Where("thread_id = ? AND comment_id = ?", data.ThreadID, 0).Find(&record).Error
 	if err != nil {
 		return resp, err
 	}
@@ -52,5 +52,17 @@ func (cr *mysqlCommentRepository) SelectCommentbyId(data comments.Core) (resp co
 func (cr *mysqlCommentRepository) DeleteCommentbyThreadId(data comments.Core) (err error) {
 	record := Comment{}
 	err = cr.Conn.Where("thread_id = ?", data.ThreadID).Delete(&record).Error
+	return
+}
+
+func (cr *mysqlCommentRepository) SelectBalasanCommentbyId(data comments.Core) (resp []comments.Core, err error) {
+	record := []Comment{}
+	err = cr.Conn.Where("comment_id = ?", data.CommentID).Find(&record).Error
+	if err != nil {
+		return resp, err
+	}
+	for _, value := range record {
+		resp = append(resp, ToCore(value))
+	}
 	return
 }

@@ -16,6 +16,7 @@ type Bussiness interface {
 	DeteleCommentThread(data Core) (err error)
 	GetCommentbyId(data Core) (resp Core, err error)
 	DeleteCommentbyThreadId(data Core) (err error)
+	GetBalasanCommentbyId(data Core) (resp []Core, err error)
 }
 
 type Data interface {
@@ -24,4 +25,5 @@ type Data interface {
 	DeleteCommentbyId(data Core) (err error)
 	SelectCommentbyId(data Core) (resp Core, err error)
 	DeleteCommentbyThreadId(data Core) (err error)
+	SelectBalasanCommentbyId(data Core) (resp []Core, err error)
 }
