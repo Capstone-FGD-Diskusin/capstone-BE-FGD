@@ -5,6 +5,9 @@ type Core struct {
 	Email          string
 	Password       string
 	Username       string
+	Alamat         string
+	Gender         string
+	Phone          string
 	Follower       int
 	SumLike        int
 	SumComment     int

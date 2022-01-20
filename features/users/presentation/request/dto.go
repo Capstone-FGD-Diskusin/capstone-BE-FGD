@@ -8,6 +8,9 @@ type User struct {
 	Password       string `gorm:"size:100" json:"password" form:"password"`
 	Username       string `json:"username" form:"username"`
 	ProfilePicture string `json:"profile_picture" form:"profile_picture"`
+	Alamat         string `json:"alamat" form:"alamat"`
+	Gender         string `json:"gender" form:"gender"`
+	Phone          string `json:"phone" form:"phone"`
 }
 
 func ToCore(req User) users.Core {
@@ -17,5 +20,8 @@ func ToCore(req User) users.Core {
 		Email:          req.Email,
 		Password:       req.Password,
 		ProfilePicture: req.ProfilePicture,
+		Alamat:         req.Alamat,
+		Gender:         req.Gender,
+		Phone:          req.Phone,
 	}
 }
