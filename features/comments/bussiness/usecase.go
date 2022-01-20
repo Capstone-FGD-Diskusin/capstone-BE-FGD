@@ -104,19 +104,37 @@ func (cU *commentsUsecase) SearchThread(data comments.Core) (resp []comments.Cor
 		Search: data.Search,
 	}
 	listThread, err := cU.threadBussiness.SearchThread(threadCore)
+
+	if err != nil {
+		return resp, err
+	}
+
 	listThreadID := []int{}
 	// fmt.Println(listThread)
 	for _, value := range listThread {
 		listThreadID = append(listThreadID, value.ID)
 	}
 
+	commentCore := comments.Core{
+		Search: data.Search,
+	}
+	listThread2, err := cU.commentData.SearchThreadbyComment(commentCore)
+	for _, value := range listThread2 {
+		listThreadID = append(listThreadID, value.ThreadID)
+	}
+
 	listThreadID = unique(listThreadID)
 	fmt.Println(listThreadID)
 
 	for _, value := range listThreadID {
+		if value == 0 {
+			continue
+		}
+
 		threadCore := threads.Core{
 			ID: value,
 		}
+
 		threadCore, err = cU.threadBussiness.GetThreadbyID(threadCore)
 		thread := comments.Thread{
 			ID:          threadCore.ID,

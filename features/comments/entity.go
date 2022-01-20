@@ -39,4 +39,5 @@ type Data interface {
 	SelectCommentbyId(data Core) (resp Core, err error)
 	DeleteCommentbyThreadId(data Core) (err error)
 	SelectBalasanCommentbyId(data Core) (resp []Core, err error)
+	SearchThreadbyComment(data Core) (resp []Core, err error)
 }
