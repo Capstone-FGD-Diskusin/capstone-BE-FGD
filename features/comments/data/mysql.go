@@ -23,7 +23,7 @@ func (cr *mysqlCommentRepository) InsertComment(data comments.Core) (err error) 
 
 func (cr *mysqlCommentRepository) SelectCommentsThread(data comments.Core) (resp []comments.Core, err error) {
 	record := []Comment{}
-	err = cr.Conn.Limit(20).Offset(data.Page*20).Where("thread_id = ?", data.ThreadID).Find(&record).Error
+	err = cr.Conn.Limit(20).Offset(data.Page*20).Where("thread_id = ? AND comment_id = ?", data.ThreadID, 0).Find(&record).Error
 	if err != nil {
 		return resp, err
 	}
