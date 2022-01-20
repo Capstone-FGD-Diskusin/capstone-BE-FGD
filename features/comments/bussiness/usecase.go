@@ -2,6 +2,7 @@ package bussiness
 
 import (
 	"errors"
+	"fmt"
 
 	"github.com/dragranzer/capstone-BE-FGD/features/comments"
 	"github.com/dragranzer/capstone-BE-FGD/features/threads"
@@ -17,6 +18,18 @@ func NewCommentBussiness(cD comments.Data, tB threads.Bussiness) comments.Bussin
 		commentData:     cD,
 		threadBussiness: tB,
 	}
+}
+
+func unique(intSlice []int) []int {
+	keys := make(map[int]bool)
+	list := []int{}
+	for _, entry := range intSlice {
+		if _, value := keys[entry]; !value {
+			keys[entry] = true
+			list = append(list, entry)
+		}
+	}
+	return list
 }
 
 func (cU *commentsUsecase) AddComment(data comments.Core) (err error) {
@@ -80,6 +93,43 @@ func (cU *commentsUsecase) DeleteCommentbyThreadId(data comments.Core) (err erro
 
 func (cU *commentsUsecase) GetBalasanCommentbyId(data comments.Core) (resp []comments.Core, err error) {
 	resp, err = cU.commentData.SelectBalasanCommentbyId(data)
+	if err != nil {
+		return resp, err
+	}
+	return resp, err
+}
+
+func (cU *commentsUsecase) SearchThread(data comments.Core) (resp []comments.Core, err error) {
+	threadCore := threads.Core{
+		Search: data.Search,
+	}
+	listThread, err := cU.threadBussiness.SearchThread(threadCore)
+	listThreadID := []int{}
+	// fmt.Println(listThread)
+	for _, value := range listThread {
+		listThreadID = append(listThreadID, value.ID)
+	}
+
+	listThreadID = unique(listThreadID)
+	fmt.Println(listThreadID)
+
+	for _, value := range listThreadID {
+		threadCore := threads.Core{
+			ID: value,
+		}
+		threadCore, err = cU.threadBussiness.GetThreadbyID(threadCore)
+		thread := comments.Thread{
+			ID:          threadCore.ID,
+			Title:       threadCore.Title,
+			Description: threadCore.Description,
+			UserID:      threadCore.UserID,
+			ImgUrl:      threadCore.ImgUrl,
+		}
+		resp = append(resp, comments.Core{
+			Thread: thread,
+		})
+	}
+
 	if err != nil {
 		return resp, err
 	}

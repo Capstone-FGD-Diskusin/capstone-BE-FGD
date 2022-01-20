@@ -11,6 +11,16 @@ type Comment struct {
 	CommentID int
 }
 
+type Thread struct {
+	ID            int
+	Title         string
+	Description   string
+	UserID        int
+	Like          int
+	JumlahComment int
+	ImgUrl        string
+}
+
 func FromCore(res comments.Core) Comment {
 	return Comment{
 		ID:        res.ID,
@@ -26,6 +36,24 @@ func FromCoreSlice(data []comments.Core) []Comment {
 	resp := []Comment{}
 	for _, value := range data {
 		resp = append(resp, FromCore(value))
+	}
+	return resp
+}
+
+func FromCoreThread(res comments.Core) Thread {
+	return Thread{
+		ID:          res.Thread.ID,
+		Title:       res.Thread.Title,
+		Description: res.Thread.Description,
+		UserID:      res.Thread.UserID,
+		ImgUrl:      res.Thread.ImgUrl,
+	}
+}
+
+func FromCoreSliceThread(data []comments.Core) []Thread {
+	resp := []Thread{}
+	for _, value := range data {
+		resp = append(resp, FromCoreThread(value))
 	}
 	return resp
 }

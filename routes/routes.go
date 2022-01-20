@@ -22,6 +22,7 @@ func Setup() *echo.Echo {
 
 	e.GET("/thread/:id/comment", _presenter.CommentPresentation.GetCommentsThread)
 	e.GET("/thread/comment/:id/balasan", _presenter.CommentPresentation.GetBalasanCommentbyId)
+	e.GET("/thread/search", _presenter.CommentPresentation.SearchThread)
 
 	e.POST("/category", _presenter.CategoryPresentation.AddCategory)
 	e.PUT("/category/:id", _presenter.CategoryPresentation.EditCategory)
