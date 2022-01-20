@@ -54,3 +54,15 @@ func (cr *mysqlCommentRepository) DeleteCommentbyThreadId(data comments.Core) (e
 	err = cr.Conn.Where("thread_id = ?", data.ThreadID).Delete(&record).Error
 	return
 }
+
+func (cr *mysqlCommentRepository) SelectBalasanCommentbyId(data comments.Core) (resp []comments.Core, err error) {
+	record := []Comment{}
+	err = cr.Conn.Where("comment_id = ?", data.CommentID).Find(&record).Error
+	if err != nil {
+		return resp, err
+	}
+	for _, value := range record {
+		resp = append(resp, ToCore(value))
+	}
+	return
+}
