@@ -39,3 +39,10 @@ func (ur *mysqlCategoryRepository) DeleteCategorybyId(data categories.Core) (err
 	err = ur.Conn.Where("id = ?", data.ID).Delete(&record).Error
 	return
 }
+
+func (ur *mysqlCategoryRepository) SelectAllCategory(data categories.Core) (resp []categories.Core, err error) {
+	record := []Category{}
+	err = ur.Conn.Find(&record).Error
+	resp = ToCoreSlice(record)
+	return
+}

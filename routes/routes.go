@@ -26,6 +26,7 @@ func Setup() *echo.Echo {
 	e.POST("/category", _presenter.CategoryPresentation.AddCategory)
 	e.PUT("/category/:id", _presenter.CategoryPresentation.EditCategory)
 	e.DELETE("/category/:id", _presenter.CategoryPresentation.DeleteCategorybyId)
+	e.GET("/category", _presenter.CategoryPresentation.GetAllCategory)
 
 	eJWT := e.Group("")
 	eJWT.Use(mid.JWT([]byte(config.ENV.JWT_SECRET)))

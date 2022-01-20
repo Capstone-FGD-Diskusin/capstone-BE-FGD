@@ -74,3 +74,19 @@ func (ch *CategorysHandler) DeleteCategorybyId(c echo.Context) error {
 		"message": "data berhasil dihapus",
 	})
 }
+
+func (ch *CategorysHandler) GetAllCategory(c echo.Context) error {
+	category := request.Category{}
+	resp, err := ch.categoryBussiness.GetAllCategory(request.ToCore(category))
+
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"data":    resp,
+		"message": "data berhasil didapatkan",
+	})
+}
