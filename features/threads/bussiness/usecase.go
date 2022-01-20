@@ -67,3 +67,8 @@ func (tu *threadsUsecase) DeleteThreadbyId(data threads.Core) (err error) {
 	err = tu.threadData.DeleteThreadbyId(data)
 	return
 }
+
+func (tu *threadsUsecase) SearchThread(data threads.Core) (resp []threads.Core, err error) {
+	resp, err = tu.threadData.SearchThread(data)
+	return
+}

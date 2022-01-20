@@ -66,3 +66,10 @@ func (cr *mysqlCommentRepository) SelectBalasanCommentbyId(data comments.Core) (
 	}
 	return
 }
+
+func (tr *mysqlCommentRepository) SearchThreadbyComment(data comments.Core) (resp []comments.Core, err error) {
+	record := []Comment{}
+	err = tr.Conn.Select("thread_id").Where("comment LIKE ? ", "%"+data.Search+"%").Find(&record).Error
+	resp = ToCoreSlice(record)
+	return
+}

@@ -8,6 +8,18 @@ type Core struct {
 	ImageUrl  string
 	CommentID int
 	Page      int
+	Search    string
+	Thread    Thread
+}
+
+type Thread struct {
+	ID            int
+	Title         string
+	Description   string
+	UserID        int
+	Like          int
+	JumlahComment int
+	ImgUrl        string
 }
 
 type Bussiness interface {
@@ -17,6 +29,7 @@ type Bussiness interface {
 	GetCommentbyId(data Core) (resp Core, err error)
 	DeleteCommentbyThreadId(data Core) (err error)
 	GetBalasanCommentbyId(data Core) (resp []Core, err error)
+	SearchThread(data Core) (resp []Core, err error)
 }
 
 type Data interface {
@@ -26,4 +39,5 @@ type Data interface {
 	SelectCommentbyId(data Core) (resp Core, err error)
 	DeleteCommentbyThreadId(data Core) (err error)
 	SelectBalasanCommentbyId(data Core) (resp []Core, err error)
+	SearchThreadbyComment(data Core) (resp []Core, err error)
 }

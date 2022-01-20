@@ -99,3 +99,22 @@ func (ch *CommentsHandler) GetBalasanCommentbyId(c echo.Context) error {
 		"message": "data success di dapatkan",
 	})
 }
+
+func (ch *CommentsHandler) SearchThread(c echo.Context) error {
+	comment := request.Comment{}
+	c.Bind(&comment)
+	core := comments.Core{
+		Search: comment.Search,
+	}
+
+	resp, err := ch.commentBussiness.SearchThread(core)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"data":    response.FromCoreSliceThread(resp),
+		"message": "data success di dapatkan",
+	})
+}

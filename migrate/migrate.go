@@ -96,6 +96,13 @@ func AutoMigrate() {
 		Like:        2,
 	}
 
+	thread3 := _thread_data.Thread{
+		Title:       "Google",
+		Description: "Google merupakan perusahaan raksasa yang bergerak pada bidang IT",
+		UserID:      2,
+		Like:        2,
+	}
+
 	comment1 := _comment_data.Comment{
 		Comment:  "GO emang didesain seperti itu gan",
 		UserID:   2,
@@ -231,6 +238,10 @@ func AutoMigrate() {
 	}
 
 	if err := config.DB.Create(&thread2).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&thread3).Error; err != nil {
 		panic(err)
 	}
 

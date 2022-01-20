@@ -75,3 +75,10 @@ func (tr *mysqlThreadRepository) DeleteThreadbyId(data threads.Core) (err error)
 	err = tr.Conn.Where("id = ?", data.ID).Delete(&record).Error
 	return
 }
+
+func (tr *mysqlThreadRepository) SearchThread(data threads.Core) (resp []threads.Core, err error) {
+	record := []Thread{}
+	err = tr.Conn.Select("id").Where("title LIKE ? ", "%"+data.Search+"%").Or("description LIKE ? ", "%"+data.Search+"%").Find(&record).Error
+	resp = ToCoreSlice(record)
+	return
+}
