@@ -1,8 +1,9 @@
 package followers
 
 type Core struct {
-	FollowingID int
-	FollowedID  int
+	FollowingID  int
+	FollowedID   int
+	NameFollowed string
 }
 
 type Bussiness interface {
