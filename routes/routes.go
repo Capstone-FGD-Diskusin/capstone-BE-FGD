@@ -41,6 +41,7 @@ func Setup() *echo.Echo {
 	eJWT.POST("/user/follow", _presenter.FollowerPresentation.Follow)
 	eJWT.DELETE("/user/follow", _presenter.FollowerPresentation.Unfollow)
 	eJWT.GET("/user/following", _presenter.FollowerPresentation.GetFollowing)
+	eJWT.GET("/user/followed", _presenter.FollowerPresentation.GetFollowed)
 
 	// eJWT.GET("/thread/homepage", _presenter.ThreadPresentation.GetThreadHome)
 	eJWT.POST("/thread", _presenter.ThreadPresentation.AddThread)

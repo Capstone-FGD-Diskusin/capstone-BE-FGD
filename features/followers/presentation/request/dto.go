@@ -13,3 +13,11 @@ func ToCore(req Follow, followingId int) followers.Core {
 		FollowingID: followingId,
 	}
 }
+
+func ToCoreFollowed(req Follow, followingId int) followers.Core {
+
+	return followers.Core{
+		FollowedID:  followingId,
+		FollowingID: req.FollowedID,
+	}
+}

@@ -73,3 +73,24 @@ func (fu *followersUsecase) GetFollowing(data followers.Core) (resp []followers.
 	resp = listFollower
 	return resp, err
 }
+
+func (fu *followersUsecase) GetFollowed(data followers.Core) (resp []followers.Core, err error) {
+	fmt.Println(data)
+	// listFollowedID :=
+	listFollowingID, err := fu.followerData.SelectFollowed(data)
+	fmt.Println(listFollowingID)
+	listFollower := []followers.Core{}
+	for _, value := range listFollowingID {
+		coreUser := users.Core{
+			ID: value.FollowingID,
+		}
+		coreUser, err = fu.userBussiness.GetProfileData(coreUser)
+		listFollower = append(listFollower, followers.Core{
+			FollowingID:  value.FollowingID,
+			FollowedID:   value.FollowedID,
+			NameFollowed: coreUser.Username,
+		})
+	}
+	resp = listFollower
+	return resp, err
+}

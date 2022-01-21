@@ -77,3 +77,21 @@ func (fh *FollowersHandler) GetFollowing(c echo.Context) error {
 		"message":    "request berhasil",
 	})
 }
+
+func (fh *FollowersHandler) GetFollowed(c echo.Context) error {
+	template := request.Follow{}
+	temp := middleware.ExtractClaim(c)
+	followedId := temp["user_id"].(float64)
+	resp, err := fh.followerBussiness.GetFollowed(request.ToCoreFollowed(template, int(followedId)))
+
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"IDFollowed": response.FromCoreSliceFollowed(resp),
+		"message":    "request berhasil",
+	})
+}

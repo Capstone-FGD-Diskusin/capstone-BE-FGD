@@ -42,3 +42,13 @@ func (fr *mysqlFollowerRepository) SelectFollowing(data followers.Core) (resp []
 	resp = toCoreList(listFollowing)
 	return resp, err
 }
+
+func (fr *mysqlFollowerRepository) SelectFollowed(data followers.Core) (resp []followers.Core, err error) {
+	recordData := fromCore(data)
+	// fmt.Println(recordData)
+	listFollowed := []Follower{}
+	err = fr.Conn.Where("followed_id = ?", recordData.FollowedID).Find(&listFollowed).Error
+	// fmt.Println(listFollowed)
+	resp = toCoreList(listFollowed)
+	return resp, err
+}
