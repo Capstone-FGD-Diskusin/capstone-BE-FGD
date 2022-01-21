@@ -15,7 +15,6 @@ type User struct {
 
 func ToCore(req User) users.Core {
 	return users.Core{
-		ID:             req.ID,
 		Username:       req.Username,
 		Email:          req.Email,
 		Password:       req.Password,

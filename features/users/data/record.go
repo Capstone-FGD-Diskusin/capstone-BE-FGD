@@ -19,6 +19,7 @@ type User struct {
 	SumLike        int
 	SumComment     int
 	ProfilePicture string
+	Role           string
 	CreatedAt      time.Time
 }
 

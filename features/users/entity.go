@@ -12,6 +12,7 @@ type Core struct {
 	SumLike        int
 	SumComment     int
 	ProfilePicture string
+	Role           string
 }
 
 type Bussiness interface {
