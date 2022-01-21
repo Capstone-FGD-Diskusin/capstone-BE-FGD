@@ -6,19 +6,22 @@ import (
 	"github.com/dragranzer/capstone-BE-FGD/features/categories"
 	"github.com/dragranzer/capstone-BE-FGD/features/followers"
 	"github.com/dragranzer/capstone-BE-FGD/features/threads"
+	"github.com/dragranzer/capstone-BE-FGD/features/users"
 )
 
 type threadsUsecase struct {
 	followerBussiness followers.Bussiness
 	threadData        threads.Data
 	categoryBussiness categories.Bussiness
+	userBussiness     users.Bussiness
 }
 
-func NewThreadBussiness(fB followers.Bussiness, tD threads.Data, cB categories.Bussiness) threads.Bussiness {
+func NewThreadBussiness(fB followers.Bussiness, tD threads.Data, cB categories.Bussiness, uB users.Bussiness) threads.Bussiness {
 	return &threadsUsecase{
 		followerBussiness: fB,
 		threadData:        tD,
 		categoryBussiness: cB,
+		userBussiness:     uB,
 	}
 }
 
@@ -47,7 +50,15 @@ func (tu *threadsUsecase) GetThreadHome(data threads.Core) (resp []threads.Core,
 		if err != nil {
 			continue
 		}
+		coreUser := users.Core{
+			ID: value.UserID,
+		}
+		userName, err := tu.userBussiness.GetProfileData(coreUser)
+		if err != nil {
+			continue
+		}
 		// fmt.Println(categoryName)
+		resp[key].UserName = userName.Username
 		resp[key].CategoryName = categoryName.Name
 	}
 	if err != nil {
@@ -82,6 +93,15 @@ func (tu *threadsUsecase) GetThreadbyID(data threads.Core) (resp threads.Core, e
 	if err != nil {
 		return
 	}
+	coreUser := users.Core{
+		ID: resp.UserID,
+	}
+	userName, err := tu.userBussiness.GetProfileData(coreUser)
+	if err != nil {
+		return
+	}
+	// fmt.Println(categoryName)
+	resp.UserName = userName.Username
 	// fmt.Println(categoryName)
 	resp.CategoryName = categoryName.Name
 	return
@@ -118,7 +138,15 @@ func (tu *threadsUsecase) SearchThread(data threads.Core) (resp []threads.Core, 
 		if err != nil {
 			continue
 		}
+		coreUser := users.Core{
+			ID: value.UserID,
+		}
+		userName, err := tu.userBussiness.GetProfileData(coreUser)
+		if err != nil {
+			continue
+		}
 		// fmt.Println(categoryName)
+		resp[key].UserName = userName.Username
 		resp[key].CategoryName = categoryName.Name
 	}
 	if err != nil {
@@ -138,7 +166,15 @@ func (tu *threadsUsecase) GetAllThread(data threads.Core) (resp []threads.Core, 
 		if err != nil {
 			continue
 		}
+		coreUser := users.Core{
+			ID: value.UserID,
+		}
+		userName, err := tu.userBussiness.GetProfileData(coreUser)
+		if err != nil {
+			continue
+		}
 		// fmt.Println(categoryName)
+		resp[key].UserName = userName.Username
 		resp[key].CategoryName = categoryName.Name
 	}
 	if err != nil {
@@ -158,7 +194,15 @@ func (tu *threadsUsecase) GetThreadUser(data threads.Core) (resp []threads.Core,
 		if err != nil {
 			continue
 		}
+		coreUser := users.Core{
+			ID: value.UserID,
+		}
+		userName, err := tu.userBussiness.GetProfileData(coreUser)
+		if err != nil {
+			continue
+		}
 		// fmt.Println(categoryName)
+		resp[key].UserName = userName.Username
 		resp[key].CategoryName = categoryName.Name
 	}
 	if err != nil {

@@ -17,6 +17,7 @@ type Thread struct {
 	ImgUrl        string
 	IsLiked       bool
 	CategoryName  string
+	UserName      string
 }
 
 type Bussiness interface {
