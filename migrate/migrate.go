@@ -92,10 +92,11 @@ func AutoMigrate() {
 
 	pass4, _ := HashPassword("pass4")
 	user4 := _user_data.User{
-		Username: "Moderator1",
-		Email:    "mod1@gmail.com",
-		Password: pass4,
-		Role:     "moderator",
+		Username:   "Moderator1",
+		Email:      "mod1@gmail.com",
+		Password:   pass4,
+		Role:       "moderator",
+		CategoryID: 1,
 	}
 
 	pass5, _ := HashPassword("pass5")

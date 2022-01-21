@@ -60,5 +60,7 @@ func Setup() *echo.Echo {
 	eJWT.GET("/message/admin", _presenter.MessagePresentation.GetMessagebyAdminID)
 	eJWT.DELETE("/message/:id", _presenter.MessagePresentation.DeleteMessagebyId)
 
+	eJWT.PUT("/user/upgrade", _presenter.UserPresentation.UpgradeUserToModerator)
+
 	return e
 }

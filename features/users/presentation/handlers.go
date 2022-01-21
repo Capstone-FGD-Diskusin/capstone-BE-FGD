@@ -144,3 +144,20 @@ func (uH *UsersHandler) DeleteUserDataUser(c echo.Context) error {
 		"message": "success",
 	})
 }
+
+func (uH *UsersHandler) UpgradeUserToModerator(c echo.Context) error {
+	user := request.UpgradeUser{}
+	c.Bind(&user)
+	temp := middleware.ExtractClaim(c)
+	userID := temp["user_id"].(float64)
+	user.AdminID = int(userID)
+	err := uH.userBussiness.UpgradeToModerator(request.ToCoreUpgrade(user))
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "success",
+	})
+}

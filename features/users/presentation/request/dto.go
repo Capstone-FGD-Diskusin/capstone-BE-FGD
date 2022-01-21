@@ -13,6 +13,12 @@ type User struct {
 	Phone          string `json:"phone" form:"phone"`
 }
 
+type UpgradeUser struct {
+	ID         int `json:"id" form:"id"`
+	CategoryID int `json:"category_id" form:"category_id"`
+	AdminID    int
+}
+
 func ToCore(req User) users.Core {
 	return users.Core{
 		Username:       req.Username,
@@ -22,5 +28,13 @@ func ToCore(req User) users.Core {
 		Alamat:         req.Alamat,
 		Gender:         req.Gender,
 		Phone:          req.Phone,
+	}
+}
+
+func ToCoreUpgrade(req UpgradeUser) users.Core {
+	return users.Core{
+		ID:         req.ID,
+		CategoryID: req.CategoryID,
+		AdminID:    req.AdminID,
 	}
 }
