@@ -45,5 +45,6 @@ func (a *User) toCore() users.Core {
 		ProfilePicture: a.ProfilePicture,
 		SumLike:        a.SumLike,
 		SumComment:     a.SumComment,
+		Role:           a.Role,
 	}
 }
