@@ -16,6 +16,7 @@ type Thread struct {
 	JumlahComment int
 	ImgUrl        string
 	IsLiked       bool
+	CategoryName  string
 }
 
 type Bussiness interface {

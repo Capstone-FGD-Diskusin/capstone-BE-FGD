@@ -8,6 +8,8 @@ type Core struct {
 	Like           int
 	JumlahComment  int
 	ImgUrl         string
+	CategoryID     int
+	CategoryName   string
 	ListFollowedID []int
 	OwnerID        int
 	Page           int
@@ -23,6 +25,8 @@ type Bussiness interface {
 	IncrementComment(data Core) (err error)
 	DeleteThreadbyId(data Core) (err error)
 	SearchThread(data Core) (resp []Core, err error)
+	GetAllThread(data Core) (resp []Core, err error)
+	GetThreadUser(data Core) (resp []Core, err error)
 }
 
 type Data interface {
@@ -34,4 +38,6 @@ type Data interface {
 	UpdateCommentbyOne(data Core) (err error)
 	DeleteThreadbyId(data Core) (err error)
 	SearchThread(data Core) (resp []Core, err error)
+	SelectThreadAll(data Core) (resp []Core, err error)
+	SelectThreadUser(data Core) (resp []Core, err error)
 }

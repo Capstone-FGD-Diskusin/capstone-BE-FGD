@@ -24,6 +24,7 @@ func FromCore(data threads.Core) Thread {
 		Description: data.Description,
 		UserID:      data.UserID,
 		ImgUrl:      data.ImgUrl,
+		CategoryID:  data.CategoryID,
 	}
 }
 
@@ -36,6 +37,7 @@ func ToCore(thread Thread) threads.Core {
 		Like:          thread.Like,
 		JumlahComment: thread.JumlahComment,
 		ImgUrl:        thread.ImgUrl,
+		CategoryID:    thread.CategoryID,
 	}
 }
 

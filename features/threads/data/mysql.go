@@ -1,6 +1,8 @@
 package data
 
 import (
+	"fmt"
+
 	"github.com/dragranzer/capstone-BE-FGD/features/threads"
 	"gorm.io/gorm"
 )
@@ -19,7 +21,7 @@ func (tr *mysqlThreadRepository) SelectThreadHome(data threads.Core) (resp []thr
 	// fmt.Println(data)
 	record := []Thread{}
 	err = tr.Conn.Limit(20).Offset(data.Page*20).Where("user_id IN ?", data.ListFollowedID).Find(&record).Error
-	// fmt.Println(record)
+	fmt.Println("Select Thread Home  ", record)
 	resp = ToCoreSlice(record)
 	return
 }
@@ -79,6 +81,20 @@ func (tr *mysqlThreadRepository) DeleteThreadbyId(data threads.Core) (err error)
 func (tr *mysqlThreadRepository) SearchThread(data threads.Core) (resp []threads.Core, err error) {
 	record := []Thread{}
 	err = tr.Conn.Select("id").Where("title LIKE ? ", "%"+data.Search+"%").Or("description LIKE ? ", "%"+data.Search+"%").Find(&record).Error
+	resp = ToCoreSlice(record)
+	return
+}
+
+func (tr *mysqlThreadRepository) SelectThreadAll(data threads.Core) (resp []threads.Core, err error) {
+	record := []Thread{}
+	err = tr.Conn.Limit(20).Offset(data.Page * 20).Find(&record).Error
+	resp = ToCoreSlice(record)
+	return
+}
+
+func (tr *mysqlThreadRepository) SelectThreadUser(data threads.Core) (resp []threads.Core, err error) {
+	record := []Thread{}
+	err = tr.Conn.Limit(20).Offset(data.Page*20).Where("user_id = ?", data.UserID).Find(&record).Error
 	resp = ToCoreSlice(record)
 	return
 }

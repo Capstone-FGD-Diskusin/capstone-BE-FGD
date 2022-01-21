@@ -10,6 +10,7 @@ type Thread struct {
 	Like          int
 	JumlahComment int
 	ImgUrl        string
+	CategoryName  string
 }
 
 func FromCore(res threads.Core) Thread {
@@ -21,6 +22,7 @@ func FromCore(res threads.Core) Thread {
 		Like:          res.Like,
 		JumlahComment: res.JumlahComment,
 		ImgUrl:        res.ImgUrl,
+		CategoryName:  res.CategoryName,
 	}
 }
 
