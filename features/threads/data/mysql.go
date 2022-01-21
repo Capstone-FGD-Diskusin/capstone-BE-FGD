@@ -82,3 +82,10 @@ func (tr *mysqlThreadRepository) SearchThread(data threads.Core) (resp []threads
 	resp = ToCoreSlice(record)
 	return
 }
+
+func (tr *mysqlThreadRepository) SelectThreadAll(data threads.Core) (resp []threads.Core, err error) {
+	record := []Thread{}
+	err = tr.Conn.Limit(20).Offset(data.Page * 20).Find(&record).Error
+	resp = ToCoreSlice(record)
+	return
+}

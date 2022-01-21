@@ -83,3 +83,19 @@ func (th *ThreadsHandler) GetThread(c echo.Context) error {
 		"message": "ini dia threadnya :)",
 	})
 }
+
+func (th *ThreadsHandler) GetThreadAll(c echo.Context) error {
+	thread := request.Request{}
+	c.Bind(&thread)
+	resp, err := th.threadBussiness.GetAllThread(request.ToCore(thread))
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"data":    response.FromCoreSlice(resp),
+		"message": "ini dia threadnya :)",
+	})
+}

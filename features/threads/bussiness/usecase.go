@@ -72,3 +72,8 @@ func (tu *threadsUsecase) SearchThread(data threads.Core) (resp []threads.Core, 
 	resp, err = tu.threadData.SearchThread(data)
 	return
 }
+
+func (tu *threadsUsecase) GetAllThread(data threads.Core) (resp []threads.Core, err error) {
+	resp, err = tu.threadData.SelectThreadAll(data)
+	return
+}

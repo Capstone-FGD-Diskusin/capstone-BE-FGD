@@ -23,6 +23,7 @@ type Bussiness interface {
 	IncrementComment(data Core) (err error)
 	DeleteThreadbyId(data Core) (err error)
 	SearchThread(data Core) (resp []Core, err error)
+	GetAllThread(data Core) (resp []Core, err error)
 }
 
 type Data interface {
@@ -34,4 +35,5 @@ type Data interface {
 	UpdateCommentbyOne(data Core) (err error)
 	DeleteThreadbyId(data Core) (err error)
 	SearchThread(data Core) (resp []Core, err error)
+	SelectThreadAll(data Core) (resp []Core, err error)
 }
