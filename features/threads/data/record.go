@@ -24,6 +24,7 @@ func FromCore(data threads.Core) Thread {
 		Description: data.Description,
 		UserID:      data.UserID,
 		ImgUrl:      data.ImgUrl,
+		CategoryID:  data.CategoryID,
 	}
 }
 

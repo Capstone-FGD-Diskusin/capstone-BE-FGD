@@ -11,6 +11,7 @@ type Bussiness interface {
 	DeleteCategorybyId(data Core) (err error)
 	GetAllCategory(data Core) (resp []Core, err error)
 	GetCategorybyId(data Core) (resp Core, err error)
+	GetCategorybyName(data Core) (resp Core, err error)
 }
 
 type Data interface {
@@ -19,4 +20,5 @@ type Data interface {
 	DeleteCategorybyId(data Core) (err error)
 	SelectAllCategory(data Core) (resp []Core, err error)
 	SelectCategorybyId(data Core) (resp Core, err error)
+	SelectCategorybyName(data Core) (resp Core, err error)
 }

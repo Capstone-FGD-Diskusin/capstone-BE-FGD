@@ -58,6 +58,14 @@ func (tu *threadsUsecase) GetThreadHome(data threads.Core) (resp []threads.Core,
 }
 
 func (tu *threadsUsecase) AddThread(data threads.Core) (err error) {
+	categoryCore := categories.Core{
+		Name: data.CategoryName,
+	}
+	categoryID, err := tu.categoryBussiness.GetCategorybyName(categoryCore)
+	if err != nil {
+		return
+	}
+	data.CategoryID = categoryID.ID
 	err = tu.threadData.InsertThread(data)
 	return
 }

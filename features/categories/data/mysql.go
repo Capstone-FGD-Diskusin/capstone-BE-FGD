@@ -53,3 +53,10 @@ func (ur *mysqlCategoryRepository) SelectCategorybyId(data categories.Core) (res
 	resp = record.toCore()
 	return
 }
+
+func (ur *mysqlCategoryRepository) SelectCategorybyName(data categories.Core) (resp categories.Core, err error) {
+	record := Category{}
+	err = ur.Conn.Where("name = ?", data.Name).Find(&record).Error
+	resp = record.toCore()
+	return
+}

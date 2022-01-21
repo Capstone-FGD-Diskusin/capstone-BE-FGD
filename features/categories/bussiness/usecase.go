@@ -38,3 +38,8 @@ func (cu *categoriesUsecase) GetCategorybyId(data categories.Core) (resp categor
 	resp, err = cu.categoryData.SelectCategorybyId(data)
 	return
 }
+
+func (cu *categoriesUsecase) GetCategorybyName(data categories.Core) (resp categories.Core, err error) {
+	resp, err = cu.categoryData.SelectCategorybyName(data)
+	return
+}
