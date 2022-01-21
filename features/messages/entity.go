@@ -1,13 +1,18 @@
 package messages
 
 type Core struct {
-	ID          int
-	Text        string
-	ThreadID    int
-	CategoryID  int
-	CommentID   int
-	ModeratorID int
-	AdminID     int
+	ID            int
+	Text          string
+	ThreadID      int
+	ThreadTitle   string
+	CategoryID    int
+	CategoryName  string
+	CommentID     int
+	Comment       string
+	ModeratorID   int
+	ModeratorName string
+	AdminID       int
+	AdminName     string
 }
 
 type Bussiness interface {

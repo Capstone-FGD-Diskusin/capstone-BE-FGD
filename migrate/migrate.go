@@ -157,12 +157,12 @@ func AutoMigrate() {
 	}
 
 	message1 := _message_data.Message{
-		Text:        "Message 1 merupakan blablabla",
-		CategoryID:  3,
-		ThreadID:    1,
-		CommentID:   0,
-		AdminID:     1,
-		ModeratorID: 1,
+		Text:          "Message 1 merupakan blablabla",
+		CategoryName:  "Computer",
+		ThreadID:      1,
+		CommentID:     0,
+		AdminID:       5,
+		ModeratorName: "Moderator1",
 	}
 
 	like1 := _like_data.Like{

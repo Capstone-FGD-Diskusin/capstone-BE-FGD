@@ -5,6 +5,7 @@ import (
 
 	"github.com/dragranzer/capstone-BE-FGD/features/messages"
 	"github.com/dragranzer/capstone-BE-FGD/features/messages/presentation/request"
+	"github.com/dragranzer/capstone-BE-FGD/features/messages/presentation/response"
 	"github.com/dragranzer/capstone-BE-FGD/middleware"
 	"github.com/labstack/echo/v4"
 )
@@ -35,5 +36,24 @@ func (mh *MessagesHandler) SendMessageToAdmin(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "data success di masukkan",
+	})
+}
+
+func (mh *MessagesHandler) GetMessagebyAdminID(c echo.Context) error {
+	message := request.Message{}
+	temp := middleware.ExtractClaim(c)
+	AdminID := temp["user_id"].(float64)
+	message.AdminID = int(AdminID)
+	resp, err := mh.messageBussiness.GetMessagesbyAdminID(request.ToCore(message))
+
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"data":    response.FromCoreSlice(resp),
+		"message": "request berhasil",
 	})
 }
