@@ -24,6 +24,7 @@ type Bussiness interface {
 	DeleteThreadbyId(data Core) (err error)
 	SearchThread(data Core) (resp []Core, err error)
 	GetAllThread(data Core) (resp []Core, err error)
+	GetThreadUser(data Core) (resp []Core, err error)
 }
 
 type Data interface {
@@ -36,4 +37,5 @@ type Data interface {
 	DeleteThreadbyId(data Core) (err error)
 	SearchThread(data Core) (resp []Core, err error)
 	SelectThreadAll(data Core) (resp []Core, err error)
+	SelectThreadUser(data Core) (resp []Core, err error)
 }

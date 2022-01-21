@@ -89,3 +89,10 @@ func (tr *mysqlThreadRepository) SelectThreadAll(data threads.Core) (resp []thre
 	resp = ToCoreSlice(record)
 	return
 }
+
+func (tr *mysqlThreadRepository) SelectThreadUser(data threads.Core) (resp []threads.Core, err error) {
+	record := []Thread{}
+	err = tr.Conn.Limit(20).Offset(data.Page*20).Where("user_id = ?", data.UserID).Find(&record).Error
+	resp = ToCoreSlice(record)
+	return
+}

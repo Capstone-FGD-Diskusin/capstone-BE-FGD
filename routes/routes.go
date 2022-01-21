@@ -19,6 +19,7 @@ func Setup() *echo.Echo {
 	e.POST("/user/login", _presenter.UserPresentation.LoginUser)
 	e.GET("/user/:id", _presenter.UserPresentation.GetUserData)
 	e.DELETE("/user/:id", _presenter.UserPresentation.DeleteUserDataAdmin)
+	e.GET("/user/:id/threads", _presenter.ThreadPresentation.GetThreadUser)
 
 	e.GET("/thread/:id/comment", _presenter.CommentPresentation.GetCommentsThread)
 	e.GET("/thread/comment/:id/balasan", _presenter.CommentPresentation.GetBalasanCommentbyId)

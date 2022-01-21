@@ -77,3 +77,8 @@ func (tu *threadsUsecase) GetAllThread(data threads.Core) (resp []threads.Core, 
 	resp, err = tu.threadData.SelectThreadAll(data)
 	return
 }
+
+func (tu *threadsUsecase) GetThreadUser(data threads.Core) (resp []threads.Core, err error) {
+	resp, err = tu.threadData.SelectThreadUser(data)
+	return
+}

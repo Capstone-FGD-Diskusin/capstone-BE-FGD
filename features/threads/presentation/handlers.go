@@ -1,6 +1,7 @@
 package presentation
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -88,6 +89,27 @@ func (th *ThreadsHandler) GetThreadAll(c echo.Context) error {
 	thread := request.Request{}
 	c.Bind(&thread)
 	resp, err := th.threadBussiness.GetAllThread(request.ToCore(thread))
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"data":    response.FromCoreSlice(resp),
+		"message": "ini dia threadnya :)",
+	})
+}
+
+func (th *ThreadsHandler) GetThreadUser(c echo.Context) error {
+	var idstring string
+	echo.PathParamsBinder(c).String("id", &idstring)
+	id, _ := strconv.Atoi(idstring)
+	thread := request.Request{
+		UserID: id,
+	}
+	fmt.Println(id)
+	resp, err := th.threadBussiness.GetThreadUser(request.ToCore(thread))
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
 			"message": err.Error(),

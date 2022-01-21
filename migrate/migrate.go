@@ -87,6 +87,7 @@ func AutoMigrate() {
 		Description: "Go merupakan bahasa yang dikembangkan oleh google, oleh karena itu...",
 		UserID:      2,
 		Like:        2,
+		CategoryID:  4,
 	}
 
 	thread2 := _thread_data.Thread{
@@ -94,6 +95,7 @@ func AutoMigrate() {
 		Description: "Walaupun heronya cuman itu itu aja tetapi...",
 		UserID:      3,
 		Like:        2,
+		CategoryID:  4,
 	}
 
 	thread3 := _thread_data.Thread{
@@ -101,6 +103,7 @@ func AutoMigrate() {
 		Description: "Google merupakan perusahaan raksasa yang bergerak pada bidang IT",
 		UserID:      2,
 		Like:        2,
+		CategoryID:  3,
 	}
 
 	comment1 := _comment_data.Comment{
@@ -192,6 +195,14 @@ func AutoMigrate() {
 
 	category2 := _category_data.Category{
 		Name: "Hiburan",
+	}
+
+	category3 := _category_data.Category{
+		Name: "Computer",
+	}
+
+	category4 := _category_data.Category{
+		Name: "Game",
 	}
 
 	follower1 := _follower_data.Follower{
@@ -314,6 +325,14 @@ func AutoMigrate() {
 	}
 
 	if err := config.DB.Create(&category2).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&category3).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&category4).Error; err != nil {
 		panic(err)
 	}
 

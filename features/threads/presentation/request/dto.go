@@ -18,6 +18,7 @@ func ToCore(req Request) threads.Core {
 	return threads.Core{
 		OwnerID: req.UserID,
 		Page:    req.Page,
+		UserID:  req.UserID,
 	}
 }
 
