@@ -36,6 +36,7 @@ func ToCore(thread Thread) threads.Core {
 		Like:          thread.Like,
 		JumlahComment: thread.JumlahComment,
 		ImgUrl:        thread.ImgUrl,
+		CategoryID:    thread.CategoryID,
 	}
 }
 

@@ -8,6 +8,8 @@ type Core struct {
 	Like           int
 	JumlahComment  int
 	ImgUrl         string
+	CategoryID     int
+	CategoryName   string
 	ListFollowedID []int
 	OwnerID        int
 	Page           int

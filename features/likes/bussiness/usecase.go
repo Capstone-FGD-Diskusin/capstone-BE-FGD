@@ -90,6 +90,7 @@ func (lu *likesUsecase) GetThreadHome(data likes.Core) (resp []likes.Core, err e
 			JumlahComment: value.JumlahComment,
 			ImgUrl:        value.ImgUrl,
 			IsLiked:       isLiked,
+			CategoryName:  value.CategoryName,
 		}
 		resp = append(resp, likes.Core{
 			Thread: thread,

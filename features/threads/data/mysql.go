@@ -1,6 +1,8 @@
 package data
 
 import (
+	"fmt"
+
 	"github.com/dragranzer/capstone-BE-FGD/features/threads"
 	"gorm.io/gorm"
 )
@@ -19,7 +21,7 @@ func (tr *mysqlThreadRepository) SelectThreadHome(data threads.Core) (resp []thr
 	// fmt.Println(data)
 	record := []Thread{}
 	err = tr.Conn.Limit(20).Offset(data.Page*20).Where("user_id IN ?", data.ListFollowedID).Find(&record).Error
-	// fmt.Println(record)
+	fmt.Println("Select Thread Home  ", record)
 	resp = ToCoreSlice(record)
 	return
 }

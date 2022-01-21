@@ -46,3 +46,10 @@ func (ur *mysqlCategoryRepository) SelectAllCategory(data categories.Core) (resp
 	resp = ToCoreSlice(record)
 	return
 }
+
+func (ur *mysqlCategoryRepository) SelectCategorybyId(data categories.Core) (resp categories.Core, err error) {
+	record := Category{}
+	err = ur.Conn.Where("id = ?", data.ID).Find(&record).Error
+	resp = record.toCore()
+	return
+}

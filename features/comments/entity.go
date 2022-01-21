@@ -20,6 +20,7 @@ type Thread struct {
 	Like          int
 	JumlahComment int
 	ImgUrl        string
+	CategoryName  string
 }
 
 type Bussiness interface {

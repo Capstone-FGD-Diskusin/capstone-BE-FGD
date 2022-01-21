@@ -19,6 +19,7 @@ type Thread struct {
 	Like          int
 	JumlahComment int
 	ImgUrl        string
+	CategoryName  string
 }
 
 func FromCore(res comments.Core) Comment {
@@ -42,11 +43,12 @@ func FromCoreSlice(data []comments.Core) []Comment {
 
 func FromCoreThread(res comments.Core) Thread {
 	return Thread{
-		ID:          res.Thread.ID,
-		Title:       res.Thread.Title,
-		Description: res.Thread.Description,
-		UserID:      res.Thread.UserID,
-		ImgUrl:      res.Thread.ImgUrl,
+		ID:           res.Thread.ID,
+		Title:        res.Thread.Title,
+		Description:  res.Thread.Description,
+		UserID:       res.Thread.UserID,
+		ImgUrl:       res.Thread.ImgUrl,
+		CategoryName: res.Thread.CategoryName,
 	}
 }
 

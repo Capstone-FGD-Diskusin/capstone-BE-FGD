@@ -137,11 +137,12 @@ func (cU *commentsUsecase) SearchThread(data comments.Core) (resp []comments.Cor
 
 		threadCore, err = cU.threadBussiness.GetThreadbyID(threadCore)
 		thread := comments.Thread{
-			ID:          threadCore.ID,
-			Title:       threadCore.Title,
-			Description: threadCore.Description,
-			UserID:      threadCore.UserID,
-			ImgUrl:      threadCore.ImgUrl,
+			ID:           threadCore.ID,
+			Title:        threadCore.Title,
+			Description:  threadCore.Description,
+			UserID:       threadCore.UserID,
+			ImgUrl:       threadCore.ImgUrl,
+			CategoryName: threadCore.CategoryName,
 		}
 		resp = append(resp, comments.Core{
 			Thread: thread,
