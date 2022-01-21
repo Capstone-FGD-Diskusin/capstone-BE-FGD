@@ -83,6 +83,19 @@ func (mu *messagesUsecase) GetMessagesbyAdminID(data messages.Core) (resp []mess
 }
 
 func (mu *messagesUsecase) DeleteMessagesbyId(data messages.Core) (err error) {
-	err = mu.messageData.InsertMessages(data)
+	userCore := users.Core{
+		ID: data.AdminID,
+	}
+	user, err := mu.userBussiness.GetProfileData(userCore)
+	if err != nil {
+		return
+	}
+	if user.Role != "admin" {
+		err = errors.New("jadi admin dulu yaaa :v")
+	}
+	if err != nil {
+		return
+	}
+	err = mu.messageData.DeleteMessagesbyId(data)
 	return
 }
