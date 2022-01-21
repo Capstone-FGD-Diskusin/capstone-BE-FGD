@@ -135,3 +135,12 @@ func (ur *mysqlUserRepository) DeleteDataUserbyId(data users.Core) (err error) {
 	err = ur.Conn.Where("id = ?", data.ID).Delete(&record).Error
 	return
 }
+
+func (ur *mysqlUserRepository) UpdateUserToModerator(data users.Core) (err error) {
+	err = ur.Conn.Model(&User{}).Where("id = ?", data.ID).Update("category_id", data.CategoryID).Error
+	if err != nil {
+		return err
+	}
+	err = ur.Conn.Model(&User{}).Where("id = ?", data.ID).Update("role", "moderator").Error
+	return
+}

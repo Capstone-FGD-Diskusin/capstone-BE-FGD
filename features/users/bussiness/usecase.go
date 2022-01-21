@@ -1,6 +1,9 @@
 package bussiness
 
 import (
+	"errors"
+	"fmt"
+
 	"github.com/dragranzer/capstone-BE-FGD/features/users"
 	"github.com/dragranzer/capstone-BE-FGD/middleware"
 	"golang.org/x/crypto/bcrypt"
@@ -81,5 +84,24 @@ func (uu *usersUsecase) EditDataUser(data users.Core) (err error) {
 
 func (uu *usersUsecase) DeleteDataUserbyId(data users.Core) (err error) {
 	err = uu.userData.DeleteDataUserbyId(data)
+	return
+}
+
+func (uu *usersUsecase) UpgradeToModerator(data users.Core) (err error) {
+	fmt.Println(data)
+	adminCore := users.Core{
+		ID: data.AdminID,
+	}
+	admin, err := uu.userData.SelectDatabyID(adminCore)
+	if err != nil {
+		return
+	}
+	if admin.Role != "admin" {
+		err = errors.New("jadi admin dulu yaaa :v")
+	}
+	if err != nil {
+		return
+	}
+	err = uu.userData.UpdateUserToModerator(data)
 	return
 }

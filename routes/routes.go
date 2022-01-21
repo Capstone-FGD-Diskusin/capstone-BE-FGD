@@ -56,5 +56,11 @@ func Setup() *echo.Echo {
 	eJWT.POST("/thread/comment", _presenter.CommentPresentation.AddComment)
 	eJWT.DELETE("/thread/comment", _presenter.CommentPresentation.DeleteCommentbyId)
 
+	eJWT.POST("/message", _presenter.MessagePresentation.SendMessageToAdmin)
+	eJWT.GET("/message/admin", _presenter.MessagePresentation.GetMessagebyAdminID)
+	eJWT.DELETE("/message/:id", _presenter.MessagePresentation.DeleteMessagebyId)
+
+	eJWT.PUT("/user/upgrade", _presenter.UserPresentation.UpgradeUserToModerator)
+
 	return e
 }

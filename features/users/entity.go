@@ -12,6 +12,9 @@ type Core struct {
 	SumLike        int
 	SumComment     int
 	ProfilePicture string
+	Role           string
+	CategoryID     int
+	AdminID        int
 }
 
 type Bussiness interface {
@@ -26,6 +29,7 @@ type Bussiness interface {
 	DecrementFollowing(data Core) (err error)
 	EditDataUser(data Core) (err error)
 	DeleteDataUserbyId(data Core) (err error)
+	UpgradeToModerator(data Core) (err error)
 }
 
 type Data interface {
@@ -41,4 +45,5 @@ type Data interface {
 	UpdateMinFollowingbyOne(data Core) (err error)
 	UpdateDataUser(data Core) (err error)
 	DeleteDataUserbyId(data Core) (err error)
+	UpdateUserToModerator(data Core) (err error)
 }
