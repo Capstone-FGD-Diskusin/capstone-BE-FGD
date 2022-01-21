@@ -37,6 +37,7 @@ func (fu *followersUsecase) Follow(data followers.Core) (err error) {
 }
 
 func (fu *followersUsecase) Unfollow(data followers.Core) (err error) {
+	fmt.Println("unfollow ", data)
 	err = fu.followerData.DeleteFollow(data)
 	if err != nil {
 		return err
