@@ -60,7 +60,7 @@ func Init() Presenter {
 	userBussiness := _user_bussiness.NewUserBussiness(userData)
 	categoryBussiness := _category_bussiness.NewCategoryBussiness(categoryData)
 	followerBussiness := _follower_bussiness.NewFollowerBussiness(followerData, userBussiness)
-	threadBussiness := _thread_bussiness.NewThreadBussiness(followerBussiness, threadData, categoryBussiness)
+	threadBussiness := _thread_bussiness.NewThreadBussiness(followerBussiness, threadData, categoryBussiness, userBussiness)
 	likeBussiness := _like_bussiness.NewLikeBussiness(likeData, userBussiness, threadBussiness)
 	commentBussiness := _comment_bussiness.NewCommentBussiness(commentData, threadBussiness)
 	favoriteBussiness := _favorite_bussiness.NewFavoriteBussiness(threadBussiness, userBussiness, commentBussiness, favoriteData, likeBussiness)

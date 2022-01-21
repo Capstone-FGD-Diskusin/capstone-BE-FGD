@@ -5,6 +5,7 @@ type Core struct {
 	Title          string
 	Description    string
 	UserID         int
+	UserName       string
 	Like           int
 	JumlahComment  int
 	ImgUrl         string

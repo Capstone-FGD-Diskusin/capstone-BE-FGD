@@ -12,6 +12,7 @@ type Thread struct {
 	ImgUrl        string
 	IsLiked       bool
 	CategoryName  string
+	UserName      string
 }
 
 func FromCore(res likes.Core) Thread {
@@ -25,6 +26,7 @@ func FromCore(res likes.Core) Thread {
 		ImgUrl:        res.Thread.ImgUrl,
 		IsLiked:       res.Thread.IsLiked,
 		CategoryName:  res.Thread.CategoryName,
+		UserName:      res.Thread.UserName,
 	}
 }
 
