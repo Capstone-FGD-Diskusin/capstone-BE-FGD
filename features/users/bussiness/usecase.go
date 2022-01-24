@@ -110,3 +110,8 @@ func (uu *usersUsecase) UploadImage(data users.Core) (err error) {
 
 	return
 }
+
+func (uu *usersUsecase) GetAllUser(data users.Core) (resp []users.Core, err error) {
+	resp, err = uu.userData.SelectAllUser(data)
+	return
+}

@@ -242,3 +242,19 @@ func (c *ClientUploader) UploadFile(file multipart.File, object string) error {
 
 	return nil
 }
+
+func (uH *UsersHandler) GetAllUser(c echo.Context) error {
+	user := request.User{}
+	c.Bind(&user)
+	core := request.ToCore(user)
+	resp, err := uH.userBussiness.GetAllUser(core)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "success",
+		"data":    response.FromCoreSlice(resp),
+	})
+}

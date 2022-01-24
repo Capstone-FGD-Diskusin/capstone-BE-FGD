@@ -11,6 +11,7 @@ type User struct {
 	Alamat         string `json:"alamat" form:"alamat"`
 	Gender         string `json:"gender" form:"gender"`
 	Phone          string `json:"phone" form:"phone"`
+	Page           int    `json:"page" form:"page"`
 }
 
 type UpgradeUser struct {
@@ -28,6 +29,7 @@ func ToCore(req User) users.Core {
 		Alamat:         req.Alamat,
 		Gender:         req.Gender,
 		Phone:          req.Phone,
+		Page:           req.Page,
 	}
 }
 

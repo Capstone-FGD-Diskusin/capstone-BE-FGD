@@ -9,12 +9,14 @@ type Core struct {
 	Gender         string
 	Phone          string
 	Follower       int
+	Following      int
 	SumLike        int
 	SumComment     int
 	ProfilePicture string
 	Role           string
 	CategoryID     int
 	AdminID        int
+	Page           int
 }
 
 type Bussiness interface {
@@ -30,6 +32,7 @@ type Bussiness interface {
 	EditDataUser(data Core) (err error)
 	DeleteDataUserbyId(data Core) (err error)
 	UpgradeToModerator(data Core) (err error)
+	GetAllUser(data Core) (resp []Core, err error)
 }
 
 type Data interface {
@@ -46,4 +49,5 @@ type Data interface {
 	UpdateDataUser(data Core) (err error)
 	DeleteDataUserbyId(data Core) (err error)
 	UpdateUserToModerator(data Core) (err error)
+	SelectAllUser(data Core) (resp []Core, err error)
 }

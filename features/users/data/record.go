@@ -49,5 +49,17 @@ func (a *User) toCore() users.Core {
 		SumComment:     a.SumComment,
 		Role:           a.Role,
 		CategoryID:     a.CategoryID,
+		Gender:         a.Gender,
+		Phone:          a.Phone,
+		Alamat:         a.Alamat,
+		Following:      a.Following,
 	}
+}
+
+func ToCoreSlice(data []User) []users.Core {
+	resp := []users.Core{}
+	for _, value := range data {
+		resp = append(resp, value.toCore())
+	}
+	return resp
 }

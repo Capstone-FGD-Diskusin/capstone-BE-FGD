@@ -10,9 +10,11 @@ type User struct {
 	Gender         string
 	Phone          string
 	Follower       int
+	Following      int
 	SumLike        int
 	SumComment     int
 	ProfilePicture string
+	Role           string
 }
 
 func FromCore(res users.Core) User {
@@ -27,5 +29,15 @@ func FromCore(res users.Core) User {
 		Alamat:         res.Alamat,
 		Gender:         res.Gender,
 		Phone:          res.Phone,
+		Following:      res.Following,
+		Role:           res.Role,
 	}
+}
+
+func FromCoreSlice(data []users.Core) []User {
+	resp := []User{}
+	for _, value := range data {
+		resp = append(resp, FromCore(value))
+	}
+	return resp
 }

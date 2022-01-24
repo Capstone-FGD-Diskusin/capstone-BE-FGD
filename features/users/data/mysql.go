@@ -144,3 +144,10 @@ func (ur *mysqlUserRepository) UpdateUserToModerator(data users.Core) (err error
 	err = ur.Conn.Model(&User{}).Where("id = ?", data.ID).Update("role", "moderator").Error
 	return
 }
+
+func (ur *mysqlUserRepository) SelectAllUser(data users.Core) (resp []users.Core, err error) {
+	record := []User{}
+	err = ur.Conn.Limit(20).Offset(data.Page * 20).Find(&record).Error
+	resp = ToCoreSlice(record)
+	return
+}

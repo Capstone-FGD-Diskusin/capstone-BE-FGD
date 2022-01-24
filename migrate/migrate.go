@@ -68,26 +68,41 @@ func AutoMigrate() {
 
 	pass1, _ := HashPassword("pass1")
 	user1 := _user_data.User{
-		Username: "Zehan",
-		Email:    "zehan@gmail.com",
-		Password: pass1,
-		Role:     "user",
+		Username:  "Zehan",
+		Email:     "zehan@gmail.com",
+		Password:  pass1,
+		Role:      "user",
+		Following: 2,
+		Follower:  2,
+		Alamat:    "Jawa Timur",
+		Gender:    "L",
+		Phone:     "081234",
 	}
 
 	pass2, _ := HashPassword("pass2")
 	user2 := _user_data.User{
-		Username: "Ivan",
-		Email:    "ivan@gmail.com",
-		Password: pass2,
-		Role:     "user",
+		Username:  "Ivan",
+		Email:     "ivan@gmail.com",
+		Password:  pass2,
+		Role:      "user",
+		Following: 1,
+		Follower:  1,
+		Alamat:    "Jawa Timur",
+		Gender:    "L",
+		Phone:     "081234",
 	}
 
 	pass3, _ := HashPassword("pass3")
 	user3 := _user_data.User{
-		Username: "Faris",
-		Email:    "faris@gmail.com",
-		Password: pass3,
-		Role:     "user",
+		Username:  "Faris",
+		Email:     "faris@gmail.com",
+		Password:  pass3,
+		Role:      "user",
+		Following: 1,
+		Follower:  1,
+		Alamat:    "Jawa Timur",
+		Gender:    "L",
+		Phone:     "081234",
 	}
 
 	pass4, _ := HashPassword("pass4")
