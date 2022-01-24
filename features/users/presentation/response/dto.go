@@ -13,6 +13,7 @@ type User struct {
 	Following      int
 	SumLike        int
 	SumComment     int
+	SumThread      int
 	ProfilePicture string
 	Role           string
 }
@@ -25,6 +26,7 @@ func FromCore(res users.Core) User {
 		Follower:       res.Follower,
 		SumLike:        res.SumLike,
 		SumComment:     res.SumComment,
+		SumThread:      res.SumThread,
 		ProfilePicture: res.ProfilePicture,
 		Alamat:         res.Alamat,
 		Gender:         res.Gender,

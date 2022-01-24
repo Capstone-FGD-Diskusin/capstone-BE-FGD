@@ -78,6 +78,28 @@ func (ur *mysqlUserRepository) UpdateMinLikebyOne(data users.Core) (err error) {
 	return
 }
 
+func (ur *mysqlUserRepository) UpdateThreadbyOne(data users.Core) (err error) {
+	record := User{}
+	err = ur.Conn.Where("id = ?", data.ID).First(&record).Error
+	if err != nil {
+		return err
+	}
+	record.SumThread++
+	err = ur.Conn.Model(&User{}).Where("id = ?", data.ID).Update("sum_thread", record.SumThread).Error
+	return
+}
+
+func (ur *mysqlUserRepository) UpdateMinThreadbyOne(data users.Core) (err error) {
+	record := User{}
+	err = ur.Conn.Where("id = ?", data.ID).First(&record).Error
+	if err != nil {
+		return err
+	}
+	record.SumThread--
+	err = ur.Conn.Model(&User{}).Where("id = ?", data.ID).Update("sum_thread", record.SumThread).Error
+	return
+}
+
 func (ur *mysqlUserRepository) UpdateFolbyOne(data users.Core) (err error) {
 	record := User{}
 	err = ur.Conn.Where("id = ?", data.ID).First(&record).Error
@@ -148,6 +170,13 @@ func (ur *mysqlUserRepository) UpdateUserToModerator(data users.Core) (err error
 func (ur *mysqlUserRepository) SelectAllUser(data users.Core) (resp []users.Core, err error) {
 	record := []User{}
 	err = ur.Conn.Limit(20).Offset(data.Page * 20).Find(&record).Error
+	resp = ToCoreSlice(record)
+	return
+}
+
+func (ur *mysqlUserRepository) Ranking() (resp []users.Core, err error) {
+	record := []User{}
+	err = ur.Conn.Limit(10).Order("sum_like desc").Find(&record).Error
 	resp = ToCoreSlice(record)
 	return
 }

@@ -78,6 +78,13 @@ func (tu *threadsUsecase) AddThread(data threads.Core) (err error) {
 	}
 	data.CategoryID = categoryID.ID
 	err = tu.threadData.InsertThread(data)
+	if err != nil {
+		return
+	}
+	userCore := users.Core{
+		ID: data.UserID,
+	}
+	err = tu.userBussiness.IncrementThread(userCore)
 	return
 }
 
@@ -123,7 +130,18 @@ func (tu *threadsUsecase) IncrementComment(data threads.Core) (err error) {
 }
 
 func (tu *threadsUsecase) DeleteThreadbyId(data threads.Core) (err error) {
+	thread, err := tu.threadData.SelectThreadbyID(data)
+	if err != nil {
+		return
+	}
 	err = tu.threadData.DeleteThreadbyId(data)
+	if err != nil {
+		return
+	}
+	userCore := users.Core{
+		ID: thread.UserID,
+	}
+	err = tu.userBussiness.DecrementThread(userCore)
 	return
 }
 

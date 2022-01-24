@@ -258,3 +258,16 @@ func (uH *UsersHandler) GetAllUser(c echo.Context) error {
 		"data":    response.FromCoreSlice(resp),
 	})
 }
+
+func (uH *UsersHandler) Ranking(c echo.Context) error {
+	resp, err := uH.userBussiness.Ranking()
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "success",
+		"data":    response.FromCoreSlice(resp),
+	})
+}

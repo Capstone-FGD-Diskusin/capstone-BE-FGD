@@ -2,7 +2,6 @@ package migrate
 
 import (
 	"github.com/dragranzer/capstone-BE-FGD/config"
-	_admin_data "github.com/dragranzer/capstone-BE-FGD/features/admins/data"
 	_category_data "github.com/dragranzer/capstone-BE-FGD/features/categories/data"
 	_comment_data "github.com/dragranzer/capstone-BE-FGD/features/comments/data"
 	_detail_thread_data "github.com/dragranzer/capstone-BE-FGD/features/detail_threads/data"
@@ -62,8 +61,12 @@ func AutoMigrate() {
 		panic(err)
 	}
 
+	if err := config.DB.Exec("DROP TABLE IF EXISTS admins").Error; err != nil {
+		panic(err)
+	}
+
 	config.DB.AutoMigrate(&_user_data.User{}, &_thread_data.Thread{}, &_comment_data.Comment{}, &_like_data.Like{},
-		&_favorite_data.Favorite{}, &_detail_thread_data.Detail_thread{}, &_follower_data.Follower{}, &_admin_data.Admin{},
+		&_favorite_data.Favorite{}, &_detail_thread_data.Detail_thread{}, &_follower_data.Follower{},
 		&_tag_data.Tag{}, &_category_data.Category{}, &_message_data.Message{})
 
 	pass1, _ := HashPassword("pass1")
@@ -90,6 +93,8 @@ func AutoMigrate() {
 		Alamat:    "Jawa Timur",
 		Gender:    "L",
 		Phone:     "081234",
+		SumThread: 2,
+		SumLike:   4,
 	}
 
 	pass3, _ := HashPassword("pass3")
@@ -103,6 +108,8 @@ func AutoMigrate() {
 		Alamat:    "Jawa Timur",
 		Gender:    "L",
 		Phone:     "081234",
+		SumThread: 1,
+		SumLike:   2,
 	}
 
 	pass4, _ := HashPassword("pass4")
