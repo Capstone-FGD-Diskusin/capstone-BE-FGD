@@ -105,3 +105,8 @@ func (uu *usersUsecase) UpgradeToModerator(data users.Core) (err error) {
 	err = uu.userData.UpdateUserToModerator(data)
 	return
 }
+
+func (uu *usersUsecase) UploadImage(data users.Core) (err error) {
+
+	return
+}
