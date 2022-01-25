@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"math/rand"
 	"mime/multipart"
 	"net/http"
 	"os"
@@ -36,6 +37,8 @@ type ClientUploader struct {
 }
 
 var uploader *ClientUploader
+
+var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890")
 
 func NewUserHandler(ub users.Bussiness) *UsersHandler {
 	return &UsersHandler{
@@ -269,5 +272,33 @@ func (uH *UsersHandler) Ranking(c echo.Context) error {
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "success",
 		"data":    response.FromCoreSlice(resp),
+	})
+}
+
+func randSeq(n int) string {
+	b := make([]rune, n)
+	for i := range b {
+		b[i] = letters[rand.Intn(len(letters))]
+	}
+	return string(b)
+}
+
+func (uH *UsersHandler) ForgetPassword(c echo.Context) error {
+	user := request.User{}
+	c.Bind(&user)
+	to := []string{user.Email}
+	// cc := []string{""}
+	token := randSeq(6)
+	subject := "Kode Token"
+	message := "Berikut kode token anda, mohon jaga kerahasiaannya : " + token
+
+	err := uH.userBussiness.SendMail(to, subject, message)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "success",
 	})
 }

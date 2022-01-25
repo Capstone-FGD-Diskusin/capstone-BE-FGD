@@ -23,6 +23,7 @@ func Setup() *echo.Echo {
 	e.POST("/user/picture", _presenter.UserPresentation.HandleFileUploadToBucket)
 	e.GET("/all_user", _presenter.UserPresentation.GetAllUser)
 	e.GET("/user/ranking", _presenter.UserPresentation.Ranking)
+	e.POST("/user/forget", _presenter.UserPresentation.ForgetPassword)
 
 	e.GET("/thread/:id/comment", _presenter.CommentPresentation.GetCommentsThread)
 	e.GET("/thread/comment/:id/balasan", _presenter.CommentPresentation.GetBalasanCommentbyId)

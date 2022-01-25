@@ -37,6 +37,7 @@ type Bussiness interface {
 	UpgradeToModerator(data Core) (err error)
 	GetAllUser(data Core) (resp []Core, err error)
 	Ranking() (resp []Core, err error)
+	SendMail(to []string, subject string, message string) (err error)
 }
 
 type Data interface {
