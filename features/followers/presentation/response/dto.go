@@ -21,3 +21,18 @@ func FromCoreSlice(core []followers.Core) []Followed {
 	}
 	return FolArray
 }
+
+func FromCoreFollowed(res followers.Core) Followed {
+	return Followed{
+		UserID: res.FollowingID,
+		Name:   res.NameFollowed,
+	}
+}
+
+func FromCoreSliceFollowed(core []followers.Core) []Followed {
+	var FolArray []Followed
+	for key := range core {
+		FolArray = append(FolArray, FromCoreFollowed(core[key]))
+	}
+	return FolArray
+}

@@ -10,6 +10,7 @@ type Comment struct {
 	ImageUrl  string `json:"image_url" form:"image_url"`
 	CommentID int    `json:"comment_id" form:"comment_id"`
 	Page      int    `json:"page" form:"page"`
+	Search    string `json:"search" form:"search"`
 }
 
 func ToCore(req Comment) comments.Core {

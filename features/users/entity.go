@@ -9,9 +9,15 @@ type Core struct {
 	Gender         string
 	Phone          string
 	Follower       int
+	Following      int
 	SumLike        int
 	SumComment     int
+	SumThread      int
 	ProfilePicture string
+	Role           string
+	CategoryID     int
+	AdminID        int
+	Page           int
 }
 
 type Bussiness interface {
@@ -20,12 +26,17 @@ type Bussiness interface {
 	GetProfileData(data Core) (resp Core, err error)
 	IncrementLike(data Core) (err error)
 	DecrementLike(data Core) (err error)
+	IncrementThread(data Core) (err error)
+	DecrementThread(data Core) (err error)
 	IncrementFol(data Core) (err error)
 	DecrementFol(data Core) (err error)
 	IncrementFollowing(data Core) (err error)
 	DecrementFollowing(data Core) (err error)
 	EditDataUser(data Core) (err error)
 	DeleteDataUserbyId(data Core) (err error)
+	UpgradeToModerator(data Core) (err error)
+	GetAllUser(data Core) (resp []Core, err error)
+	Ranking() (resp []Core, err error)
 }
 
 type Data interface {
@@ -35,10 +46,15 @@ type Data interface {
 	SelectDatabyID(data Core) (resp Core, err error)
 	UpdateLikebyOne(data Core) (err error)
 	UpdateMinLikebyOne(data Core) (err error)
+	UpdateThreadbyOne(data Core) (err error)
+	UpdateMinThreadbyOne(data Core) (err error)
 	UpdateFolbyOne(data Core) (err error)
 	UpdateMinFolbyOne(data Core) (err error)
 	UpdateFollowingbyOne(data Core) (err error)
 	UpdateMinFollowingbyOne(data Core) (err error)
 	UpdateDataUser(data Core) (err error)
 	DeleteDataUserbyId(data Core) (err error)
+	UpdateUserToModerator(data Core) (err error)
+	SelectAllUser(data Core) (resp []Core, err error)
+	Ranking() (resp []Core, err error)
 }

@@ -5,12 +5,16 @@ type Core struct {
 	Title          string
 	Description    string
 	UserID         int
+	UserName       string
 	Like           int
 	JumlahComment  int
 	ImgUrl         string
+	CategoryID     int
+	CategoryName   string
 	ListFollowedID []int
 	OwnerID        int
 	Page           int
+	Search         string
 }
 
 type Bussiness interface {
@@ -21,6 +25,9 @@ type Bussiness interface {
 	DecrementLike(data Core) (err error)
 	IncrementComment(data Core) (err error)
 	DeleteThreadbyId(data Core) (err error)
+	SearchThread(data Core) (resp []Core, err error)
+	GetAllThread(data Core) (resp []Core, err error)
+	GetThreadUser(data Core) (resp []Core, err error)
 }
 
 type Data interface {
@@ -31,4 +38,7 @@ type Data interface {
 	UpdateMinLikebyOne(data Core) (err error)
 	UpdateCommentbyOne(data Core) (err error)
 	DeleteThreadbyId(data Core) (err error)
+	SearchThread(data Core) (resp []Core, err error)
+	SelectThreadAll(data Core) (resp []Core, err error)
+	SelectThreadUser(data Core) (resp []Core, err error)
 }

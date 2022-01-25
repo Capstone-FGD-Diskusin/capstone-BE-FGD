@@ -35,3 +35,11 @@ func ToCore(data Comment) comments.Core {
 		CommentID: data.CommentID,
 	}
 }
+
+func ToCoreSlice(data []Comment) []comments.Core {
+	resp := []comments.Core{}
+	for _, value := range data {
+		resp = append(resp, ToCore(value))
+	}
+	return resp
+}

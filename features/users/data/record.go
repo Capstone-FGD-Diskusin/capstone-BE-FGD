@@ -18,7 +18,10 @@ type User struct {
 	Following      int
 	SumLike        int
 	SumComment     int
+	SumThread      int
 	ProfilePicture string
+	Role           string
+	CategoryID     int
 	CreatedAt      time.Time
 }
 
@@ -31,6 +34,10 @@ func fromCore(core users.Core) User {
 		Alamat:         core.Alamat,
 		Gender:         core.Gender,
 		Phone:          core.Phone,
+		CategoryID:     core.CategoryID,
+		SumLike:        core.SumLike,
+		SumComment:     core.SumComment,
+		SumThread:      core.SumThread,
 	}
 }
 
@@ -44,5 +51,20 @@ func (a *User) toCore() users.Core {
 		ProfilePicture: a.ProfilePicture,
 		SumLike:        a.SumLike,
 		SumComment:     a.SumComment,
+		Role:           a.Role,
+		CategoryID:     a.CategoryID,
+		Gender:         a.Gender,
+		Phone:          a.Phone,
+		Alamat:         a.Alamat,
+		Following:      a.Following,
+		SumThread:      a.SumThread,
 	}
+}
+
+func ToCoreSlice(data []User) []users.Core {
+	resp := []users.Core{}
+	for _, value := range data {
+		resp = append(resp, value.toCore())
+	}
+	return resp
 }

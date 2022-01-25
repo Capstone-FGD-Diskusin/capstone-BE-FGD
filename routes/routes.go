@@ -19,9 +19,15 @@ func Setup() *echo.Echo {
 	e.POST("/user/login", _presenter.UserPresentation.LoginUser)
 	e.GET("/user/:id", _presenter.UserPresentation.GetUserData)
 	e.DELETE("/user/:id", _presenter.UserPresentation.DeleteUserDataAdmin)
+	e.GET("/user/:id/threads", _presenter.ThreadPresentation.GetThreadUser)
+	e.POST("/user/picture", _presenter.UserPresentation.HandleFileUploadToBucket)
+	e.GET("/all_user", _presenter.UserPresentation.GetAllUser)
+	e.GET("/user/ranking", _presenter.UserPresentation.Ranking)
 
 	e.GET("/thread/:id/comment", _presenter.CommentPresentation.GetCommentsThread)
 	e.GET("/thread/comment/:id/balasan", _presenter.CommentPresentation.GetBalasanCommentbyId)
+	e.GET("/thread/search", _presenter.CommentPresentation.SearchThread)
+	e.GET("/thread", _presenter.ThreadPresentation.GetThreadAll)
 
 	e.POST("/category", _presenter.CategoryPresentation.AddCategory)
 	e.PUT("/category/:id", _presenter.CategoryPresentation.EditCategory)
@@ -37,7 +43,9 @@ func Setup() *echo.Echo {
 
 	eJWT.POST("/user/follow", _presenter.FollowerPresentation.Follow)
 	eJWT.DELETE("/user/follow", _presenter.FollowerPresentation.Unfollow)
+	eJWT.DELETE("/user/followed", _presenter.FollowerPresentation.PaksaUnfollow)
 	eJWT.GET("/user/following", _presenter.FollowerPresentation.GetFollowing)
+	eJWT.GET("/user/followed", _presenter.FollowerPresentation.GetFollowed)
 
 	// eJWT.GET("/thread/homepage", _presenter.ThreadPresentation.GetThreadHome)
 	eJWT.POST("/thread", _presenter.ThreadPresentation.AddThread)
@@ -50,6 +58,12 @@ func Setup() *echo.Echo {
 
 	eJWT.POST("/thread/comment", _presenter.CommentPresentation.AddComment)
 	eJWT.DELETE("/thread/comment", _presenter.CommentPresentation.DeleteCommentbyId)
+
+	eJWT.POST("/message", _presenter.MessagePresentation.SendMessageToAdmin)
+	eJWT.GET("/message/admin", _presenter.MessagePresentation.GetMessagebyAdminID)
+	eJWT.DELETE("/message/:id", _presenter.MessagePresentation.DeleteMessagebyId)
+
+	eJWT.PUT("/user/upgrade", _presenter.UserPresentation.UpgradeUserToModerator)
 
 	return e
 }

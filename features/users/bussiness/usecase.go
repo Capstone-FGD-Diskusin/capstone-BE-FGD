@@ -1,6 +1,9 @@
 package bussiness
 
 import (
+	"errors"
+	"fmt"
+
 	"github.com/dragranzer/capstone-BE-FGD/features/users"
 	"github.com/dragranzer/capstone-BE-FGD/middleware"
 	"golang.org/x/crypto/bcrypt"
@@ -54,6 +57,16 @@ func (uu *usersUsecase) DecrementLike(data users.Core) (err error) {
 	return
 }
 
+func (uu *usersUsecase) IncrementThread(data users.Core) (err error) {
+	err = uu.userData.UpdateThreadbyOne(data)
+	return
+}
+
+func (uu *usersUsecase) DecrementThread(data users.Core) (err error) {
+	err = uu.userData.UpdateMinThreadbyOne(data)
+	return
+}
+
 func (uu *usersUsecase) IncrementFol(data users.Core) (err error) {
 	err = uu.userData.UpdateFolbyOne(data)
 	return
@@ -81,5 +94,39 @@ func (uu *usersUsecase) EditDataUser(data users.Core) (err error) {
 
 func (uu *usersUsecase) DeleteDataUserbyId(data users.Core) (err error) {
 	err = uu.userData.DeleteDataUserbyId(data)
+	return
+}
+
+func (uu *usersUsecase) UpgradeToModerator(data users.Core) (err error) {
+	fmt.Println(data)
+	adminCore := users.Core{
+		ID: data.AdminID,
+	}
+	admin, err := uu.userData.SelectDatabyID(adminCore)
+	if err != nil {
+		return
+	}
+	if admin.Role != "admin" {
+		err = errors.New("jadi admin dulu yaaa :v")
+	}
+	if err != nil {
+		return
+	}
+	err = uu.userData.UpdateUserToModerator(data)
+	return
+}
+
+func (uu *usersUsecase) UploadImage(data users.Core) (err error) {
+
+	return
+}
+
+func (uu *usersUsecase) GetAllUser(data users.Core) (resp []users.Core, err error) {
+	resp, err = uu.userData.SelectAllUser(data)
+	return
+}
+
+func (uu *usersUsecase) Ranking() (resp []users.Core, err error) {
+	resp, err = uu.userData.Ranking()
 	return
 }

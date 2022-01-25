@@ -2,13 +2,13 @@ package migrate
 
 import (
 	"github.com/dragranzer/capstone-BE-FGD/config"
-	_admin_data "github.com/dragranzer/capstone-BE-FGD/features/admins/data"
 	_category_data "github.com/dragranzer/capstone-BE-FGD/features/categories/data"
 	_comment_data "github.com/dragranzer/capstone-BE-FGD/features/comments/data"
 	_detail_thread_data "github.com/dragranzer/capstone-BE-FGD/features/detail_threads/data"
 	_favorite_data "github.com/dragranzer/capstone-BE-FGD/features/favorites/data"
 	_follower_data "github.com/dragranzer/capstone-BE-FGD/features/followers/data"
 	_like_data "github.com/dragranzer/capstone-BE-FGD/features/likes/data"
+	_message_data "github.com/dragranzer/capstone-BE-FGD/features/messages/data"
 	_tag_data "github.com/dragranzer/capstone-BE-FGD/features/tags/data"
 	_thread_data "github.com/dragranzer/capstone-BE-FGD/features/threads/data"
 	_user_data "github.com/dragranzer/capstone-BE-FGD/features/users/data"
@@ -57,29 +57,76 @@ func AutoMigrate() {
 		panic(err)
 	}
 
+	if err := config.DB.Exec("DROP TABLE IF EXISTS messages").Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Exec("DROP TABLE IF EXISTS admins").Error; err != nil {
+		panic(err)
+	}
+
 	config.DB.AutoMigrate(&_user_data.User{}, &_thread_data.Thread{}, &_comment_data.Comment{}, &_like_data.Like{},
-		&_favorite_data.Favorite{}, &_detail_thread_data.Detail_thread{}, &_follower_data.Follower{}, &_admin_data.Admin{},
-		&_tag_data.Tag{}, &_category_data.Category{})
+		&_favorite_data.Favorite{}, &_detail_thread_data.Detail_thread{}, &_follower_data.Follower{},
+		&_tag_data.Tag{}, &_category_data.Category{}, &_message_data.Message{})
 
 	pass1, _ := HashPassword("pass1")
 	user1 := _user_data.User{
-		Username: "Zehan",
-		Email:    "zehan@gmail.com",
-		Password: pass1,
+		Username:  "Zehan",
+		Email:     "zehan@gmail.com",
+		Password:  pass1,
+		Role:      "user",
+		Following: 2,
+		Follower:  2,
+		Alamat:    "Jawa Timur",
+		Gender:    "L",
+		Phone:     "081234",
 	}
 
 	pass2, _ := HashPassword("pass2")
 	user2 := _user_data.User{
-		Username: "Ivan",
-		Email:    "ivan@gmail.com",
-		Password: pass2,
+		Username:  "Ivan",
+		Email:     "ivan@gmail.com",
+		Password:  pass2,
+		Role:      "user",
+		Following: 1,
+		Follower:  1,
+		Alamat:    "Jawa Timur",
+		Gender:    "L",
+		Phone:     "081234",
+		SumThread: 2,
+		SumLike:   4,
 	}
 
 	pass3, _ := HashPassword("pass3")
 	user3 := _user_data.User{
-		Username: "Faris",
-		Email:    "faris@gmail.com",
-		Password: pass3,
+		Username:  "Faris",
+		Email:     "faris@gmail.com",
+		Password:  pass3,
+		Role:      "user",
+		Following: 1,
+		Follower:  1,
+		Alamat:    "Jawa Timur",
+		Gender:    "L",
+		Phone:     "081234",
+		SumThread: 1,
+		SumLike:   2,
+	}
+
+	pass4, _ := HashPassword("pass4")
+	user4 := _user_data.User{
+		Username:   "Moderator1",
+		Email:      "mod1@gmail.com",
+		Password:   pass4,
+		Role:       "moderator",
+		CategoryID: 1,
+	}
+
+	pass5, _ := HashPassword("pass5")
+	user5 := _user_data.User{
+		Username: "Admin1",
+		Email:    "admin1@gmail.com",
+		Password: pass5,
+		Role:     "admin",
 	}
 
 	thread1 := _thread_data.Thread{
@@ -87,6 +134,7 @@ func AutoMigrate() {
 		Description: "Go merupakan bahasa yang dikembangkan oleh google, oleh karena itu...",
 		UserID:      2,
 		Like:        2,
+		CategoryID:  4,
 	}
 
 	thread2 := _thread_data.Thread{
@@ -94,6 +142,15 @@ func AutoMigrate() {
 		Description: "Walaupun heronya cuman itu itu aja tetapi...",
 		UserID:      3,
 		Like:        2,
+		CategoryID:  4,
+	}
+
+	thread3 := _thread_data.Thread{
+		Title:       "Google",
+		Description: "Google merupakan perusahaan raksasa yang bergerak pada bidang IT",
+		UserID:      2,
+		Like:        2,
+		CategoryID:  3,
 	}
 
 	comment1 := _comment_data.Comment{
@@ -120,6 +177,15 @@ func AutoMigrate() {
 		UserID:    3,
 		ThreadID:  1,
 		CommentID: 1,
+	}
+
+	message1 := _message_data.Message{
+		Text:          "Message 1 merupakan blablabla",
+		CategoryName:  "Computer",
+		ThreadID:      1,
+		CommentID:     0,
+		AdminID:       5,
+		ModeratorName: "Moderator1",
 	}
 
 	like1 := _like_data.Like{
@@ -187,6 +253,14 @@ func AutoMigrate() {
 		Name: "Hiburan",
 	}
 
+	category3 := _category_data.Category{
+		Name: "Computer",
+	}
+
+	category4 := _category_data.Category{
+		Name: "Game",
+	}
+
 	follower1 := _follower_data.Follower{
 		FollowingID: 1,
 		FollowedID:  2,
@@ -207,13 +281,6 @@ func AutoMigrate() {
 		FollowedID:  1,
 	}
 
-	pass4, _ := HashPassword("admin1")
-	admin1 := _admin_data.Admin{
-		Email:    "admin@admin.com",
-		Name:     "superadmin",
-		Password: pass4,
-	}
-
 	if err := config.DB.Create(&user1).Error; err != nil {
 		panic(err)
 	}
@@ -226,11 +293,23 @@ func AutoMigrate() {
 		panic(err)
 	}
 
+	if err := config.DB.Create(&user4).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&user5).Error; err != nil {
+		panic(err)
+	}
+
 	if err := config.DB.Create(&thread1).Error; err != nil {
 		panic(err)
 	}
 
 	if err := config.DB.Create(&thread2).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&thread3).Error; err != nil {
 		panic(err)
 	}
 
@@ -306,6 +385,18 @@ func AutoMigrate() {
 		panic(err)
 	}
 
+	if err := config.DB.Create(&category3).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&category4).Error; err != nil {
+		panic(err)
+	}
+
+	if err := config.DB.Create(&message1).Error; err != nil {
+		panic(err)
+	}
+
 	if err := config.DB.Create(&follower1).Error; err != nil {
 		panic(err)
 	}
@@ -319,10 +410,6 @@ func AutoMigrate() {
 	}
 
 	if err := config.DB.Create(&follower4).Error; err != nil {
-		panic(err)
-	}
-
-	if err := config.DB.Create(&admin1).Error; err != nil {
 		panic(err)
 	}
 }
