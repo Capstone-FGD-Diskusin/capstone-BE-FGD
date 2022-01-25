@@ -21,6 +21,8 @@ func Setup() *echo.Echo {
 	e.DELETE("/user/:id", _presenter.UserPresentation.DeleteUserDataAdmin)
 	e.GET("/user/:id/threads", _presenter.ThreadPresentation.GetThreadUser)
 	e.POST("/user/picture", _presenter.UserPresentation.HandleFileUploadToBucket)
+	e.GET("/all_user", _presenter.UserPresentation.GetAllUser)
+	e.GET("/user/ranking", _presenter.UserPresentation.Ranking)
 
 	e.GET("/thread/:id/comment", _presenter.CommentPresentation.GetCommentsThread)
 	e.GET("/thread/comment/:id/balasan", _presenter.CommentPresentation.GetBalasanCommentbyId)

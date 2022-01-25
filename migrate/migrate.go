@@ -2,7 +2,6 @@ package migrate
 
 import (
 	"github.com/dragranzer/capstone-BE-FGD/config"
-	_admin_data "github.com/dragranzer/capstone-BE-FGD/features/admins/data"
 	_category_data "github.com/dragranzer/capstone-BE-FGD/features/categories/data"
 	_comment_data "github.com/dragranzer/capstone-BE-FGD/features/comments/data"
 	_detail_thread_data "github.com/dragranzer/capstone-BE-FGD/features/detail_threads/data"
@@ -62,32 +61,55 @@ func AutoMigrate() {
 		panic(err)
 	}
 
+	if err := config.DB.Exec("DROP TABLE IF EXISTS admins").Error; err != nil {
+		panic(err)
+	}
+
 	config.DB.AutoMigrate(&_user_data.User{}, &_thread_data.Thread{}, &_comment_data.Comment{}, &_like_data.Like{},
-		&_favorite_data.Favorite{}, &_detail_thread_data.Detail_thread{}, &_follower_data.Follower{}, &_admin_data.Admin{},
+		&_favorite_data.Favorite{}, &_detail_thread_data.Detail_thread{}, &_follower_data.Follower{},
 		&_tag_data.Tag{}, &_category_data.Category{}, &_message_data.Message{})
 
 	pass1, _ := HashPassword("pass1")
 	user1 := _user_data.User{
-		Username: "Zehan",
-		Email:    "zehan@gmail.com",
-		Password: pass1,
-		Role:     "user",
+		Username:  "Zehan",
+		Email:     "zehan@gmail.com",
+		Password:  pass1,
+		Role:      "user",
+		Following: 2,
+		Follower:  2,
+		Alamat:    "Jawa Timur",
+		Gender:    "L",
+		Phone:     "081234",
 	}
 
 	pass2, _ := HashPassword("pass2")
 	user2 := _user_data.User{
-		Username: "Ivan",
-		Email:    "ivan@gmail.com",
-		Password: pass2,
-		Role:     "user",
+		Username:  "Ivan",
+		Email:     "ivan@gmail.com",
+		Password:  pass2,
+		Role:      "user",
+		Following: 1,
+		Follower:  1,
+		Alamat:    "Jawa Timur",
+		Gender:    "L",
+		Phone:     "081234",
+		SumThread: 2,
+		SumLike:   4,
 	}
 
 	pass3, _ := HashPassword("pass3")
 	user3 := _user_data.User{
-		Username: "Faris",
-		Email:    "faris@gmail.com",
-		Password: pass3,
-		Role:     "user",
+		Username:  "Faris",
+		Email:     "faris@gmail.com",
+		Password:  pass3,
+		Role:      "user",
+		Following: 1,
+		Follower:  1,
+		Alamat:    "Jawa Timur",
+		Gender:    "L",
+		Phone:     "081234",
+		SumThread: 1,
+		SumLike:   2,
 	}
 
 	pass4, _ := HashPassword("pass4")
