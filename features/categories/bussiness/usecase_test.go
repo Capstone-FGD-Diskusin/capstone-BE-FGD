@@ -30,7 +30,7 @@ func TestMain(m *testing.M) {
 	os.Exit(m.Run())
 }
 
-func TestAddCategory(t *testing.T) {
+func TestAll(t *testing.T) {
 	t.Run("valid - add category", func(t *testing.T) {
 		categoryData.On("InsertCategory", category[0]).Return(nil).Once()
 		err := categoryUsecase.AddCategory(category[0])

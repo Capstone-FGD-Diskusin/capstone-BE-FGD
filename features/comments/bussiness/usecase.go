@@ -46,16 +46,10 @@ func (cU *commentsUsecase) AddComment(data comments.Core) (err error) {
 
 func (cU *commentsUsecase) GetCommentsThread(data comments.Core) (resp []comments.Core, err error) {
 	resp, err = cU.commentData.SelectCommentsThread(data)
-	if err != nil {
-		return resp, err
-	}
 	return resp, err
 }
 func (cU *commentsUsecase) GetCommentbyId(data comments.Core) (resp comments.Core, err error) {
 	resp, err = cU.commentData.SelectCommentbyId(data)
-	if err != nil {
-		return resp, err
-	}
 	return resp, err
 }
 
