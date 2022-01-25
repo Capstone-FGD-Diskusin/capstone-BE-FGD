@@ -147,6 +147,9 @@ func (tu *threadsUsecase) DeleteThreadbyId(data threads.Core) (err error) {
 
 func (tu *threadsUsecase) SearchThread(data threads.Core) (resp []threads.Core, err error) {
 	resp, err = tu.threadData.SearchThread(data)
+	if err != nil {
+		return
+	}
 	for key, value := range resp {
 		fmt.Println(value.CategoryID)
 		coreCategory := categories.Core{
@@ -167,14 +170,15 @@ func (tu *threadsUsecase) SearchThread(data threads.Core) (resp []threads.Core, 
 		resp[key].UserName = userName.Username
 		resp[key].CategoryName = categoryName.Name
 	}
-	if err != nil {
-		return
-	}
+
 	return
 }
 
 func (tu *threadsUsecase) GetAllThread(data threads.Core) (resp []threads.Core, err error) {
 	resp, err = tu.threadData.SelectThreadAll(data)
+	if err != nil {
+		return
+	}
 	for key, value := range resp {
 		fmt.Println(value.CategoryID)
 		coreCategory := categories.Core{
@@ -194,15 +198,15 @@ func (tu *threadsUsecase) GetAllThread(data threads.Core) (resp []threads.Core, 
 		// fmt.Println(categoryName)
 		resp[key].UserName = userName.Username
 		resp[key].CategoryName = categoryName.Name
-	}
-	if err != nil {
-		return
 	}
 	return
 }
 
 func (tu *threadsUsecase) GetThreadUser(data threads.Core) (resp []threads.Core, err error) {
 	resp, err = tu.threadData.SelectThreadUser(data)
+	if err != nil {
+		return
+	}
 	for key, value := range resp {
 		fmt.Println(value.CategoryID)
 		coreCategory := categories.Core{
@@ -223,8 +227,6 @@ func (tu *threadsUsecase) GetThreadUser(data threads.Core) (resp []threads.Core,
 		resp[key].UserName = userName.Username
 		resp[key].CategoryName = categoryName.Name
 	}
-	if err != nil {
-		return
-	}
+
 	return
 }
