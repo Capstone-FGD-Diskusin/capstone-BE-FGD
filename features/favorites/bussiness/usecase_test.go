@@ -15,6 +15,7 @@ import (
 	"github.com/dragranzer/capstone-BE-FGD/features/users"
 	b_users_mock "github.com/dragranzer/capstone-BE-FGD/features/users/mocks"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/mock"
 
 	b_favorites "github.com/dragranzer/capstone-BE-FGD/features/favorites/bussiness"
 	b_favorites_mock "github.com/dragranzer/capstone-BE-FGD/features/favorites/mocks"
@@ -42,26 +43,26 @@ func TestMain(m *testing.M) {
 
 	comment = []comments.Core{
 		{
-			// ID:       1,
-			// Comment:  "tes",
+			ID:       1,
+			Comment:  "tes",
 			ThreadID: 1,
-			// UserID:   1,
+			UserID:   1,
 		},
 	}
 
 	like = []likes.Core{
 		{
-			// UserID:   1,
+			UserID:   1,
 			ThreadID: 1,
 		},
 	}
 
 	thread = []threads.Core{
 		{
-			ID: 1,
-			// Title:       "judul 1",
-			// Description: "desc1",
-			// UserID: 1,
+			ID:          1,
+			Title:       "judul 1",
+			Description: "desc1",
+			UserID:      1,
 		},
 	}
 
@@ -75,7 +76,7 @@ func TestMain(m *testing.M) {
 
 	favorite = []favorites.Core{
 		{
-			// UserID:   1,
+			UserID:   1,
 			ThreadID: 1,
 		},
 	}
@@ -87,10 +88,10 @@ func TestMain(m *testing.M) {
 
 func TestAll(t *testing.T) {
 	t.Run("valid - delete thread by id", func(t *testing.T) {
-		commentUsecase.On("DeleteCommentbyThreadId", comment[0]).Return(nil).Once()
-		likeUsecase.On("DeleteLikebyThreadId", like[0]).Return(nil).Once()
-		favoriteData.On("DeleteFavoritebyThreadId", favorite[0]).Return(nil).Once()
-		threadUsecase.On("DeleteThreadbyId", thread[0]).Return(nil).Once()
+		commentUsecase.On("DeleteCommentbyThreadId", mock.AnythingOfType("comments.Core")).Return(nil).Once()
+		likeUsecase.On("DeleteLikebyThreadId", mock.AnythingOfType("likes.Core")).Return(nil).Once()
+		favoriteData.On("DeleteFavoritebyThreadId", mock.AnythingOfType("favorites.Core")).Return(nil).Once()
+		threadUsecase.On("DeleteThreadbyId", mock.AnythingOfType("threads.Core")).Return(nil).Once()
 		err := favoriteUsecase.DeleteThreadbyId(favorite[0])
 
 		// assert.Equal(t, resp, comment[0])
@@ -98,10 +99,10 @@ func TestAll(t *testing.T) {
 	})
 
 	t.Run("valid - delete thread by id 2", func(t *testing.T) {
-		commentUsecase.On("DeleteCommentbyThreadId", comment[0]).Return(err1).Once()
-		likeUsecase.On("DeleteLikebyThreadId", like[0]).Return(nil)
-		favoriteData.On("DeleteFavoritebyThreadId", favorite[0]).Return(nil).Once()
-		threadUsecase.On("DeleteThreadbyId", thread[0]).Return(nil).Once()
+		commentUsecase.On("DeleteCommentbyThreadId", mock.AnythingOfType("comments.Core")).Return(err1).Once()
+		likeUsecase.On("DeleteLikebyThreadId", mock.AnythingOfType("likes.Core")).Return(nil)
+		favoriteData.On("DeleteFavoritebyThreadId", mock.AnythingOfType("favorites.Core")).Return(nil).Once()
+		threadUsecase.On("DeleteThreadbyId", mock.AnythingOfType("threads.Core")).Return(nil).Once()
 		err := favoriteUsecase.DeleteThreadbyId(favorite[0])
 
 		// assert.Equal(t, resp, comment[0])

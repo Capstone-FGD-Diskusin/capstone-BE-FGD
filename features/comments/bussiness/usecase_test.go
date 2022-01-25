@@ -11,6 +11,7 @@ import (
 	"github.com/dragranzer/capstone-BE-FGD/features/threads"
 	b_threads_mock "github.com/dragranzer/capstone-BE-FGD/features/threads/mocks"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/mock"
 )
 
 var (
@@ -18,11 +19,9 @@ var (
 	commentUsecase comments.Bussiness
 	threadUsecase  b_threads_mock.Bussiness
 
-	comment  []comments.Core
-	comment2 []comments.Core
-	thread   []threads.Core
-	thread2  []threads.Core
-	err1     error
+	comment []comments.Core
+	thread  []threads.Core
+	err1    error
 )
 
 func TestMain(m *testing.M) {
@@ -38,29 +37,13 @@ func TestMain(m *testing.M) {
 		},
 	}
 
-	comment2 = []comments.Core{
-		{
-			ID: 0,
-			// Comment:  "Keren banget",
-			// ThreadID: 1,
-			// UserID:   1,
-			// ImageUrl: "www.image.com",
-		},
-	}
-
 	thread = []threads.Core{
 		{
-			ID: 1,
-			// Title:       "judul1",
-			// Description: "Deskripsi1",
-			// UserID:      1,
-			// Like:        0,
-		},
-	}
-
-	thread2 = []threads.Core{
-		{
-			ID: 0,
+			ID:          1,
+			Title:       "judul1",
+			Description: "Deskripsi1",
+			UserID:      1,
+			Like:        0,
 		},
 	}
 
@@ -71,8 +54,8 @@ func TestMain(m *testing.M) {
 
 func TestAll(t *testing.T) {
 	t.Run("valid - add comment", func(t *testing.T) {
-		threadUsecase.On("IncrementComment", thread[0]).Return(err1).Once()
-		commentData.On("InsertComment", comment[0]).Return(nil).Once()
+		threadUsecase.On("IncrementComment", mock.AnythingOfType("threads.Core")).Return(err1).Once()
+		commentData.On("InsertComment", mock.AnythingOfType("comments.Core")).Return(nil).Once()
 		err := commentUsecase.AddComment(comment[0])
 
 		// assert.NotEqual(t, len(resp), 0)
@@ -81,8 +64,8 @@ func TestAll(t *testing.T) {
 	})
 
 	t.Run("valid - add comment 2", func(t *testing.T) {
-		threadUsecase.On("IncrementComment", thread[0]).Return(nil).Once()
-		commentData.On("InsertComment", comment[0]).Return(nil).Once()
+		threadUsecase.On("IncrementComment", mock.AnythingOfType("threads.Core")).Return(nil).Once()
+		commentData.On("InsertComment", mock.AnythingOfType("comments.Core")).Return(nil).Once()
 		err := commentUsecase.AddComment(comment[0])
 
 		// assert.NotEqual(t, len(resp), 0)
@@ -91,7 +74,7 @@ func TestAll(t *testing.T) {
 	})
 
 	t.Run("valid - get comments thread", func(t *testing.T) {
-		commentData.On("SelectCommentsThread", comment[0]).Return(comment, nil).Once()
+		commentData.On("SelectCommentsThread", mock.AnythingOfType("comments.Core")).Return(comment, nil).Once()
 		resp, err := commentUsecase.GetCommentsThread(comment[0])
 
 		assert.NotEqual(t, len(resp), 0)
@@ -99,7 +82,7 @@ func TestAll(t *testing.T) {
 	})
 
 	t.Run("valid - get comments by id", func(t *testing.T) {
-		commentData.On("SelectCommentbyId", comment[0]).Return(comment[0], nil)
+		commentData.On("SelectCommentbyId", mock.AnythingOfType("comments.Core")).Return(comment[0], nil)
 		resp, err := commentUsecase.GetCommentbyId(comment[0])
 
 		assert.Equal(t, resp, comment[0])
@@ -107,12 +90,12 @@ func TestAll(t *testing.T) {
 	})
 
 	t.Run("valid - delete comment thread", func(t *testing.T) {
-		commentData.On("SelectCommentbyId", comment[0]).Return(comment[0], nil)
+		commentData.On("SelectCommentbyId", mock.AnythingOfType("comments.Core")).Return(comment[0], nil)
 		cekDataComment, err := commentUsecase.GetCommentbyId(comment[0])
 		assert.Equal(t, err, nil)
 
-		threadUsecase.On("GetThreadbyID", thread[0]).Return(thread[0], nil).Once()
-		commentData.On("DeleteCommentbyId", comment[0]).Return(nil).Once()
+		threadUsecase.On("GetThreadbyID", mock.AnythingOfType("threads.Core")).Return(thread[0], nil).Once()
+		commentData.On("DeleteCommentbyId", mock.AnythingOfType("comments.Core")).Return(nil).Once()
 
 		err = commentUsecase.DeteleCommentThread(comment[0])
 
@@ -122,7 +105,7 @@ func TestAll(t *testing.T) {
 	})
 
 	t.Run("valid - delete comment by thread id", func(t *testing.T) {
-		commentData.On("DeleteCommentbyThreadId", comment[0]).Return(nil).Once()
+		commentData.On("DeleteCommentbyThreadId", mock.AnythingOfType("comments.Core")).Return(nil).Once()
 		err := commentUsecase.DeleteCommentbyThreadId(comment[0])
 
 		// assert.Equal(t, resp, comment[0])
@@ -130,32 +113,32 @@ func TestAll(t *testing.T) {
 	})
 
 	t.Run("valid - delete comment by thread id 2", func(t *testing.T) {
-		commentData.On("DeleteCommentbyThreadId", comment[0]).Return(err1)
+		commentData.On("DeleteCommentbyThreadId", mock.AnythingOfType("comments.Core")).Return(err1)
 		err := commentUsecase.DeleteCommentbyThreadId(comment[0])
 		// assert.Equal(t, resp, comment[0])
 		assert.Equal(t, err, err1)
 	})
 
 	t.Run("valid - get balasan comment id", func(t *testing.T) {
-		commentData.On("SelectBalasanCommentbyId", comment[0]).Return(comment, nil).Once()
+		commentData.On("SelectBalasanCommentbyId", mock.AnythingOfType("comments.Core")).Return(comment, nil).Once()
 		resp, err := commentUsecase.GetBalasanCommentbyId(comment[0])
 		assert.Equal(t, len(resp), 1)
 		assert.Equal(t, err, nil)
 	})
 
 	t.Run("valid - get balasan comment id", func(t *testing.T) {
-		commentData.On("SelectBalasanCommentbyId", comment[0]).Return(comment, err1)
+		commentData.On("SelectBalasanCommentbyId", mock.AnythingOfType("comments.Core")).Return(comment, err1)
 		resp, err := commentUsecase.GetBalasanCommentbyId(comment[0])
 		assert.Equal(t, len(resp), 1)
 		assert.Equal(t, err, err1)
 	})
 
 	t.Run("valid - search thread", func(t *testing.T) {
-		threadUsecase.On("SearchThread", thread2[0]).Return(thread2, nil)
-		commentData.On("SearchThreadbyComment", comment2[0]).Return(comment2, nil)
-		threadUsecase.On("GetThreadbyID", thread[0]).Return(thread[0], nil)
+		threadUsecase.On("SearchThread", mock.AnythingOfType("threads.Core")).Return(thread, nil)
+		commentData.On("SearchThreadbyComment", mock.AnythingOfType("comments.Core")).Return(comment, nil)
+		threadUsecase.On("GetThreadbyID", mock.AnythingOfType("threads.Core")).Return(thread[0], nil)
 		resp, err := commentUsecase.SearchThread(comment[0])
-		assert.Equal(t, len(resp), 0)
+		assert.NotEqual(t, len(resp), 0)
 		assert.Equal(t, err, nil)
 	})
 }

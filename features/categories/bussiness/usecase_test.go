@@ -8,6 +8,7 @@ import (
 	b_categories "github.com/dragranzer/capstone-BE-FGD/features/categories/bussiness"
 	b_categories_mock "github.com/dragranzer/capstone-BE-FGD/features/categories/mocks"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/mock"
 )
 
 var (
@@ -32,7 +33,7 @@ func TestMain(m *testing.M) {
 
 func TestAll(t *testing.T) {
 	t.Run("valid - add category", func(t *testing.T) {
-		categoryData.On("InsertCategory", category[0]).Return(nil).Once()
+		categoryData.On("InsertCategory", mock.AnythingOfType("categories.Core")).Return(nil).Once()
 		err := categoryUsecase.AddCategory(category[0])
 
 		// assert.NotEqual(t, len(resp), 0)
@@ -40,7 +41,7 @@ func TestAll(t *testing.T) {
 	})
 
 	t.Run("valid - add category", func(t *testing.T) {
-		categoryData.On("UpdateCategory", category[0]).Return(nil).Once()
+		categoryData.On("UpdateCategory", mock.AnythingOfType("categories.Core")).Return(nil).Once()
 		err := categoryUsecase.EditCategory(category[0])
 
 		// assert.NotEqual(t, len(resp), 0)
@@ -48,7 +49,7 @@ func TestAll(t *testing.T) {
 	})
 
 	t.Run("valid - delete by id", func(t *testing.T) {
-		categoryData.On("DeleteCategorybyId", category[0]).Return(nil).Once()
+		categoryData.On("DeleteCategorybyId", mock.AnythingOfType("categories.Core")).Return(nil).Once()
 		err := categoryUsecase.DeleteCategorybyId(category[0])
 
 		// assert.NotEqual(t, len(resp), 0)
@@ -56,7 +57,7 @@ func TestAll(t *testing.T) {
 	})
 
 	t.Run("valid - get all category", func(t *testing.T) {
-		categoryData.On("SelectAllCategory", category[0]).Return(category, nil)
+		categoryData.On("SelectAllCategory", mock.AnythingOfType("categories.Core")).Return(category, nil)
 		resp, err := categoryUsecase.GetAllCategory(category[0])
 
 		assert.NotEqual(t, len(resp), 0)
@@ -64,7 +65,7 @@ func TestAll(t *testing.T) {
 	})
 
 	t.Run("valid - get category by id", func(t *testing.T) {
-		categoryData.On("SelectCategorybyId", category[0]).Return(category[0], nil)
+		categoryData.On("SelectCategorybyId", mock.AnythingOfType("categories.Core")).Return(category[0], nil)
 		resp, err := categoryUsecase.GetCategorybyId(category[0])
 
 		assert.Equal(t, resp, category[0])
@@ -72,7 +73,7 @@ func TestAll(t *testing.T) {
 	})
 
 	t.Run("valid - get category by name", func(t *testing.T) {
-		categoryData.On("SelectCategorybyName", category[0]).Return(category[0], nil)
+		categoryData.On("SelectCategorybyName", mock.AnythingOfType("categories.Core")).Return(category[0], nil)
 		resp, err := categoryUsecase.GetCategorybyName(category[0])
 
 		assert.Equal(t, resp, category[0])
