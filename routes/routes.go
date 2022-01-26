@@ -65,5 +65,8 @@ func Setup() *echo.Echo {
 
 	eJWT.PUT("/user/upgrade", _presenter.UserPresentation.UpgradeUserToModerator)
 
+	eJWT.POST("/user/thread/follow", _presenter.FavoritePresentation.Insertfavorite)
+	eJWT.DELETE("/user/thread/follow", _presenter.FavoritePresentation.Deletefavorite)
+
 	return e
 }

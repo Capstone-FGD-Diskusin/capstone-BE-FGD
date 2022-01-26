@@ -54,3 +54,13 @@ func (fu *favoritesUsecase) DeleteThreadbyId(data favorites.Core) (err error) {
 	err = fu.threadBussiness.DeleteThreadbyId(thread_core)
 	return
 }
+
+func (fu *favoritesUsecase) InsertFavorite(data favorites.Core) (err error) {
+	err = fu.favoriteData.AddFavorite(data)
+	return
+}
+
+func (fu *favoritesUsecase) DeleteFavorite(data favorites.Core) (err error) {
+	err = fu.favoriteData.DeleteFavorite(data)
+	return
+}
