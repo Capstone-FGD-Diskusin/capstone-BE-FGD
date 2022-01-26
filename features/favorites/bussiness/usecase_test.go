@@ -108,4 +108,18 @@ func TestAll(t *testing.T) {
 		// assert.Equal(t, resp, comment[0])
 		assert.Equal(t, err, err1)
 	})
+
+	t.Run("valid - Insert Favorite", func(t *testing.T) {
+		favoriteData.On("AddFavorite", mock.AnythingOfType("favorites.Core")).Return(nil).Once()
+		err := favoriteUsecase.InsertFavorite(favorite[0])
+		// assert.Equal(t, resp, comment[0])
+		assert.Equal(t, err, nil)
+	})
+
+	t.Run("valid - Delette Favorite", func(t *testing.T) {
+		favoriteData.On("DeleteFavorite", mock.AnythingOfType("favorites.Core")).Return(nil).Once()
+		err := favoriteUsecase.DeleteFavorite(favorite[0])
+		// assert.Equal(t, resp, comment[0])
+		assert.Equal(t, err, nil)
+	})
 }

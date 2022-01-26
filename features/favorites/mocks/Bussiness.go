@@ -12,8 +12,36 @@ type Bussiness struct {
 	mock.Mock
 }
 
+// DeleteFavorite provides a mock function with given fields: data
+func (_m *Bussiness) DeleteFavorite(data favorites.Core) error {
+	ret := _m.Called(data)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(favorites.Core) error); ok {
+		r0 = rf(data)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
 // DeleteThreadbyId provides a mock function with given fields: data
 func (_m *Bussiness) DeleteThreadbyId(data favorites.Core) error {
+	ret := _m.Called(data)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func(favorites.Core) error); ok {
+		r0 = rf(data)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
+// InsertFavorite provides a mock function with given fields: data
+func (_m *Bussiness) InsertFavorite(data favorites.Core) error {
 	ret := _m.Called(data)
 
 	var r0 error
