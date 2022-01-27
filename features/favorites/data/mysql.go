@@ -32,3 +32,10 @@ func (cr *mysqlFavoriteRepository) DeleteFavorite(data favorites.Core) (err erro
 	err = cr.Conn.Where("thread_id = ? AND user_id = ?", data.ThreadID, data.UserID).Delete(&record).Error
 	return
 }
+
+func (ur *mysqlFavoriteRepository) SelectAllFavorite(data favorites.Core) (resp []favorites.Core, err error) {
+	record := []Favorite{}
+	err = ur.Conn.Limit(20).Offset(data.Page*20).Where("user_id = ?", data.UserID).Find(&record).Error
+	resp = ToCoreSlice(record)
+	return
+}

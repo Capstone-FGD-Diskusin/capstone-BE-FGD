@@ -6,6 +6,7 @@ import (
 
 	"github.com/dragranzer/capstone-BE-FGD/features/favorites"
 	"github.com/dragranzer/capstone-BE-FGD/features/favorites/presentation/request"
+	"github.com/dragranzer/capstone-BE-FGD/features/favorites/presentation/response"
 	"github.com/dragranzer/capstone-BE-FGD/middleware"
 	"github.com/labstack/echo/v4"
 )
@@ -80,5 +81,26 @@ func (fh *FavoritesHandler) Deletefavorite(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, map[string]interface{}{
 		"message": "success",
+	})
+}
+
+func (fh *FavoritesHandler) GetAllfavoriteUser(c echo.Context) error {
+	req := request.Favorite{}
+	c.Bind(&req)
+	temp := middleware.ExtractClaim(c)
+	userID := temp["user_id"].(float64)
+	req.UserID = int(userID)
+
+	resp, err := fh.favoriteBussiness.GetAllFavorite(request.ToCore(req))
+
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"message": err.Error(),
+		})
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"message": "success",
+		"data":    response.FromCoreSlice(resp),
 	})
 }
