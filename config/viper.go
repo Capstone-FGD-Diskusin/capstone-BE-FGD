@@ -15,7 +15,7 @@ type Env struct {
 	DB_PASSWORD          string `mapstructure:"DB_PASSWORD"`
 	DB_HOST              string `mapstructure:"DB_HOST"`
 	DB_PORT              string `mapstructure:"DB_PORT"`
-	PORT                 string
+	PORT                 string `mapstructure:"PORT"`
 	CONFIG_SMTP_HOST     string `mapstructure:"CONFIG_SMTP_HOST"`
 	CONFIG_SMTP_PORT     string `mapstructure:"CONFIG_SMTP_PORT"`
 	CONFIG_SENDER_NAME   string `mapstructure:"CONFIG_SENDER_NAM"`

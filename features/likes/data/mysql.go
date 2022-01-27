@@ -36,13 +36,14 @@ func (fr *mysqlLikeRepository) DeleteLike(data likes.Core) (err error) {
 func (fr *mysqlLikeRepository) CheckLiked(data likes.Core) (isLiked bool, err error) {
 	isLiked = true
 	record := fromCore(data)
-	resp := Like{
-		UserID:   -1,
-		ThreadID: -1,
-	}
+	resp := Like{}
 	err = fr.Conn.Where("user_id = ? AND thread_id = ?", record.UserID, record.ThreadID).First(&resp).Error
+	resp2 := Like{
+		UserID:   resp.UserID,
+		ThreadID: resp.ThreadID,
+	}
 	if err != nil {
-		if resp.ThreadID == -1 && resp.UserID == -1 {
+		if resp2.ThreadID == 0 && resp2.UserID == 0 {
 			isLiked = false
 			return isLiked, nil
 		}
