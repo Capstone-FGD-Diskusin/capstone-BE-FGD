@@ -135,6 +135,7 @@ func AutoMigrate() {
 		UserID:      2,
 		Like:        2,
 		CategoryID:  4,
+		ImgUrl:      "https://storage.cloud.google.com/capstone-fgd/test-files/golang.png",
 	}
 
 	thread2 := _thread_data.Thread{
@@ -143,6 +144,7 @@ func AutoMigrate() {
 		UserID:      3,
 		Like:        2,
 		CategoryID:  4,
+		ImgUrl:      "https://storage.cloud.google.com/capstone-fgd/test-files/game-1-bi-onic--MPLI-2021_af15d.jpg",
 	}
 
 	thread3 := _thread_data.Thread{
@@ -151,6 +153,7 @@ func AutoMigrate() {
 		UserID:      2,
 		Like:        2,
 		CategoryID:  3,
+		ImgUrl:      "https://storage.cloud.google.com/capstone-fgd/test-files/mitchellluojz4ca36oj_munsplash.jpg",
 	}
 
 	comment1 := _comment_data.Comment{
