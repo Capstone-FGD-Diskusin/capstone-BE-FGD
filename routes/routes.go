@@ -47,6 +47,8 @@ func Setup() *echo.Echo {
 	eJWT.GET("/user/following", _presenter.FollowerPresentation.GetFollowing)
 	eJWT.GET("/user/followed", _presenter.FollowerPresentation.GetFollowed)
 
+	eJWT.GET("/user/favorite", _presenter.FavoritePresentation.GetAllfavoriteUser)
+
 	// eJWT.GET("/thread/homepage", _presenter.ThreadPresentation.GetThreadHome)
 	eJWT.POST("/thread", _presenter.ThreadPresentation.AddThread)
 	eJWT.GET("/thread/:id", _presenter.ThreadPresentation.GetThread)
@@ -64,6 +66,9 @@ func Setup() *echo.Echo {
 	eJWT.DELETE("/message/:id", _presenter.MessagePresentation.DeleteMessagebyId)
 
 	eJWT.PUT("/user/upgrade", _presenter.UserPresentation.UpgradeUserToModerator)
+
+	eJWT.POST("/user/thread/follow", _presenter.FavoritePresentation.Insertfavorite)
+	eJWT.DELETE("/user/thread/follow", _presenter.FavoritePresentation.Deletefavorite)
 
 	return e
 }

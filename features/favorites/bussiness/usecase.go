@@ -54,3 +54,35 @@ func (fu *favoritesUsecase) DeleteThreadbyId(data favorites.Core) (err error) {
 	err = fu.threadBussiness.DeleteThreadbyId(thread_core)
 	return
 }
+
+func (fu *favoritesUsecase) InsertFavorite(data favorites.Core) (err error) {
+	err = fu.favoriteData.AddFavorite(data)
+	return
+}
+
+func (fu *favoritesUsecase) DeleteFavorite(data favorites.Core) (err error) {
+	err = fu.favoriteData.DeleteFavorite(data)
+	return
+}
+
+func (fu *favoritesUsecase) GetAllFavorite(data favorites.Core) (resp []favorites.Core, err error) {
+	resp, err = fu.favoriteData.SelectAllFavorite(data)
+	if err != nil {
+		return
+	}
+	for key, value := range resp {
+		coreThread := threads.Core{
+			ID: value.ThreadID,
+		}
+		coreThread, err = fu.threadBussiness.GetThreadbyID(coreThread)
+		resp[key].Thread.ID = coreThread.ID
+		resp[key].Thread.Description = coreThread.Description
+		resp[key].Thread.Title = coreThread.Title
+		resp[key].Thread.JumlahComment = coreThread.JumlahComment
+		resp[key].Thread.ImgUrl = coreThread.ImgUrl
+		resp[key].Thread.UserName = coreThread.UserName
+		resp[key].Thread.CategoryName = coreThread.CategoryName
+		resp[key].Thread.Like = coreThread.Like
+	}
+	return
+}

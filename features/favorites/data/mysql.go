@@ -20,3 +20,22 @@ func (cr *mysqlFavoriteRepository) DeleteFavoritebyThreadId(data favorites.Core)
 	err = cr.Conn.Where("thread_id = ?", data.ThreadID).Delete(&record).Error
 	return
 }
+
+func (cr *mysqlFavoriteRepository) AddFavorite(data favorites.Core) (err error) {
+	record := FromCore(data)
+	err = cr.Conn.Create(&record).Error
+	return
+}
+
+func (cr *mysqlFavoriteRepository) DeleteFavorite(data favorites.Core) (err error) {
+	record := Favorite{}
+	err = cr.Conn.Where("thread_id = ? AND user_id = ?", data.ThreadID, data.UserID).Delete(&record).Error
+	return
+}
+
+func (ur *mysqlFavoriteRepository) SelectAllFavorite(data favorites.Core) (resp []favorites.Core, err error) {
+	record := []Favorite{}
+	err = ur.Conn.Limit(20).Offset(data.Page*20).Where("user_id = ?", data.UserID).Find(&record).Error
+	resp = ToCoreSlice(record)
+	return
+}

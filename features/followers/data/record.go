@@ -3,8 +3,8 @@ package data
 import "github.com/dragranzer/capstone-BE-FGD/features/followers"
 
 type Follower struct {
-	FollowingID int
-	FollowedID  int
+	FollowingID int `gorm:"primary_key"`
+	FollowedID  int `gorm:"primary_key"`
 }
 
 func fromCore(core followers.Core) Follower {
