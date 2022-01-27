@@ -53,3 +53,26 @@ func (_m *Data) DeleteFavoritebyThreadId(data favorites.Core) error {
 
 	return r0
 }
+
+// SelectAllFavorite provides a mock function with given fields: data
+func (_m *Data) SelectAllFavorite(data favorites.Core) ([]favorites.Core, error) {
+	ret := _m.Called(data)
+
+	var r0 []favorites.Core
+	if rf, ok := ret.Get(0).(func(favorites.Core) []favorites.Core); ok {
+		r0 = rf(data)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).([]favorites.Core)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(favorites.Core) error); ok {
+		r1 = rf(data)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
