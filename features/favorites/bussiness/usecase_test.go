@@ -122,4 +122,20 @@ func TestAll(t *testing.T) {
 		// assert.Equal(t, resp, comment[0])
 		assert.Equal(t, err, nil)
 	})
+
+	t.Run("valid - Get All Favorite", func(t *testing.T) {
+		favoriteData.On("SelectAllFavorite", mock.AnythingOfType("favorites.Core")).Return(favorite, nil).Once()
+		threadUsecase.On("GetThreadbyID", mock.AnythingOfType("threads.Core")).Return(thread[0], nil).Once()
+		resp, err := favoriteUsecase.GetAllFavorite(favorite[0])
+		assert.NotEqual(t, len(resp), 0)
+		assert.Equal(t, err, nil)
+	})
+
+	t.Run("valid - Get All Favorite", func(t *testing.T) {
+		favoriteData.On("SelectAllFavorite", mock.AnythingOfType("favorites.Core")).Return(favorite, err1).Once()
+		threadUsecase.On("GetThreadbyID", mock.AnythingOfType("threads.Core")).Return(thread[0], nil).Once()
+		resp, err := favoriteUsecase.GetAllFavorite(favorite[0])
+		assert.NotEqual(t, len(resp), 0)
+		assert.NotEqual(t, err, nil)
+	})
 }

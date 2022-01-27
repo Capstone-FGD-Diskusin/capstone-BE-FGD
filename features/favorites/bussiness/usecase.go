@@ -67,6 +67,9 @@ func (fu *favoritesUsecase) DeleteFavorite(data favorites.Core) (err error) {
 
 func (fu *favoritesUsecase) GetAllFavorite(data favorites.Core) (resp []favorites.Core, err error) {
 	resp, err = fu.favoriteData.SelectAllFavorite(data)
+	if err != nil {
+		return
+	}
 	for key, value := range resp {
 		coreThread := threads.Core{
 			ID: value.ThreadID,

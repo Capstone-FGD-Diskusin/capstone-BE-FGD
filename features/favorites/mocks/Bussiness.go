@@ -40,6 +40,29 @@ func (_m *Bussiness) DeleteThreadbyId(data favorites.Core) error {
 	return r0
 }
 
+// GetAllFavorite provides a mock function with given fields: data
+func (_m *Bussiness) GetAllFavorite(data favorites.Core) ([]favorites.Core, error) {
+	ret := _m.Called(data)
+
+	var r0 []favorites.Core
+	if rf, ok := ret.Get(0).(func(favorites.Core) []favorites.Core); ok {
+		r0 = rf(data)
+	} else {
+		if ret.Get(0) != nil {
+			r0 = ret.Get(0).([]favorites.Core)
+		}
+	}
+
+	var r1 error
+	if rf, ok := ret.Get(1).(func(favorites.Core) error); ok {
+		r1 = rf(data)
+	} else {
+		r1 = ret.Error(1)
+	}
+
+	return r0, r1
+}
+
 // InsertFavorite provides a mock function with given fields: data
 func (_m *Bussiness) InsertFavorite(data favorites.Core) error {
 	ret := _m.Called(data)
