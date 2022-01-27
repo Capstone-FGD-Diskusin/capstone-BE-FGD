@@ -268,6 +268,20 @@ func (_m *Bussiness) Register(data users.Core) error {
 	return r0
 }
 
+// SendMail provides a mock function with given fields: to, subject, message
+func (_m *Bussiness) SendMail(to []string, subject string, message string) error {
+	ret := _m.Called(to, subject, message)
+
+	var r0 error
+	if rf, ok := ret.Get(0).(func([]string, string, string) error); ok {
+		r0 = rf(to, subject, message)
+	} else {
+		r0 = ret.Error(0)
+	}
+
+	return r0
+}
+
 // UpgradeToModerator provides a mock function with given fields: data
 func (_m *Bussiness) UpgradeToModerator(data users.Core) error {
 	ret := _m.Called(data)

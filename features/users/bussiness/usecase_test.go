@@ -186,4 +186,16 @@ func TestAll(t *testing.T) {
 		assert.NotEqual(t, len(resp), 0)
 		assert.Equal(t, err, nil)
 	})
+
+	t.Run("valid - send mail", func(t *testing.T) {
+		to := []string{
+			"ivannizar@gmail.com",
+		}
+		subject := "tes sub"
+		message := "helo"
+		err := userUsecase.SendMail(to, subject, message)
+
+		// assert.NotEqual(t, len(resp), 0)
+		assert.NotEqual(t, err, nil)
+	})
 }
