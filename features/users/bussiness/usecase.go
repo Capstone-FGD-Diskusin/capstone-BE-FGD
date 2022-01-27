@@ -3,7 +3,10 @@ package bussiness
 import (
 	"errors"
 	"fmt"
+	"net/smtp"
+	"strings"
 
+	"github.com/dragranzer/capstone-BE-FGD/config"
 	"github.com/dragranzer/capstone-BE-FGD/features/users"
 	"github.com/dragranzer/capstone-BE-FGD/middleware"
 	"golang.org/x/crypto/bcrypt"
@@ -129,4 +132,21 @@ func (uu *usersUsecase) GetAllUser(data users.Core) (resp []users.Core, err erro
 func (uu *usersUsecase) Ranking() (resp []users.Core, err error) {
 	resp, err = uu.userData.Ranking()
 	return
+}
+
+func (uu *usersUsecase) SendMail(to []string, subject string, message string) error {
+	body := "From: " + config.ENV.CONFIG_SENDER_NAME + "\n" +
+		"To: " + strings.Join(to, ",") + "\n" +
+		"Subject: " + subject + "\n\n" +
+		message
+
+	auth := smtp.PlainAuth("", config.ENV.CONFIG_AUTH_EMAIL, config.ENV.CONFIG_AUTH_PASSWORD, config.ENV.CONFIG_SMTP_HOST)
+	smtpAddr := fmt.Sprintf("%s:%s", config.ENV.CONFIG_SMTP_HOST, config.ENV.CONFIG_SMTP_PORT)
+
+	err := smtp.SendMail(smtpAddr, auth, config.ENV.CONFIG_AUTH_EMAIL, append(to), []byte(body))
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
