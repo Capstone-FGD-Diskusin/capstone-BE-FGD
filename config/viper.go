@@ -16,6 +16,11 @@ type Env struct {
 	DB_HOST              string `mapstructure:"DB_HOST"`
 	DB_PORT              string `mapstructure:"DB_PORT"`
 	PORT                 string
+	CONFIG_SMTP_HOST     string `mapstructure:"CONFIG_SMTP_HOST"`
+	CONFIG_SMTP_PORT     string `mapstructure:"CONFIG_SMTP_PORT"`
+	CONFIG_SENDER_NAME   string `mapstructure:"CONFIG_SENDER_NAM"`
+	CONFIG_AUTH_EMAIL    string `mapstructure:"CONFIG_AUTH_EMAIL"`
+	CONFIG_AUTH_PASSWORD string `mapstructure:"CONFIG_AUTH_PASSWORD"`
 }
 
 var ENV Env
@@ -64,4 +69,9 @@ func tryLoadFromOSENV() {
 	ENV.DB_PASSWORD = os.Getenv("DB_PASSWORD")
 	ENV.DB_HOST = os.Getenv("DB_HOST")
 	ENV.DB_PORT = os.Getenv("DB_PORT")
+	ENV.CONFIG_AUTH_EMAIL = os.Getenv("CONFIG_AUTH_EMAIL")
+	ENV.CONFIG_AUTH_PASSWORD = os.Getenv("CONFIG_AUTH_PASSWORD")
+	ENV.CONFIG_SENDER_NAME = os.Getenv("CONFIG_SENDER_NAME")
+	ENV.CONFIG_SMTP_HOST = os.Getenv("CONFIG_SMTP_HOST")
+	ENV.CONFIG_SMTP_PORT = os.Getenv("CONFIG_SMTP_PORT")
 }
